@@ -7,6 +7,7 @@ import mongoose from 'mongoose'
 /* bodyParser */
 import bodyParser from 'body-parser'
 
+import passport from 'passport'
 /* Routes */
 import userRouter from './routes/api/userRouter'
 
@@ -26,6 +27,16 @@ app.get('/sayHello', function(req, res) {
 });
 
 
+// passport middlewears
+app.use(passport.initialize()); // passport 초기화
+
+// passport config
+require('./config/passport')(passport);
+
+
+/**user routes */
+app.use('/api/user', userRouter);
+
 /**
  * @database    mongoose
  * @desc        Foodwar database
@@ -35,10 +46,6 @@ mongoose.Promise = global.Promise;
 mongoose.connect(BACKEND_MONGODB, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true})
     .then(() => console.log('MongoDb Connected..'))
     .catch(err => console.log(err));
-
-
-/**user routes */
-app.use('/api/user', userRouter);
-
+    
 app.listen(APP_PORT);
 console.log('Webserver listening to port', APP_PORT);
