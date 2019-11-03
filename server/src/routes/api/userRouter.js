@@ -13,5 +13,13 @@ router.route('/test')
  */
 router.route('/register')
     .post(userController.register);
+
+/**
+ * @route  POST api/user/login
+ * @desc   user login
+ * @access Public 
+ */    
+router.route('/login')
+    .post(userController.login);
     
 module.exports = router; 

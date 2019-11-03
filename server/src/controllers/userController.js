@@ -3,6 +3,16 @@ import bcrypt from 'bcryptjs'
 
 const userModel = require('../models/userModel');
 
+// Use jsonWebToken
+const jwt = require('jsonwebtoken');
+const keys = require('../config/keys');
+//import { BACKEND_PORT ,BACKEND_MONGODB } from '../config/env'
+
+// Use validation
+// const validateRegistInput = require('../validation/registerValidation');
+const validateLoginInput = require('../validation/loginValidation');
+
+
 module.exports = {
     test: async (req, res) => {
         res.status(200).json({message: "User Works!"})
@@ -14,25 +24,7 @@ module.exports = {
      * @access      Public
      */
     register: async (req, res) => {
-        //res.send('Hello from the foodwar back-end!!!');
-        // console.log(req.body)
-        // const newUser = new userModel({
-        //     name: req.body.name,
-        //     email: req.body.email,
-        //     password: req.body.password
-        // });
-      
-        //   newUser
-        //     .save()
-        //     .then(user => {
-        //         res.json({
-        //             message: 'regist ok!!!!!'
-        //         })
-        //     )
-        //     .catch(err => res.json(err));
-
-        // res.send('Hello from the foodwar back-end!!!');
-
+        
         userModel
             .findOne({email: req.body.email})
             .then(user => {
@@ -67,5 +59,56 @@ module.exports = {
                 });
             })
             .catch(err => res.status(404).json(err));
-    }
+    }, //END Register
+    /**
+     * @controller  POST api/user/login
+     * @desc        user login
+     * @access      Public
+     */
+    login: async (req, res) => {
+        console.log(req.body);
+        const {errors, isValid} = validateLoginInput(req.body);
+        
+        if(!isValid){
+            res.status(400).json(errors);
+        }
+
+        const email = req.body.email;
+        const password = req.body.password;
+
+        /** Find users by email */
+        userModel.findOne({email})
+            .then(user => {
+                if(!user){
+                    errors.email = 'Users not found';
+                    return res.status(400).json(errors);
+                }
+
+                bcrypt
+                    .compare(password, user.password)
+                    .then(isMatch => {
+                        if(isMatch){
+                            const payload = {id: user.id, name: user.name, avatar: user.avatar};
+                            // Sign Token
+                            jwt.sign(
+                                payload,
+                                keys.secretOrKey,
+                                {expiresIn: 3600},
+                                (err, token) => {
+                                    res.json({
+                                        success: true,
+                                        token: 'Bearer ' + token
+                                    })
+                                }
+                            )
+                        }else {
+                            errors.password = 'Password incorrect';
+                            return res.status(400).json(errors);
+                        }
+                    })
+
+            })
+            .catch(err => res.status(404).json(err));
+    }//END LOGIN
+
 } 
