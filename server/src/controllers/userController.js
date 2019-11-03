@@ -9,7 +9,7 @@ const keys = require('../config/keys');
 //import { BACKEND_PORT ,BACKEND_MONGODB } from '../config/env'
 
 // Use validation
-// const validateRegistInput = require('../validation/registerValidation');
+const validateRegisterInput = require('../validation/registerValidation');
 const validateLoginInput = require('../validation/loginValidation');
 
 
@@ -24,12 +24,19 @@ module.exports = {
      * @access      Public
      */
     register: async (req, res) => {
-        
+        const {errors, isValid} = validateRegisterInput(req.body);
+
+        if(!isValid){
+            return res.status(400).json(errors);
+        }
         userModel
             .findOne({email: req.body.email})
             .then(user => {
+                
                 if(user){
-                    return res.status(400).json({message: "This email already exists."});
+                    // return res.status(400).json({message: "This email already exists."});
+                    errors.email = "This email already exists.";
+                    return res.status(400).json(errors);
                 }
 
                 /** Create new avatar */
@@ -66,7 +73,7 @@ module.exports = {
      * @access      Public
      */
     login: async (req, res) => {
-        console.log(req.body);
+        
         const {errors, isValid} = validateLoginInput(req.body);
         
         if(!isValid){
