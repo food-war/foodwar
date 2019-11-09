@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { REACT_APP_LOCAL_URL, REACT_APP_BACKEND_API_URL } from './config/env';
 import axios from 'axios';
-import logo from './logo.svg';
-import './App.css';
+
 
 class App extends Component {
   state = {
@@ -28,7 +27,6 @@ class App extends Component {
     return (
       <div className='App'>
         <header className='App-header'>
-          <img src={logo} className='App-logo' alt='logo' />
           <p>Server is saying:</p>
           <p>{this.state.data}</p>
         </header>
