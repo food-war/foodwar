@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 import { REACT_APP_LOCAL_URL, REACT_APP_BACKEND_API_URL } from '../config/env';
+/**redux */
+import { connect } from 'react-redux';
+import {registerUser} from '../actions/authActions';
 
 class Register extends Component {
     constructor(){
@@ -49,13 +53,15 @@ class Register extends Component {
         request_url = REACT_APP_BACKEND_API_URL;
         }
         //서버랑 axios 통신하기
-        axios.post(`${request_url}/api/user/register`, newUser)
-             .then(res => {
-                const dataFromServer = res.data;
-                this.setState({ data: dataFromServer });
-            });
-            console.log(newUser);
-        }
+        // axios.post(`${request_url}/api/user/register`, newUser)
+        //      .then(res => {
+        //         const dataFromServer = res.data;
+        //         this.setState({ data: dataFromServer });
+        //     });
+        //     console.log(newUser);
+        this.props.registerUser(newUser);
+         }
+         
     render() {
         return (
             <div className="register">
@@ -123,4 +129,19 @@ class Register extends Component {
     }
 }
 
-export default Register;
+//export default Register;
+Register.propTypes = { 
+    registerUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+    auth: state.auth
+});
+
+//export default Register;
+
+// register파일에 요청이 들어오고나서 처리를 한 후
+// 에러가 있을 수도 있고 정상적인 처리 일 수도 있는데
+// 그때 처리한 상태값을 prop으로 전달
+export default connect(mapStateToProps, {registerUser})(Register); 

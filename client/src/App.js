@@ -5,7 +5,11 @@ import axios from 'axios';
 //import Register from "./components/Register";
 //import {Login, Register} from './pages';
 import Router from "./layout/Router";
-import {Route} from 'react-router-dom';
+import { Route } from 'react-router-dom';
+
+/** add redux */
+import { Provider } from 'react-redux';
+import store from './store';
 
 
 class App extends Component {
@@ -31,16 +35,17 @@ class App extends Component {
   };
   render() {
     return (
-      
-      <div className='App'>
-        <header className='App-header'>
-          <p>Server is saying:</p>
-          <p>{this.state.data}</p>
-        </header>
-        <div>
-          <Router/>
+      <Provider store={store}>  
+        <div className='App'>
+          <header className='App-header'>
+            <p>Server is saying:</p>
+            <p>{this.state.data}</p>
+          </header>
+          <div>
+            <Router/>
+          </div>
         </div>
-      </div>
+      </Provider>
     );
   }
 }
