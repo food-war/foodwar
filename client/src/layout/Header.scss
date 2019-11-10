@@ -1,0 +1,42 @@
+
+.header {
+    background-color: #F1F1F1;
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    
+    /* The navbar container */
+    .topnav {
+    overflow: hidden;
+    background-color: #333;
+    }
+    
+    /* Navbar links */
+    .topnav ul{
+        margin: 0px;
+    }
+    .topnav ul li{
+    float: left;
+    display: inline-flex;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    list-style: none;
+    }
+    .topnav ul li a{
+        text-decoration: none;
+        color:#f2f2f2;
+    }
+    .topnav ul li:hover{
+        background-color: #ddd;
+        color: black;
+    }
+
+    /* Links - change color on hover */
+    .topnav ul li a:hover {
+    background-color: #ddd;
+    color: black;
+    }
+}

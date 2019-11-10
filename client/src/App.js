@@ -3,8 +3,8 @@ import { REACT_APP_LOCAL_URL, REACT_APP_BACKEND_API_URL } from './config/env';
 import axios from 'axios';
 //import Login from "./components/Login";
 //import Register from "./components/Register";
-import {Login, Register} from './pages';
-
+//import {Login, Register} from './pages';
+import Router from "./layout/Router";
 import {Route} from 'react-router-dom';
 
 
@@ -38,8 +38,7 @@ class App extends Component {
           <p>{this.state.data}</p>
         </header>
         <div>
-          <Route path="/login" component={Login}/>
-          <Route path="/register" component={Register}/>
+          <Router/>
         </div>
       </div>
     );
