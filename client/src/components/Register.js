@@ -7,6 +7,7 @@ import { REACT_APP_LOCAL_URL, REACT_APP_BACKEND_API_URL } from '../config/env';
 import { connect } from 'react-redux';
 import {registerUser} from '../actions/authActions';
 
+import './common.scss'
 class Register extends Component {
     constructor(){
         super();

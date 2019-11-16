@@ -37,10 +37,10 @@ class App extends Component {
     return (
       <Provider store={store}>  
         <div className='App'>
-          <header className='App-header'>
+          {/* <header className='App-header'>
             <p>Server is saying:</p>
             <p>{this.state.data}</p>
-          </header>
+          </header> */}
           <div>
             <Router/>
           </div>
