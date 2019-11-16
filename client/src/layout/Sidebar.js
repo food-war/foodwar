@@ -1,27 +1,41 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
+import Menu from '../lotties/Menu';
 import './Sidebar.scss';
 
 export default class Sidebar extends Component {
-  menuToggle = () => {
-    const left = $('#mobile-toggle-menu-list').css('left');
-    if (left === '100%') {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isStopped: true,
+    };
+  }
+
+  componentDidUpdate() {
+    const { isStopped } = this.state;
+    if (!isStopped) {
       $('#mobile-toggle-menu-list').css('display', 'block');
-      $('#mobile-toggle-menu-list').animate({ left: '50%' }, 1000);
+      $('#mobile-toggle-menu-list').animate({ left: '50%' }, 750);
     } else {
-      $('#mobile-toggle-menu-list').animate({ left: '100%' }, 1000, () => {
+      $('#mobile-toggle-menu-list').animate({ left: '100%' }, 750, () => {
         $('#mobile-toggle-menu-list').css('display', 'none');
       });
     }
+  }
+
+  menuToggle = () => {
+    this.setState({
+      isStopped: !this.state.isStopped,
+    });
   };
 
   render() {
     return (
       <>
         <div id="mobile-toggle-menu-list">
-          <div className="mobile-close">
+          {/* <div className="mobile-close">
             <span onClick={this.menuToggle}>X</span>
-          </div>
+          </div> */}
           <div className="mobile-item mobile-selected">주변 식당 찾기</div>
           <div className="mobile-item">식당 추천 받기</div>
           <div className="mobile-item">마이페이지</div>
@@ -36,7 +50,7 @@ export default class Sidebar extends Component {
           <div className="mobile-header">
             <div className="mobile-logo">Food war</div>
             <div className="mobile-menu" onClick={this.menuToggle}>
-              menu
+              <Menu isStopped={this.state.isStopped} />
             </div>
           </div>
         </div>
