@@ -1,12 +1,12 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 class Login extends Component {
   constructor() {
     super();
     this.state = {
-      email: "",
-      password: "",
-      errors: {}
+      email: '',
+      password: '',
+      errors: {},
     };
 
     this.onChange = this.onChange.bind(this);
@@ -15,7 +15,7 @@ class Login extends Component {
 
   onChange(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   }
 
@@ -24,7 +24,7 @@ class Login extends Component {
 
     const user = {
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
     };
 
     console.log(user);
@@ -38,9 +38,7 @@ class Login extends Component {
             <div className="row">
               <div className="col-md-8 m-auto">
                 <h1 className="display-4 text-center">Sign In</h1>
-                <p className="lead text-center">
-                  Sign in to your DevConnector accout
-                </p>
+                <p className="lead text-center">Sign in to your DevConnector accout</p>
                 <form onSubmit={this.onSubmit}>
                   <div className="form-group">
                     <input
@@ -64,11 +62,7 @@ class Login extends Component {
                       required
                     />
                   </div>
-                  <input
-                    type="submit"
-                    className="btn btn-info btn-block mt-4"
-                    value="Sign In"
-                  />
+                  <input type="submit" className="btn btn-info btn-block mt-4" value="Sign In" />
                 </form>
               </div>
             </div>
