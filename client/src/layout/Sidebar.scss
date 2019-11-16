@@ -1,0 +1,156 @@
+@import '../App.scss';
+
+.Sidebar {
+  width: 300px;
+  height: 100%;
+  float: left;
+
+  .logo {
+    width: 90%;
+    height: 100px;
+    line-height: 100px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    text-align: center;
+    color: $foodwar-color;
+    font-size: 30px;
+    font-weight: bold;
+    border-bottom: 1px solid #c4cad1;
+    content: '';
+  }
+
+  .menu {
+    width: 90%;
+    margin: 30px auto 0 auto;
+  }
+
+  .item {
+    padding: 15px 10px;
+    color: #898989;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-size: 16px;
+  }
+
+  .item+.item {
+    margin-top: 15px;
+  }
+
+  .item.selected,
+  .item:hover {
+    color: #ffffff;
+    background-color: $foodwar-color;
+    border-radius: 10px;
+  }
+
+  .mobile-header {
+    display: none;
+  }
+}
+
+.Sidebar::after {
+  clear: both;
+  display: block;
+  content: '';
+}
+
+#mobile-toggle-menu-list {
+  display: none;
+  padding: 20px;
+
+  .mobile-close {
+    width: calc(50% - 20px);
+    color: #ffffff;
+    font-size: 20px;
+    text-align: right;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  .mobile-item {
+    width: calc(50% - 20px);
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .mobile-item+.mobile-item {
+    margin-top: 15px;
+  }
+
+  .mobile-item.mobile-selected {
+    color: yellow;
+  }
+}
+
+/* Extra large devices (대형 노트북 및 데스크톱, 1200px 이상) */
+@media only screen and (max-width: 1200px) {
+  /* ... */
+}
+
+/* Large devices (노트북 / 데스크톱, 992px 이상) */
+@media only screen and (max-width: 992px) {
+  /* ... */
+}
+
+/* Medium devices (가로 태블릿, 768 픽셀 이상) */
+@media only screen and (max-width: 768px) {
+  .Sidebar {
+    width: 100%;
+    height: 58px;
+    float: none;
+    padding: 15px;
+
+    .menu,
+    .logo {
+      display: none;
+    }
+
+    .mobile-header {
+      display: block;
+      overflow: hidden;
+
+      .mobile-logo,
+      .mobile-menu {
+        float: left;
+        width: 50%;
+      }
+
+      .mobile-logo::after,
+      .mobile-menu::after {
+        clear: both;
+        display: block;
+        content: '';
+      }
+
+      .mobile-logo {
+        color: $foodwar-color;
+        font-weight: bold;
+        font-size: 20px;
+      }
+
+      .mobile-menu {
+        text-align: right;
+      }
+    }
+  }
+
+  #mobile-toggle-menu-list {
+    position: absolute;
+    background-color: $foodwar-color;
+    width: 100%;
+    height: calc(100% - 58px);
+    top: 58px;
+    left: 100%;
+  }
+}
+
+/* Small devices 세로 형 태블릿 및 대형 휴대 전화 (600px 이상) */
+@media only screen and (max-width: 600px) {
+  /* ... */
+}
+
+/* Extra small devices (480px 이하) */
+@media only screen and (max-width: 480px) {
+  /* ... */
+}

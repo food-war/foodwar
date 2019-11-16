@@ -4,6 +4,13 @@ import { Provider } from 'react-redux';
 import store from './store';
 
 class App extends Component {
+  componentDidMount() {
+    if (!localStorage.test) {
+      localStorage.setItem('token', 'test');
+      //localStorage.clear();
+    }
+  }
+
   render() {
     return (
       <Provider store={store}>

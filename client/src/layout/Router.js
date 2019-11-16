@@ -1,14 +1,23 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import { Home, Login, Register, Auth } from '../pages';
-import Header from './Header';
-import './Header.scss';
+import { Auth, FindFood } from '../pages';
+import './Route.scss';
+
+import Sidebar from './Sidebar';
 
 class Router extends Component {
   render() {
     return (
       <>
-        <Route exact path="/" component={Auth} />
+        {localStorage.token ? (
+          <div className="Route">
+            <Sidebar />
+            <Route exact path="/find-food" component={FindFood} />
+          </div>
+        ) : (
+          <Route exact path="/" component={Auth} />
+        )}
+
         {/* <Header />
         <Route exact path="/" component={Home} />
         <Route path="/login" component={Login} />
