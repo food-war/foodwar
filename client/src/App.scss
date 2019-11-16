@@ -1,0 +1,25 @@
+$foodwar-color: #2E736F;
+$foodwar-red : #D21D36;
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+div {
+  box-sizing: border-box;
+}
+
+.vertical-middle-wrap {
+  display: table;
+}
+
+.vertical-middle {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.food-btn {}
+
+.food-btn:hover {}
