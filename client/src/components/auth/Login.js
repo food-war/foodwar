@@ -14,7 +14,7 @@ class Login extends Component {
             <input type="text" />
           </div>
           <div>
-            <button>시작하기</button>
+            <button className="food-btn btnBig">시작하기</button>
           </div>
         </div>
         <div className="content-footer">
