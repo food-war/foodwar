@@ -1,0 +1,33 @@
+@import '../../App.scss';
+
+.Login {
+  height: 100%;
+  text-align: left;
+  padding: 10px;
+
+  .title {
+    height: 10%;
+  }
+  .contents {
+    height: 80%;
+    div + div {
+      margin-top: 10px;
+    }
+    input[type=text] {
+      width: 100%;
+      margin: 0 auto;
+    }
+  }
+  .content-footer {
+    height: 10%;
+    color: $foodwar-color;
+    span:nth-child(1) {
+      width: 50%;
+      float: left;
+    }
+    span:nth-child(2) {
+      width: 50%;
+      float: left;
+    }
+  }
+}

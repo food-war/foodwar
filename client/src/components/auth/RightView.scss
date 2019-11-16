@@ -1,0 +1,14 @@
+.RightView {
+  display: block;
+  height: 100%;
+
+  .contents-box {
+    width: 70%;
+    margin: 0 auto;
+    height: 70%;
+    border: 1px solid #dcdcdc;
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 10px;
+  }
+}

@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import LeftView from "./LeftView";
-import RightView from "./RightView";
-import "./index.scss";
+import React, { Component } from 'react';
+import LeftView from './LeftView';
+import RightView from './RightView';
+import './index.scss';
 
 export default class index extends Component {
   render() {
@@ -10,7 +10,7 @@ export default class index extends Component {
         <div className="float-left left-view vertical-middle-wrap">
           <LeftView />
         </div>
-        <div className="float-left right-view">
+        <div className="float-left right-view vertical-middle-wrap">
           <RightView />
         </div>
       </div>

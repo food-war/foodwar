@@ -23,11 +23,12 @@
   }
 
   .right-view {
-    background-color: skyblue;
+    background-color: #e5e5e5;
   }
 
   /* Extra large devices (대형 노트북 및 데스크톱, 1200px 이상) */
-  @media only screen and (max-width: 1200px) {}
+  @media only screen and (max-width: 1200px) {
+  }
 
   /* Large devices (노트북 / 데스크톱, 992px 이상) */
   @media only screen and (max-width: 992px) {
@@ -48,11 +49,14 @@
   }
 
   /* Medium devices (가로 태블릿, 768 픽셀 이상) */
-  @media only screen and (max-width: 768px) {}
+  @media only screen and (max-width: 768px) {
+  }
 
   /* Small devices 세로 형 태블릿 및 대형 휴대 전화 (600px 이상) */
-  @media only screen and (max-width: 600px) {}
+  @media only screen and (max-width: 600px) {
+  }
 
   /* Extra small devices (480px 이하) */
-  @media only screen and (max-width: 480px) {}
+  @media only screen and (max-width: 480px) {
+  }
 }
