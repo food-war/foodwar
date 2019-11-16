@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import LeftView from './LeftView';
-import RightView from './RightView';
-import './index.scss';
+import React, { Component } from "react";
+import LeftView from "./LeftView";
+import RightView from "./RightView";
+import "./index.scss";
 
 export default class index extends Component {
   render() {
