@@ -1,11 +1,11 @@
-.FindFood {
+.Food {
   width: calc(100% - 300px);
   height: 100%;
   float: left;
   background-color: pink;
 }
 
-.FindFood::after {
+.Food::after {
   clear: both;
   display: block;
   content: '';
@@ -23,7 +23,7 @@
 
 /* Medium devices (가로 태블릿, 768 픽셀 이상) */
 @media only screen and (max-width: 768px) {
-  .FindFood {
+  .Food {
     width: 100%;
     height: calc(100% - 58px);
   }

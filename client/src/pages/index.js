@@ -7,5 +7,5 @@ export const Register = withSplitting(() => import('../components/Register'));
 /** auth */
 export const Auth = withSplitting(() => import('../components/auth'));
 
-/** find-food */
-export const FindFood = withSplitting(() => import('../components/find-food'));
+/** food */
+export const Food = withSplitting(() => import('../components/food'));

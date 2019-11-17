@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import { Auth, FindFood } from '../pages';
+import { Auth, Food } from '../pages';
 import './Route.scss';
 
 import Sidebar from './Sidebar';
@@ -12,7 +12,7 @@ class Router extends Component {
         {localStorage.token ? (
           <div className="Route">
             <Sidebar />
-            <Route exact path="/find-food" component={FindFood} />
+            <Route exact path="/food" component={Food} />
           </div>
         ) : (
           <Route exact path="/" component={Auth} />
