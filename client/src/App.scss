@@ -22,7 +22,7 @@ div {
 /*공통으로 쓰이는 버튼*/
 .food-btn {
   font-weight: bold;
-  width: 19%;
+  width: 15%;
   border: solid 1px $foodwar-color;
   height: 92px;
   line-height: 92px;
@@ -45,7 +45,7 @@ div {
 
 .reverse-food-btn {
   font-weight: bold;
-  width: 19%;
+  width: 15%;
   border: solid 2px $foodwar-color;
   height: 92px;
   line-height: 92px;
@@ -68,11 +68,11 @@ div {
 /*버튼 크기*/
 .btnSmall {
   width: 10%;
-  height: 50px;
-  line-height: 50px;
+  height: 40px;
+  line-height: 40px;
 }
 .btnBig {
   width: 100%;
-  height: 50px;
-  line-height: 50px;
+  height: 40px;
+  line-height: 40px;
 }

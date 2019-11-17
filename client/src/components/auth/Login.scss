@@ -7,20 +7,97 @@
 
   .title {
     height: 10%;
+    font-size: 20px;
+    font-weight: bold;
   }
   .contents {
     height: 80%;
-    div + div {
-      margin-top: 10px;
+
+    .inputGroup {
+      height: 50%;
+      div {
+        height: 35%;
+      }
+      div + div {
+        margin-top: 1%;
+      }
     }
+    .loginOthers {
+      height: 50%;
+      .hr-sect {
+        display: flex;
+        flex-basis: 100%;
+        align-items: center;
+        color: rgba(0, 0, 0, 0.35);
+        font-size: 12px;
+      }
+      .hr-sect::before,
+      .hr-sect::after {
+        content: "";
+        flex-grow: 1;
+        background: rgba(0, 0, 0, 0.35);
+        height: 1px;
+        font-size: 0px;
+        line-height: 0px;
+        margin: 0px 16px;
+      }
+
+      .githubDiv,
+      .facebookDiv,
+      .googleDiv {
+        height: 40px;
+        line-height: 40px;
+        width: 100%;
+
+        .icon {
+          width: 20%;
+          float: left;
+          margin: 5px auto;
+        }
+        .text {
+          width: 80%;
+          float: left;
+          margin: 0px;
+        }
+      }
+      .githubDiv::before,
+      .facebookDiv::before,
+      .googleDiv::before,
+      .githubDiv::after,
+      .facebookDiv::after,
+      .googleDiv::after {
+        display: block;
+        content: '';
+        clear: both;
+      }
+
+      .githubDiv {
+        background-color: #e5e5e5;
+        color: black;
+      }
+      .googleDiv {
+        background-color: #9d1b1b;
+        color: white;
+      }
+      .facebookDiv {
+        background-color: #122886;
+        color: white;
+      }
+      div + div {
+        margin-top: 1%;
+      }
+    }
+
     input[type=text] {
       width: 100%;
+      height: 60%;
       margin: 0 auto;
     }
   }
   .content-footer {
     height: 10%;
     color: $foodwar-color;
+    border-top: 1px solid #dcdcdc;
     span:nth-child(1) {
       width: 50%;
       float: left;
@@ -28,6 +105,83 @@
     span:nth-child(2) {
       width: 50%;
       float: left;
+    }
+  }
+  /* Extra large devices (대형 노트북 및 데스크톱, 1200px 이상) */
+  @media only screen and (min-width: 992px) and (max-width: 1200px) {
+    /* ... */
+    .contents {
+      .loginOthers {
+        .githubDiv,
+        .facebookDiv,
+        .googleDiv {
+          height: 50px;
+          line-height: 50px;
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  /* Large devices (노트북 / 데스크톱, 992px 이상) */
+  @media only screen and (max-width: 992px) {
+    /* ... */
+    .contents {
+      input[type=text] {
+        width: 100%;
+        height: 80%;
+        margin: 0 auto;
+      }
+    }
+    .content-footer {
+      height: 10%;
+      color: $foodwar-color;
+      border-top: 1px solid #dcdcdc;
+      span:nth-child(1) {
+        width: 100%;
+      }
+      span:nth-child(2) {
+        width: 100%;
+      }
+    }
+  }
+  /* Medium devices (가로 태블릿, 768 픽셀 이상) */
+  @media only screen and (max-width: 768px) {
+    /* ... */
+  }
+
+  /* Small devices 세로 형 태블릿 및 대형 휴대 전화 (600px 이상) */
+  @media only screen and (max-width: 600px) {
+    /* ... */
+  }
+
+  /* Extra small devices (480px 이하) */
+  @media only screen and (max-width: 480px) {
+    /* ... */
+    .contents {
+      .loginOthers {
+        .githubDiv,
+        .facebookDiv,
+        .googleDiv {
+          height: 35px;
+          line-height: 35px;
+          width: 100%;
+        }
+        .icon {
+          width: 20% !important;
+          float: left;
+          margin: 5px auto;
+        }
+        .icon div {
+          width: 25px !important;
+          height: 25px !important;
+        }
+        .text {
+          width: 80% !important;
+          float: left;
+          margin: 0px;
+        }
+      }
     }
   }
 }
