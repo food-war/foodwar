@@ -23,20 +23,20 @@ div {
 .food-btn {
   font-weight: bold;
   width: 19%;
-  border: solid 1px #d6001c;
+  border: solid 1px $foodwar-color;
   height: 92px;
   line-height: 92px;
   float: left;
   transition: all 1000ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
   cursor: pointer;
-  box-shadow: rgba(214, 0, 28, 0.5) 0 0px 0px 1px inset;
+  box-shadow: #46aba5 0 0px 0px 1px inset;
   background: white;
   outline: none;
 }
 .food-btn:hover {
-  background-color: #d6001c;
+  background-color: $foodwar-color;
   color: #ffffff;
-  box-shadow: rgba(214, 0, 28, 1) 0 80px 0px 2px inset;
+  box-shadow: $foodwar-color 0 80px 0px 2px inset;
   font-weight: bold;
 }
 .food-btn:focus {
@@ -46,19 +46,19 @@ div {
 .reverse-food-btn {
   font-weight: bold;
   width: 19%;
-  border: solid 2px #d6001c;
+  border: solid 2px $foodwar-color;
   height: 92px;
   line-height: 92px;
   transition: all 1000ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
   cursor: pointer;
   box-shadow: rgba(255, 255, 255, 1) 0 0px 0px 1px inset;
-  background: #d6001c;
+  background: $foodwar-color;
   color: white;
   outline: none;
 }
 .reverse-food-btn:hover {
   background-color: white;
-  color: #d6001c;
+  color: $foodwar-color;
   box-shadow: rgba(255, 255, 255, 1) 0 80px 0px 2px inset;
   font-weight: bold;
 }
