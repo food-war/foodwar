@@ -16,7 +16,7 @@
     .inputGroup {
       height: 50%;
       div {
-        height: 35%;
+        height: 30%;
       }
       div + div {
         margin-top: 1%;
@@ -58,6 +58,7 @@
           width: 80%;
           float: left;
           margin: 0px;
+          padding-left: 5%;
         }
       }
       .githubDiv::before,
@@ -71,15 +72,15 @@
         clear: both;
       }
 
-      .githubDiv {
+      .githubColor {
         background-color: #e5e5e5;
         color: black;
       }
-      .googleDiv {
+      .googleColor {
         background-color: #9d1b1b;
         color: white;
       }
-      .facebookDiv {
+      .facebookColor {
         background-color: #122886;
         color: white;
       }
@@ -163,7 +164,7 @@
         .githubDiv,
         .facebookDiv,
         .googleDiv {
-          height: 35px;
+          height: 28%;
           line-height: 35px;
           width: 100%;
         }
@@ -171,6 +172,35 @@
           width: 20% !important;
           float: left;
           margin: 5px auto;
+        }
+        .icon div {
+          width: 25px !important;
+          height: 25px !important;
+        }
+        .text {
+          width: 80% !important;
+          float: left;
+          margin: 0px;
+        }
+      }
+    }
+  }
+  /* Extra small devices (320px 이하) */
+  @media only screen and (max-width: 320px) {
+    /* ... */
+    .contents {
+      .loginOthers {
+        .githubDiv,
+        .facebookDiv,
+        .googleDiv {
+          height: 30px;
+          line-height: 30px;
+          width: 100%;
+        }
+        .icon {
+          width: 20% !important;
+          float: left;
+          margin: 2px auto !important;
         }
         .icon div {
           width: 25px !important;

@@ -34,19 +34,19 @@ class Login extends Component {
               <div className="icon">
                 <IconGithub isStopped={false} />
               </div>
-              <div className="text">github 로그인</div>
+              <div className="text githubColor">github 로그인</div>
             </div>
             <div className="googleDiv">
               <div className="icon">
                 <IconGoggle isStopped={false} />
               </div>
-              <div className="text"> google 로그인</div>
+              <div className="text googleColor"> google 로그인</div>
             </div>
             <div className="facebookDiv">
               <div className="icon">
                 <IconFacebook isStopped={false} />
               </div>
-              <div className="text"> facebook 로그인</div>
+              <div className="text facebookColor"> facebook 로그인</div>
             </div>
           </div>
         </div>
