@@ -20,6 +20,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize()); // passport 초기화
 require('./config/passport')(passport);
 
+// app.disable('etag');
+
 /**
  * @database    mongoose
  * @desc        Foodwar database
