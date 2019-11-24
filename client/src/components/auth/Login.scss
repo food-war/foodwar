@@ -15,6 +15,9 @@
 
     .inputGroup {
       height: 50%;
+      form {
+        height: 100%;
+      }
       div {
         height: 30%;
       }
@@ -89,7 +92,8 @@
       }
     }
 
-    input[type=text] {
+    input[type=email],
+    input[type=password] {
       width: 100%;
       height: 60%;
       margin: 0 auto;
@@ -109,14 +113,14 @@
     }
   }
   /* Extra large devices (대형 노트북 및 데스크톱, 1200px 이상) */
-  @media only screen and (min-width: 992px) and (max-width: 1200px) {
+  @media only screen and (min-width: 992px) and (max-width: 1800px) {
     /* ... */
     .contents {
       .loginOthers {
         .githubDiv,
         .facebookDiv,
         .googleDiv {
-          height: 50px;
+          height: 30%;
           line-height: 50px;
           width: 100%;
         }
@@ -128,7 +132,8 @@
   @media only screen and (max-width: 992px) {
     /* ... */
     .contents {
-      input[type=text] {
+      input[type=email],
+      input[type=password] {
         width: 100%;
         height: 80%;
         margin: 0 auto;
