@@ -3,13 +3,13 @@ const router = express.Router();
 // const passport = require('passport');
 // const authCheck = passport.authenticate('jwt', { session: false });
 
-const foodController = require('../../controllers/foodController');
+const storeController = require('../../controllers/storeController');
 
 /**
- * @route  POST api/food/list
- * @desc   food list
+ * @route  POST api/store/list
+ * @desc   store list
  * @access Public
  */
-router.route('/list').post(foodController.list);
+router.route('/list').post(storeController.list);
 
 module.exports = router;

@@ -32,7 +32,7 @@
     font-size: 16px;
   }
 
-  .item+.item {
+  .item + .item {
     margin-top: 15px;
   }
 
@@ -74,7 +74,7 @@
     font-weight: bold;
   }
 
-  .mobile-item+.mobile-item {
+  .mobile-item + .mobile-item {
     margin-top: 15px;
   }
 
@@ -100,6 +100,7 @@
     height: 58px;
     float: none;
     padding: 15px;
+    border-bottom: 1px solid $foodwar-color;
 
     .menu,
     .logo {

@@ -8,7 +8,7 @@ import { BACKEND_PORT, BACKEND_MONGODB } from './config/env';
 
 /* Routes */
 import userRouter from './routes/api/userRouter';
-import foodRouter from './routes/api/foodRouter';
+import storeRouter from './routes/api/storeRouter';
 
 const APP_PORT = BACKEND_PORT;
 const app = express();
@@ -19,8 +19,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize()); // passport 초기화
 require('./config/passport')(passport);
-
-// app.disable('etag');
 
 /**
  * @database    mongoose
@@ -42,7 +40,7 @@ app.get('/sayHello', function(req, res) {
   res.send('Hello from the foodwar back-end!!!');
 });
 app.use('/api/user', userRouter);
-app.use('/api/food', foodRouter);
+app.use('/api/store', storeRouter);
 
 app.listen(APP_PORT);
 console.log('Webserver listening to port', APP_PORT);
