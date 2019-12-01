@@ -19,6 +19,9 @@ module.exports = function validateLoginInput(data) {
     errors.password = 'Password field is required';
   }
 
+  if (validator.isNumeric(data.password)) {
+    errors.password = '비밀번호는 숫자+영문 조합이여야 합니다.';
+  }
   return {
     errors,
     isValid: isEmpty(errors),

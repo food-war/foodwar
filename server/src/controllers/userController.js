@@ -75,6 +75,7 @@ module.exports = {
     const { errors, isValid } = validateLoginInput(req.body);
 
     if (!isValid) {
+      console.log(errors);
       res.status(400).json(errors);
     }
 

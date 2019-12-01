@@ -15,7 +15,10 @@ class Router extends Component {
             <Route exact path="/food" component={Food} />
           </div>
         ) : (
+          <>
           <Route exact path="/" component={Auth} />
+          <Route path="/register" component={Auth} />
+          </>
         )}
 
         {/* <Header />

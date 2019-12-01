@@ -4,10 +4,10 @@
   height: 100%;
   text-align: left;
   padding: 10px;
-
+  font-size: 1.3rem;
   .title {
     height: 10%;
-    font-size: 20px;
+    font-size: 1.8rem;
     font-weight: bold;
   }
   .contents {
@@ -163,6 +163,10 @@
 
   /* Extra small devices (480px 이하) */
   @media only screen and (max-width: 480px) {
+    font-size: 1.2rem;
+    .title {
+      font-size: 1.5rem;
+    }
     /* ... */
     .contents {
       .loginOthers {
@@ -192,7 +196,11 @@
   }
   /* Extra small devices (320px 이하) */
   @media only screen and (max-width: 320px) {
+    font-size: 1.1rem;
     /* ... */
+    .title {
+      font-size: 1.4rem;
+    }
     .contents {
       .loginOthers {
         .githubDiv,

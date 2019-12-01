@@ -1,4 +1,4 @@
-import { TEST_DISPATCH, LOGIN_ACTION, GET_ERRORS } from './types';
+import { REGISTER_ACTION, LOGIN_ACTION, GET_ERRORS } from './types';
 import axios from 'axios';
 import { REACT_APP_BACKEND_API_URL, REACT_APP_LOCAL_URL } from '../config/env';
 
@@ -46,7 +46,7 @@ export const loginUser = userData => dispatch => {
 // Register User
 export const registerUser = userData => {
   return {
-    type: TEST_DISPATCH,
+    type: REGISTER_ACTION,
     payload: userData,
   };
 };

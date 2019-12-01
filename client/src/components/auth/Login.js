@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './Login.scss';
 import IconGithub from '../../lotties/IconGithub';
 import IconFacebook from '../../lotties/IconFacebook';
@@ -93,7 +94,9 @@ class Login extends Component {
         </div>
         <div className="content-footer">
           <span>비밀번호를 잊어버리셨나요?</span>
-          <span>푸드워에 처음 오셨나요?</span>
+          <span>
+            <Link to="./register">푸드워에 처음 오셨나요?</Link>
+          </span>
         </div>
       </div>
     );
