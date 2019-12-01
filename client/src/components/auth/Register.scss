@@ -1,0 +1,130 @@
+@import '../../App.scss';
+
+.register {
+  height: 100%;
+  text-align: left;
+  padding: 10px;
+  font-size: 1.3rem;
+  .title {
+    height: 10%;
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+  .contents {
+    height: 80%;
+
+    .inputGroup {
+      height: 50%;
+      form {
+        height: 100%;
+      }
+      div {
+        height: 30%;
+      }
+      div + div {
+        margin-top: 1%;
+      }
+    }
+    .loginOthers {
+      height: 50%;
+      .hr-sect {
+        display: flex;
+        flex-basis: 100%;
+        align-items: center;
+        color: rgba(0, 0, 0, 0.35);
+        font-size: 12px;
+      }
+      .hr-sect::before,
+      .hr-sect::after {
+        content: "";
+        flex-grow: 1;
+        background: rgba(0, 0, 0, 0.35);
+        height: 1px;
+        font-size: 0px;
+        line-height: 0px;
+        margin: 0px 16px;
+      }
+
+      div + div {
+        margin-top: 1%;
+      }
+    }
+
+    input[type=email],
+    input[type=password] {
+      width: 100%;
+      height: 60%;
+      margin: 0 auto;
+    }
+  }
+  .content-footer {
+    height: 10%;
+    color: $foodwar-color;
+    border-top: 1px solid #dcdcdc;
+    span:nth-child(1) {
+      width: 50%;
+      float: left;
+    }
+    span:nth-child(2) {
+      width: 50%;
+      float: left;
+    }
+  }
+  /* Extra large devices (대형 노트북 및 데스크톱, 1200px 이상) */
+  @media only screen and (min-width: 992px) and (max-width: 1800px) {
+  }
+
+  /* Large devices (노트북 / 데스크톱, 992px 이상) */
+  @media only screen and (max-width: 992px) {
+    /* ... */
+    .contents {
+      input[type=email],
+      input[type=password] {
+        width: 100%;
+        height: 80%;
+        margin: 0 auto;
+      }
+    }
+    .content-footer {
+      height: 10%;
+      color: $foodwar-color;
+      border-top: 1px solid #dcdcdc;
+      span:nth-child(1) {
+        width: 100%;
+      }
+      span:nth-child(2) {
+        width: 100%;
+      }
+    }
+  }
+  /* Medium devices (가로 태블릿, 768 픽셀 이상) */
+  @media only screen and (max-width: 768px) {
+    /* ... */
+  }
+
+  /* Small devices 세로 형 태블릿 및 대형 휴대 전화 (600px 이상) */
+  @media only screen and (max-width: 600px) {
+    /* ... */
+  }
+
+  /* Extra small devices (480px 이하) */
+  @media only screen and (max-width: 480px) {
+    font-size: 1.2rem;
+    .title {
+      font-size: 1.5rem;
+    }
+    /* ... */
+    .contents {
+    }
+  }
+  /* Extra small devices (320px 이하) */
+  @media only screen and (max-width: 320px) {
+    font-size: 1.1rem;
+    /* ... */
+    .title {
+      font-size: 1.4rem;
+    }
+    .contents {
+    }
+  }
+}
