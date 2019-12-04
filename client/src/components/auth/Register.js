@@ -7,16 +7,15 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isStopped: false,
+      name: '',
       email: '',
       password: '',
+      password2: '',
       errors: {},
     };
     // this.onChange = this.onChange.bind(this);
   }
-  componentDidUpdate() {
-    //document.getElementById('email').focus();
-  }
+
   onChange = e => {
     this.setState({
       [e.target.name]: e.target.value,
@@ -26,12 +25,14 @@ class Register extends Component {
   onSubmit = e => {
     e.preventDefault();
 
-    const user = {
+    const newUser = {
+      name: this.state.name,
       email: this.state.email,
       password: this.state.password,
+      password2: this.state.password2,
     };
     // console.log(user);
-    this.props.registerUser(user);
+    this.props.registerUser(newUser);
   };
   render() {
     return (
@@ -40,6 +41,17 @@ class Register extends Component {
         <div className="contents">
           <div className="inputGroup">
             <form onSubmit={this.onSubmit}>
+              <div>
+                <input
+                  type="text"
+                  placeholder="이름을 입력해주세요."
+                  name="name"
+                  id="name"
+                  value={this.state.name}
+                  onChange={this.onChange}
+                  required
+                />
+              </div>
               <div>
                 <input
                   type="email"
@@ -65,7 +77,7 @@ class Register extends Component {
                 <input
                   type="password"
                   name="password2"
-                  value={this.state.password}
+                  value={this.state.password2}
                   onChange={this.onChange}
                   placeholder="비밀번호를 다시 입력해주세요."
                   required
@@ -86,7 +98,7 @@ class Register extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user,
+  registerUser: state.registerUser,
   errors: state.errors,
 });
 

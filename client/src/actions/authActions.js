@@ -44,7 +44,28 @@ export const loginUser = userData => dispatch => {
   };
 };
 // Register User
-export const registerUser = userData => {
+export const registerUser = userData => dispatch => {
+  let requestUrl = REACT_APP_LOCAL_URL;
+  if (nowUrl.indexOf('localhost') === -1) {
+    requestUrl = REACT_APP_BACKEND_API_URL;
+  }
+  var headers = {
+    'Content-Type': 'application/x-www-form-urlencoded',
+  };
+
+  // 백엔드 api/user/login로 비동기 요청 보내기
+  axios
+    .post(`${requestUrl}/api/user/register`, userData, headers)
+    .then(res => {
+      dispatch({ type: REGISTER_ACTION });
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err,
+      });
+    });
+
   return {
     type: REGISTER_ACTION,
     payload: userData,

@@ -1,4 +1,4 @@
-import { TEST_DISPATCH, LOGIN_ACTION } from '../actions/types';
+import { TEST_DISPATCH, LOGIN_ACTION, REGISTER_ACTION } from '../actions/types';
 
 const initialState = {
   isAuthenticated: false,
@@ -13,6 +13,11 @@ export default function(state = initialState, action) {
         user: action.payload,
       };
     case LOGIN_ACTION:
+      return {
+        ...state,
+        user: action.payload,
+      };
+    case REGISTER_ACTION:
       return {
         ...state,
         user: action.payload,
