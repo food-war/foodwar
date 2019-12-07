@@ -1,11 +1,11 @@
-.Food {
+.Store {
   width: calc(100% - 300px);
   height: 100%;
   float: left;
   background-color: pink;
 }
 
-.Food::after {
+.Store::after {
   clear: both;
   display: block;
   content: '';

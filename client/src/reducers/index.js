@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import errorReducer from './errorReducer';
 import authReducer from './authReducer';
-import foodReducer from './foodReducer';
+import storeReducer from './storeReducer';
 
 export default combineReducers({
   auth: authReducer,
-  food: foodReducer,
+  store: storeReducer,
   errors: errorReducer,
 });
