@@ -1,4 +1,5 @@
-import { TEST_DISPATCH, LOGIN_ACTION, REGISTER_ACTION } from '../actions/types';
+import isEmpty from '../validation/is-empty';
+import { TEST_DISPATCH, LOGIN_ACTION, REGISTER_ACTION, SET_CURRENT_USER } from '../actions/types';
 
 const initialState = {
   isAuthenticated: false,
@@ -20,6 +21,12 @@ export default function(state = initialState, action) {
     case REGISTER_ACTION:
       return {
         ...state,
+        user: action.payload,
+      };
+    case SET_CURRENT_USER:
+      return {
+        ...state,
+        isAuthenticated: !isEmpty(action.payload),
         user: action.payload,
       };
     default:

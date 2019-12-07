@@ -3,6 +3,7 @@ import './Register.scss';
 
 import { connect } from 'react-redux';
 import { registerUser } from '../../actions/authActions';
+import { withRouter } from 'react-router-dom';
 class Register extends Component {
   constructor(props) {
     super(props);
@@ -14,6 +15,16 @@ class Register extends Component {
       errors: {},
     };
     // this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  // prop를 받을 때 실행되는 함수
+  // 리액트 생명주기에서는 componentDidMount를 제일 많이 씀
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      // nextProps에 에러가 존재한다면..
+      this.setState({ errors: nextProps.errors }); // state의 errors값을 변경
+    }
   }
 
   onChange = e => {
@@ -32,7 +43,8 @@ class Register extends Component {
       password2: this.state.password2,
     };
     // console.log(user);
-    this.props.registerUser(newUser);
+    //this.props.registerUser(newUser);
+    this.props.registerUser(newUser, this.props.history); // history는 redux dev tool 에 찍기 위함
   };
   render() {
     return (
@@ -104,4 +116,4 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   registerUser,
-})(Register);
+})(withRouter(Register));

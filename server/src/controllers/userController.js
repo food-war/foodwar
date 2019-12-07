@@ -26,17 +26,14 @@ module.exports = {
     const { errors, isValid } = validateRegisterInput(req.body);
 
     if (!isValid) {
-      alert('valid!!!');
       return res.status(400).json(errors);
     }
     userModel
       .findOne({ email: req.body.email })
       .then(user => {
-        console.log(user);
         if (user) {
           // return res.status(400).json({message: "This email already exists."});
           errors.email = 'This email already exists.';
-          alert(errors.email);
           return res.status(400).json(errors);
         }
 
@@ -78,7 +75,6 @@ module.exports = {
     const { errors, isValid } = validateLoginInput(req.body);
 
     if (!isValid) {
-      console.log(errors);
       res.status(400).json(errors);
     }
 

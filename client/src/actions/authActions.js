@@ -1,5 +1,8 @@
-import { REGISTER_ACTION, LOGIN_ACTION, GET_ERRORS } from './types';
 import axios from 'axios';
+
+import setAuthToken from '../utils/setAuthToken';
+import jwt_decode from 'jwt-decode';
+import { REGISTER_ACTION, LOGIN_ACTION, GET_ERRORS, SET_CURRENT_USER } from './types';
 import { REACT_APP_BACKEND_API_URL, REACT_APP_LOCAL_URL } from '../config/env';
 
 const nowUrl = window.location.href;
@@ -17,10 +20,19 @@ export const loginUser = userData => dispatch => {
   axios
     .post(`${requestUrl}/api/user/login`, userData, headers)
     .then(res => {
-      //console.log(res.data);
       const { success, token } = res.data;
-      console.log(success, token);
-      dispatch({ type: LOGIN_ACTION });
+      localStorage.token = token;
+      localStorage.success = success;
+
+      //set token to auth header
+      setAuthToken(token);
+
+      //Decode token to get user data
+      const decoded = jwt_decode(token);
+
+      // dispatch({ type: LOGIN_ACTION });
+      //Set current user
+      dispatch(setCurrentUser(decoded));
     })
     .catch(err => {
       dispatch({
@@ -28,6 +40,7 @@ export const loginUser = userData => dispatch => {
         payload: err,
       });
     });
+
   //테스트 코드 :
   //   axios({
   //     method: 'post',
@@ -43,8 +56,16 @@ export const loginUser = userData => dispatch => {
     payload: userData,
   };
 };
+
+//set logged in user (현재 유저에 대한 정보 )
+export const setCurrentUser = decoded => {
+  return {
+    type: SET_CURRENT_USER,
+    payload: decoded,
+  };
+};
 // Register User
-export const registerUser = userData => dispatch => {
+export const registerUser = (userData, history) => dispatch => {
   let requestUrl = REACT_APP_LOCAL_URL;
   if (nowUrl.indexOf('localhost') === -1) {
     requestUrl = REACT_APP_BACKEND_API_URL;
@@ -57,12 +78,13 @@ export const registerUser = userData => dispatch => {
   axios
     .post(`${requestUrl}/api/user/register`, userData, headers)
     .then(res => {
+      history.push('/login');
       dispatch({ type: REGISTER_ACTION });
     })
     .catch(err => {
       dispatch({
         type: GET_ERRORS,
-        payload: err,
+        payload: err.response.data,
       });
     });
 
