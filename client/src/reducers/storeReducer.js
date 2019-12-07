@@ -1,4 +1,4 @@
-import { FOOD_GET_LIST } from '../actions/types';
+import { GET_STORE_LIST } from '../actions/types';
 
 const initialState = {
   list: [],
@@ -6,7 +6,7 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case FOOD_GET_LIST:
+    case GET_STORE_LIST:
       return {
         ...state,
       };

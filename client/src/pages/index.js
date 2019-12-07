@@ -9,4 +9,4 @@ export const Auth = withSplitting(() => import('../components/auth'));
 export const Login = withSplitting(() => import('../components/auth/Login'));
 export const Register = withSplitting(() => import('../components/auth/Register'));
 /** food */
-export const Food = withSplitting(() => import('../components/food'));
+export const Store = withSplitting(() => import('../components/store'));
