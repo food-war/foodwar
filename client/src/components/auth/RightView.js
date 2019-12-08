@@ -13,6 +13,9 @@ export default class RightView extends Component {
           <Route exact path="/">
             <Login />
           </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
           <Route path="/register">
             <Register />
           </Route>

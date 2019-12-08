@@ -2,13 +2,13 @@ import axios from 'axios';
 
 import setAuthToken from '../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
-import { REGISTER_ACTION, LOGIN_ACTION, GET_ERRORS, SET_CURRENT_USER } from './types';
+import { REGISTER_ACTION, GET_ERRORS, SET_CURRENT_USER } from './types';
 import { REACT_APP_BACKEND_API_URL, REACT_APP_LOCAL_URL } from '../config/env';
 
 const nowUrl = window.location.href;
 // LOGIN
-export const loginUser = userData => dispatch => {
-  //console.log(`userData ${userData.email} ${userData.password}`);
+export const loginUser = (userData, history) => dispatch => {
+  // console.log(`userData ${userData.email} ${userData.password}`);
   let requestUrl = REACT_APP_LOCAL_URL;
   if (nowUrl.indexOf('localhost') === -1) {
     requestUrl = REACT_APP_BACKEND_API_URL;
@@ -26,13 +26,13 @@ export const loginUser = userData => dispatch => {
 
       //set token to auth header
       setAuthToken(token);
-
       //Decode token to get user data
       const decoded = jwt_decode(token);
 
       // dispatch({ type: LOGIN_ACTION });
       //Set current user
       dispatch(setCurrentUser(decoded));
+      history.push('/store');
     })
     .catch(err => {
       dispatch({
@@ -51,10 +51,10 @@ export const loginUser = userData => dispatch => {
   //     },
   //   });
 
-  return {
-    type: LOGIN_ACTION,
-    payload: userData,
-  };
+  // return {
+  //   type: LOGIN_ACTION,
+  //   payload: userData,
+  // };
 };
 
 //set logged in user (현재 유저에 대한 정보 )
@@ -78,6 +78,7 @@ export const registerUser = (userData, history) => dispatch => {
   axios
     .post(`${requestUrl}/api/user/register`, userData, headers)
     .then(res => {
+      // console.log(res);
       history.push('/login');
       dispatch({ type: REGISTER_ACTION });
     })

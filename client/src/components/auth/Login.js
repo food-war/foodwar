@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import './Login.scss';
 import IconGithub from '../../lotties/IconGithub';
@@ -7,6 +8,7 @@ import IconGoggle from '../../lotties/IconGoggle';
 
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/authActions';
+import { withRouter } from 'react-router-dom';
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -18,9 +20,29 @@ class Login extends Component {
     };
     // this.onChange = this.onChange.bind(this);
   }
-  componentDidUpdate() {
-    //document.getElementById('email').focus();
+  // UNSAFE_componentDidUpdate(prevProps, prevState) {
+  //   alert('didupdate');
+  //   //document.getElementById('email').focus();
+  //   if (localStorage.token) {
+  //     this.props.history.push('/store');
+  //   }
+  // }
+  // prop를 받을 때 실행되는 함수
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    //static getDerivedStateFromProps(nextProps, prevProps) {
+    // alert('test!!!!!!!!!!!!');
+    // console.log(nextProps);
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+    if (nextProps.auth.isAuthenticated) {
+      //this.props.history.push('/store');
+      // alert('test');
+      console.log(this.props.history);
+      //this.props.history.push('/store');
+    }
   }
+
   onChange = e => {
     this.setState({
       [e.target.name]: e.target.value,
@@ -30,12 +52,12 @@ class Login extends Component {
   onSubmit = e => {
     e.preventDefault();
 
-    const user = {
+    const userData = {
       email: this.state.email,
       password: this.state.password,
     };
     // console.log(user);
-    this.props.loginUser(user);
+    this.props.loginUser(userData, this.props.history);
   };
   render() {
     return (
@@ -103,11 +125,19 @@ class Login extends Component {
   }
 }
 
+Login.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  // errors: PropTypes.string.isRequired,
+  errors: PropTypes.object.isRequired,
+};
+
 const mapStateToProps = state => ({
-  user: state.user,
+  // user: state.user,
+  auth: state.auth,
   errors: state.errors,
 });
 
 export default connect(mapStateToProps, {
   loginUser,
-})(Login);
+})(withRouter(Login));

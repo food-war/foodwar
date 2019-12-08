@@ -17,6 +17,7 @@ class Router extends Component {
         ) : (
           <>
             <Route exact path="/" component={Auth} />
+            <Route path="/login" component={Auth}/>
             <Route path="/register" component={Auth} />
           </>
         )}
