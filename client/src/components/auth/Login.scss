@@ -5,6 +5,20 @@
   text-align: left;
   padding: 10px;
   font-size: 1.3rem;
+  a {
+    text-decoration: none;
+  }
+  a:visited {
+    color: $foodwar-color;
+  }
+  input {
+    border-radius: 3px;
+    border: 1px solid $foodwar-color-light;
+    text-indent: 10px;
+  }
+  input:focus {
+    outline: 2px solid $foodwar-color;
+  }
   .title {
     height: 10%;
     font-size: 1.8rem;
@@ -79,13 +93,27 @@
         background-color: #e5e5e5;
         color: black;
       }
+      .githubColor:hover {
+        background-color: #dcdcdc;
+        color: white;
+        cursor: pointer;
+      }
       .googleColor {
         background-color: #9d1b1b;
         color: white;
       }
+      .googleColor:hover {
+        background-color: #ff0000;
+        color: whitesmoke;
+        cursor: pointer;
+      }
       .facebookColor {
         background-color: #122886;
         color: white;
+      }
+      .facebookColor:hover {
+        background-color: #0228cc;
+        cursor: pointer;
       }
       div + div {
         margin-top: 1%;
@@ -94,7 +122,7 @@
 
     input[type=email],
     input[type=password] {
-      width: 100%;
+      width: 99%;
       height: 60%;
       margin: 0 auto;
     }
@@ -103,6 +131,11 @@
     height: 10%;
     color: $foodwar-color;
     border-top: 1px solid #dcdcdc;
+    display: table;
+    width: 100%;
+    span {
+      vertical-align: middle;
+    }
     span:nth-child(1) {
       width: 50%;
       float: left;
@@ -110,6 +143,7 @@
     span:nth-child(2) {
       width: 50%;
       float: left;
+      text-align: right;
     }
   }
   /* Extra large devices (대형 노트북 및 데스크톱, 1200px 이상) */
@@ -134,7 +168,7 @@
     .contents {
       input[type=email],
       input[type=password] {
-        width: 100%;
+        width: 99%;
         height: 80%;
         margin: 0 auto;
       }
@@ -145,9 +179,14 @@
       border-top: 1px solid #dcdcdc;
       span:nth-child(1) {
         width: 100%;
+        text-align: center;
       }
       span:nth-child(2) {
         width: 100%;
+        text-align: center;
+      }
+      span + span {
+        margin-top: 5px;
       }
     }
   }

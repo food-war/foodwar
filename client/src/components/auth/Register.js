@@ -6,6 +6,7 @@ import './Register.scss';
 import { connect } from 'react-redux';
 import { registerUser } from '../../actions/authActions';
 import { withRouter } from 'react-router-dom';
+//withRouter 에서는 history, location, match 이 3가지 props를 제공해줌
 class Register extends Component {
   constructor(props) {
     super(props);
@@ -44,9 +45,11 @@ class Register extends Component {
       password: this.state.password,
       password2: this.state.password2,
     };
-    // console.log(user);
-    //this.props.registerUser(newUser);
     this.props.registerUser(newUser, this.props.history); // history는 redux dev tool 에 찍기 위함
+  };
+  //뒤로가기
+  goBack = () => {
+    this.props.history.goBack();
   };
   render() {
     return (
@@ -104,7 +107,7 @@ class Register extends Component {
           </div>
         </div>
         <div className="content-footer">
-          <span>뒤로가기</span>
+          <span onClick={this.goBack}>뒤로가기</span>
         </div>
       </div>
     );

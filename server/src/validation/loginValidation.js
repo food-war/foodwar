@@ -8,15 +8,15 @@ module.exports = function validateLoginInput(data) {
   data.password = !isEmpty(data.password) ? data.password : '';
 
   if (!validator.isEmail(data.email)) {
-    errors.email = 'Email is invalid';
+    errors.email = '이메일 형식이 잘못되었습니다.';
   }
 
   if (validator.isEmpty(data.email)) {
-    errors.email = 'Email field is required';
+    errors.email = '이메일 필드를 입력해주세요.';
   }
 
   if (validator.isEmpty(data.password)) {
-    errors.password = 'Password field is required';
+    errors.password = '비밀번호 필드를 입력해주세요.';
   }
 
   if (validator.isNumeric(data.password)) {

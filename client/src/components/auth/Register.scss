@@ -5,6 +5,20 @@
   text-align: left;
   padding: 10px;
   font-size: 1.3rem;
+  a {
+    text-decoration: none;
+  }
+  a:visited {
+    color: $foodwar-color;
+  }
+  input {
+    border-radius: 3px;
+    border: 1px solid $foodwar-color-light;
+    text-indent: 10px;
+  }
+  input:focus {
+    outline: 2px solid $foodwar-color;
+  }
   .title {
     height: 10%;
     font-size: 1.8rem;
@@ -52,7 +66,7 @@
     input[type=text],
     input[type=email],
     input[type=password] {
-      width: 100%;
+      width: 98%;
       height: 60%;
       margin: 0 auto;
     }
@@ -61,6 +75,9 @@
     height: 10%;
     color: $foodwar-color;
     border-top: 1px solid #dcdcdc;
+    span {
+      cursor: pointer;
+    }
     span:nth-child(1) {
       width: 50%;
       float: left;
@@ -81,7 +98,7 @@
       input[type=text],
       input[type=email],
       input[type=password] {
-        width: 100%;
+        width: 98%;
         height: 80%;
         margin: 0 auto;
       }
