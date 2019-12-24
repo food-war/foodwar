@@ -1,6 +1,13 @@
 import gravatar from 'gravatar';
 import bcrypt from 'bcryptjs';
 
+import AWS from 'aws-sdk';
+import awsText from '../config/awsText'; //이메일 보낼 주소등 설정해준 파일 임포트
+
+AWS.config.loadFromPath(__dirname + '/../config/awsconfig.json'); //자격증명 연결
+AWS.config.update({ region: 'us-west-2' }); //지역 설정해주는문법 oregon
+
+let ses = new AWS.SES();
 const userModel = require('../models/userModel');
 
 // Use jsonWebToken
@@ -18,13 +25,21 @@ module.exports = {
   },
 
   /**
-     * @controller  POST api/user/register
-     * @desc        user register
-     * @access      Public
-     */
+   * @controller  POST api/user/register
+   * @desc        user register
+   * @access      Public
+   */
   register: async (req, res) => {
     const { errors, isValid } = validateRegisterInput(req.body);
 
+    ses.sendEmail(awsText, function(err, data) {
+      if (err) {
+        console.log(err.message);
+      } else {
+        // alert('이메일이 정상적으로 보내졌습니')
+        console.log('Email sent! Message ID: ', data.MessageId);
+      }
+    });
     if (!isValid) {
       return res.status(400).json(errors);
     }
