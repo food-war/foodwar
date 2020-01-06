@@ -41,21 +41,6 @@ export const loginUser = (userData, history) => dispatch => {
         payload: err,
       });
     });
-
-  //테스트 코드 :
-  //   axios({
-  //     method: 'post',
-  //     url: `${requestUrl}/api/user/login`,
-  //     data: {
-  //       email: userData.email,
-  //       password: userData.password,
-  //     },
-  //   });
-
-  // return {
-  //   type: LOGIN_ACTION,
-  //   payload: userData,
-  // };
 };
 
 //set logged in user (현재 유저에 대한 정보 )
@@ -76,11 +61,24 @@ export const registerUser = (userData, history) => dispatch => {
   };
 
   // 백엔드 api/user/login로 비동기 요청 보내기
+  // axios
+  //   .post(`${requestUrl}/api/user/register`, userData, headers)
+  //   .then(res => {
+  //     // console.log(res);
+  //     history.push('/login');
+  //     dispatch({ type: REGISTER_ACTION });
+  //   })
+  //   .catch(err => {
+  //     dispatch({
+  //       type: GET_ERRORS,
+  //       payload: err.response.data,
+  //     });
+  //   });
+
+  //register 전에 token인증 하기 위해 변경 Test
   axios
-    .post(`${requestUrl}/api/user/register`, userData, headers)
+    .post(`${requestUrl}/api/user/checkToken`, userData, headers)
     .then(res => {
-      // console.log(res);
-      history.push('/login');
       dispatch({ type: REGISTER_ACTION });
     })
     .catch(err => {
@@ -89,7 +87,6 @@ export const registerUser = (userData, history) => dispatch => {
         payload: err.response.data,
       });
     });
-
   return {
     type: REGISTER_ACTION,
     payload: userData,

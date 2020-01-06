@@ -17,7 +17,7 @@ app.use(morgan('combined'));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(passport.initialize()); // passport 초기화
+app.use(passport.initialize()); // passport 초기화PO
 require('./config/passport')(passport);
 
 /**
