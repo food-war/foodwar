@@ -60,25 +60,11 @@ export const registerUser = (userData, history) => dispatch => {
     'Content-Type': 'application/x-www-form-urlencoded',
   };
 
-  // 백엔드 api/user/login로 비동기 요청 보내기
-  // axios
-  //   .post(`${requestUrl}/api/user/register`, userData, headers)
-  //   .then(res => {
-  //     // console.log(res);
-  //     history.push('/login');
-  //     dispatch({ type: REGISTER_ACTION });
-  //   })
-  //   .catch(err => {
-  //     dispatch({
-  //       type: GET_ERRORS,
-  //       payload: err.response.data,
-  //     });
-  //   });
-
-  //register 전에 token인증 하기 위해 변경 Test
+  // 백엔드 api/user/register 비동기 요청 보내기
   axios
-    .post(`${requestUrl}/api/user/checkToken`, userData, headers)
+    .post(`${requestUrl}/api/user/register`, userData, headers)
     .then(res => {
+      history.push('/login');
       dispatch({ type: REGISTER_ACTION });
     })
     .catch(err => {

@@ -12,7 +12,7 @@ const TokenSchema = new Schema({
   },
   EndDate: {
     type: String,
-    default: Date.now + 1,
+    default: Date.now,
   },
 });
 

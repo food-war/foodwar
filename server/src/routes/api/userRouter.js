@@ -19,7 +19,7 @@ router.route('/register').post(userController.register);
  * @desc   user checkToken
  * @access Public
  */
-router.route('/checkToken').post(userController.checkToken);
+router.route('/register/checkToken').post(userController.checkToken);
 
 /**
  * @route  POST api/user/login
