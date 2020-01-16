@@ -1,8 +1,6 @@
 import gravatar from 'gravatar';
 import bcrypt from 'bcryptjs';
-
 import AWS from 'aws-sdk';
-import { awsText, token_param } from '../config/awsText'; //이메일 보낼 주소등 설정해준 파일 임포트
 
 AWS.config.loadFromPath(__dirname + '/../config/awsconfig.json'); //자격증명 연결
 AWS.config.update({ region: 'us-west-2' }); //지역 설정해주는문법 oregon
@@ -20,7 +18,8 @@ const keys = require('../config/keys');
 const validateRegisterInput = require('../validation/registerValidation');
 const validateLoginInput = require('../validation/loginValidation');
 
-let params = {
+let awsText = '';
+const params = {
   Destination: {
     ToAddresses: [], // 'ghehd231@naver.com'받는 사람 이메일 주소
     CcAddresses: [], // 참조
@@ -62,6 +61,7 @@ module.exports = {
     // 4. 이메일에 버튼 누르면 서버쪽에서 함수 하나 만들어서 시간을 받아옴
     // 5. 받아온 시간이랑 insert된 시간이랑 비교해서 하루 지났으면 토큰 없애줌
   },
+
   /**
    * @controller  POST api/user/register
    * @desc        user register
@@ -73,20 +73,12 @@ module.exports = {
       return res.status(400).json(errors);
     }
 
-    let re_params = params;
-    let token_param = '바뀌냐?';
+    const re_params = params;
+
     // 입력 받은 email로 메일 보내기
     re_params.Destination.ToAddresses.push(req.body.email.trim());
     // console.log(re_params);
-
-    ses.sendEmail(re_params, function(err, data) {
-      if (err) {
-        console.log(err.message);
-      } else {
-        //alert('이메일이 정상적으로 보내졌습니다');
-        console.log('Email sent! Message ID: ', data.MessageId);
-      }
-    });
+    let ses_token = '';
     userModel
       .findOne({ email: req.body.email })
       .then(user => {
@@ -94,37 +86,37 @@ module.exports = {
           // return res.status(400).json({message: "This email already exists."});
           errors.email = 'This email already exists.';
           return res.status(400).json(errors);
-        }
-
-        /** Create new avatar */
-        const avatar = gravatar.url(req.body.email, {
-          s: '200',
-          r: 'pg',
-          d: 'mm',
-        });
-        let date1 = new Date(); //회원 테이블에는 가입 당시에 시간이 들어감
-
-        /** Create New User */
-        const newUser = new userModel({
-          name: req.body.name,
-          email: req.body.email,
-          avatar,
-          password: req.body.password,
-          date: date1,
-          confirmToken: false,
-        });
-
-        /** After password encryption, sign up */
-        bcrypt.genSalt(10, (err, salt) => {
-          bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if (err) throw err;
-            newUser.password = hash;
-            newUser
-              .save()
-              .then(user => res.status(200).json(user))
-              .catch(err => res.status(404).json(err));
+        } else {
+          /** Create new avatar */
+          const avatar = gravatar.url(req.body.email, {
+            s: '200',
+            r: 'pg',
+            d: 'mm',
           });
-        });
+          let date1 = new Date(); //회원 테이블에는 가입 당시에 시간이 들어감
+
+          /** Create New User */
+          const newUser = new userModel({
+            name: req.body.name,
+            email: req.body.email,
+            avatar,
+            password: req.body.password,
+            date: date1,
+            confirmToken: false,
+          });
+
+          /** After password encryption, sign up */
+          bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(newUser.password, salt, (err, hash) => {
+              if (err) throw err;
+              newUser.password = hash;
+              newUser
+                .save()
+                .then(user => res.status(200).json(user))
+                .catch(err => res.status(404).json(err));
+            });
+          });
+        }
       })
       .catch(err => res.status(404).json(err));
 
@@ -133,35 +125,59 @@ module.exports = {
       .then(Token => {
         if (Token) {
           errors.email = '이 이메일은 이미 토큰값을 가지고 있습니다.';
-          return res.status(400).json(errors);
-        }
-        let date2 = new Date();
-        // add a day
-        date2.setDate(date2.getDate() + 1);
-        let tmp_token = date2 + 'Token' + req.body.email;
+          return res.status(400).json(errors.email);
+        } else {
+          let date2 = new Date();
+          // add a day
+          date2.setDate(date2.getDate() + 1);
+          let tmp_token = date2 + 'Token' + req.body.email;
 
-        const newToken = new userToken({
-          email: req.body.email,
-          token: 'token1',
-          EndDate: date2,
-        });
-
-        //token 암호화
-        bcrypt.genSalt(10, (err, salt) => {
-          bcrypt.hash(tmp_token, salt, (err, hash) => {
-            if (err) throw err;
-            newToken.token = hash;
-
-            //insert
-            newToken
-              .save()
-              .then(Token => res.status(200).json(Token))
-              .catch(err => res.status(404).json(err));
+          const newToken = new userToken({
+            email: req.body.email,
+            token: 'token1',
+            EndDate: date2,
           });
-        });
+
+          //token 암호화
+          bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(tmp_token, salt, (err, hash) => {
+              if (err) throw err;
+              newToken.token = hash;
+              ses_token = hash;
+              //insert
+              newToken
+                .save()
+                .then(Token => res.status(200).json(Token))
+                .catch(err => res.status(404).json(err));
+
+              // email 템플릿에 토큰 값 전달
+              let awsText = `
+              <html>
+                <div style="width: 100%; text-align: center; font-size: 15px; color: #2e736f;">
+                  <div><h1>Foodwar 회원가입 인증</h1></div>
+                  <div style="margin-top: 20px;"> 인증번호 : <span style="color: #000;">${ses_token}</span></div>
+                  <div> 인증번호를 복사 후 푸드워 회원가입 인증을 완료 해주시기 바랍니다.</div>
+                </div>
+              </html>`;
+
+              re_params.Message.Body.Html.Data = awsText;
+
+              // ses email 보내기
+              ses.sendEmail(re_params, function(err, data) {
+                if (err) {
+                  console.log(err.message);
+                } else {
+                  //alert('이메일이 정상적으로 보내졌습니다');
+                  console.log('Email sent! Message ID: ', data.MessageId);
+                }
+              });
+            });
+          });
+        }
       })
       .catch(err => res.status(400).json(err));
   }, //END Register
+
   /**
      * @controller  POST api/user/login
      * @desc        user login

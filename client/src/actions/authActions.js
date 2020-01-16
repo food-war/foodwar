@@ -64,8 +64,10 @@ export const registerUser = (userData, history) => dispatch => {
   axios
     .post(`${requestUrl}/api/user/register`, userData, headers)
     .then(res => {
-      history.push('/login');
+      // history.push('/login');
+      alert(`입력하신 이메일(${userData.email})로 \n인증번호를 발송하였습니다.`);
       dispatch({ type: REGISTER_ACTION });
+      history.push(`/login?email=${userData.email}`);
     })
     .catch(err => {
       dispatch({
