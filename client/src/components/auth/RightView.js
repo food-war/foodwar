@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import RightContent from './RightContent';
 import Login from './Login';
 import Register from './Register';
+import Auth from './Auth_token';
 import './RightView.scss';
 
 export default class RightView extends Component {
@@ -16,8 +17,11 @@ export default class RightView extends Component {
           <Route path="/login">
             <Login />
           </Route>
-          <Route path="/register">
+          <Route exact path="/register">
             <Register />
+          </Route>
+          <Route path="/register/:email">
+            <Auth />
           </Route>
         </RightContent>
       </div>

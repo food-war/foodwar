@@ -1,10 +1,11 @@
 @import '../../App.scss';
 
-.Login {
+.auth_token {
   height: 100%;
   text-align: left;
   padding: 10px;
   font-size: 1.3rem;
+
   a {
     text-decoration: none;
   }
@@ -60,70 +61,14 @@
         margin: 0px 16px;
       }
 
-      .githubDiv,
-      .facebookDiv,
-      .googleDiv {
-        height: 40px;
-        line-height: 40px;
-        width: 100%;
-
-        .icon {
-          width: 20%;
-          float: left;
-          margin: 5px auto;
-        }
-        .text {
-          width: 80%;
-          float: left;
-          margin: 0px;
-          padding-left: 5%;
-        }
-      }
-      .githubDiv::before,
-      .facebookDiv::before,
-      .googleDiv::before,
-      .githubDiv::after,
-      .facebookDiv::after,
-      .googleDiv::after {
-        display: block;
-        content: '';
-        clear: both;
-      }
-
-      .githubColor {
-        background-color: #e5e5e5;
-        color: black;
-      }
-      .githubColor:hover {
-        background-color: #dcdcdc;
-        color: white;
-        cursor: pointer;
-      }
-      .googleColor {
-        background-color: #9d1b1b;
-        color: white;
-      }
-      .googleColor:hover {
-        background-color: #ff0000;
-        color: whitesmoke;
-        cursor: pointer;
-      }
-      .facebookColor {
-        background-color: #122886;
-        color: white;
-      }
-      .facebookColor:hover {
-        background-color: #0228cc;
-        cursor: pointer;
-      }
       div + div {
         margin-top: 1%;
       }
     }
-
+    input[type=text],
     input[type=email],
     input[type=password] {
-      width: 99%;
+      width: 98%;
       height: 60%;
       margin: 0 auto;
     }
@@ -132,10 +77,8 @@
     height: 10%;
     color: $foodwar-color;
     border-top: 1px solid #dcdcdc;
-    display: table;
-    width: 100%;
     span {
-      vertical-align: middle;
+      cursor: pointer;
     }
     span:nth-child(1) {
       width: 50%;
@@ -144,32 +87,20 @@
     span:nth-child(2) {
       width: 50%;
       float: left;
-      text-align: right;
     }
   }
   /* Extra large devices (대형 노트북 및 데스크톱, 1200px 이상) */
   @media only screen and (min-width: 992px) and (max-width: 1800px) {
-    /* ... */
-    .contents {
-      .loginOthers {
-        .githubDiv,
-        .facebookDiv,
-        .googleDiv {
-          height: 30%;
-          line-height: 50px;
-          width: 100%;
-        }
-      }
-    }
   }
 
   /* Large devices (노트북 / 데스크톱, 992px 이상) */
   @media only screen and (max-width: 992px) {
     /* ... */
     .contents {
+      input[type=text],
       input[type=email],
       input[type=password] {
-        width: 99%;
+        width: 98%;
         height: 80%;
         margin: 0 auto;
       }
@@ -180,14 +111,9 @@
       border-top: 1px solid #dcdcdc;
       span:nth-child(1) {
         width: 100%;
-        text-align: center;
       }
       span:nth-child(2) {
         width: 100%;
-        text-align: center;
-      }
-      span + span {
-        margin-top: 5px;
       }
     }
   }
@@ -209,29 +135,6 @@
     }
     /* ... */
     .contents {
-      .loginOthers {
-        .githubDiv,
-        .facebookDiv,
-        .googleDiv {
-          height: 28%;
-          line-height: 35px;
-          width: 100%;
-        }
-        .icon {
-          width: 20% !important;
-          float: left;
-          margin: 5px auto;
-        }
-        .icon div {
-          width: 25px !important;
-          height: 25px !important;
-        }
-        .text {
-          width: 80% !important;
-          float: left;
-          margin: 0px;
-        }
-      }
     }
   }
   /* Extra small devices (320px 이하) */
@@ -242,29 +145,6 @@
       font-size: 1.4rem;
     }
     .contents {
-      .loginOthers {
-        .githubDiv,
-        .facebookDiv,
-        .googleDiv {
-          height: 30px;
-          line-height: 30px;
-          width: 100%;
-        }
-        .icon {
-          width: 20% !important;
-          float: left;
-          margin: 2px auto !important;
-        }
-        .icon div {
-          width: 25px !important;
-          height: 25px !important;
-        }
-        .text {
-          width: 80% !important;
-          float: left;
-          margin: 0px;
-        }
-      }
     }
   }
 }
