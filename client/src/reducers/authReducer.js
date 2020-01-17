@@ -1,5 +1,5 @@
 import isEmpty from '../validation/is-empty';
-import { LOGIN_ACTION, REGISTER_ACTION, SET_CURRENT_USER } from '../actions/types';
+import { LOGIN_ACTION, REGISTER_ACTION, SET_CURRENT_USER, AUTH_TOKETN } from '../actions/types';
 
 const initialState = {
   isAuthenticated: false,
@@ -23,6 +23,11 @@ export default function(state = initialState, action) {
         ...state,
         isAuthenticated: !isEmpty(action.payload),
         user: action.payload,
+      };
+    case AUTH_TOKETN:
+      return {
+        ...state,
+        token: action.payload,
       };
     default:
       return state;

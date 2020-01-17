@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import setAuthToken from '../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
-import { REGISTER_ACTION, GET_ERRORS, SET_CURRENT_USER } from './types';
+import { REGISTER_ACTION, GET_ERRORS, SET_CURRENT_USER, AUTH_TOKETN } from './types';
 import { REACT_APP_BACKEND_API_URL, REACT_APP_LOCAL_URL } from '../config/env';
 
 const nowUrl = window.location.href;
@@ -78,5 +78,39 @@ export const registerUser = (userData, history) => dispatch => {
   return {
     type: REGISTER_ACTION,
     payload: userData,
+  };
+};
+//회원 가입 인증위한 액션 생성함수
+export const AuthToken = (data, history) => dispatch => {
+  // let requestUrl = REACT_APP_LOCAL_URL;
+  // if (nowUrl.indexOf('localhost') === -1) {
+  //   requestUrl = REACT_APP_BACKEND_API_URL;
+  // }
+  let requestUrl = REACT_APP_LOCAL_URL;
+  if (nowUrl.indexOf('localhost') === -1) {
+    requestUrl = REACT_APP_BACKEND_API_URL;
+  }
+  var headers = {
+    'Content-Type': 'application/x-www-form-urlencoded',
+  };
+
+  // 백엔드 api/user/register 비동기 요청 보내기
+  axios
+    .post(`${requestUrl}/api/user/register/checkToken`, data, headers)
+    .then(res => {
+      // history.push('/login');
+      dispatch({ type: AUTH_TOKETN });
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data,
+      });
+    });
+  // console.log(data);
+  // dispatch({ type: AUTH_TOKETN });
+  return {
+    type: AUTH_TOKETN,
+    payload: data,
   };
 };
