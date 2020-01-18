@@ -17,6 +17,7 @@ const keys = require('../config/keys');
 // Use validation
 const validateRegisterInput = require('../validation/registerValidation');
 const validateLoginInput = require('../validation/loginValidation');
+const validateTokenInput = require('../validation/tokenValidation');
 
 let awsText = '';
 const params = {
@@ -55,12 +56,31 @@ module.exports = {
    * @access      Public
    */
   checkToken: async (req, res) => {
-    // 1. user테이블에 insert ( = register)
-    // 2. Bycript로 암호화해서 토큰 발행
-    // 3. 이메일 보낼 때 입력받은 이메일이랑 토큰값 넘겨줌
-    // 4. 이메일에 버튼 누르면 서버쪽에서 함수 하나 만들어서 시간을 받아옴
-    // 5. 받아온 시간이랑 insert된 시간이랑 비교해서 하루 지났으면 토큰 없애줌
-    console.log(`서버단 연결 성공 ${req.body.token}`);
+    // 1. 토큰 유효성 검사
+    //   -> 토큰테이블에 있는 토큰, 이메일 이랑 입력받은 토큰, 이메일이 있는지
+    //   -> 토큰테이블에서 token - bcript compare 해서 같은지 체크
+    // 2. token 만료 시간이랑 현재 시간 비교해서 만료시간보다 크면 안되게끔
+    console.log(
+      `서버단 연결 성공 토큰: ${req.body.token}  이메일 : ${req.body.email} and time : ${new Date()}`,
+    );
+    const { errors, isValid } = validateTokenInput(req.body);
+    userToken
+      .findOne({ token: req.body.token, email: req.body.email })
+      .then(token => {
+        console.log(`req.body.token : ${req.body.token} token.token : ${token.token}`);
+        bcrypt.compare(req.body.token, token.token).then(isMatch => {
+          console.log(`isMatch---> ${isMatch}`);
+          if (isMatch) {
+            console.log(`비크립트 비교 성공`);
+            // const payload = { id: user.id, name: user.name, avatar: user.avatar };
+            // Sign Token
+          } else {
+            console.log(errors);
+            return res.status(400).json(errors);
+          }
+        });
+      })
+      .catch(err => res.status(404).json(err));
   },
 
   /**
@@ -176,7 +196,8 @@ module.exports = {
           });
         }
       })
-      .catch(err => res.status(400).json(err));
+      // .catch(err => res.status(400).json(err));
+      .catch(err => res.status(404).json(err));
   }, //END Register
 
   /**
