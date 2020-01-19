@@ -21,7 +21,11 @@ class Auth_token extends Component {
   //render() 메서드가 호출되기 이전에 호출된다.
   //전달받은 props를 state에 동기화 시키는 용도로 사용.
   static getDerivedStateFromProps(props, state) {
-    // console.log(props);
+    console.log(props.errors);
+    if (Object.keys(props.errors).length !== 0) {
+      //error객체가 비어있지 않을경우
+      alert(props.errors.email);
+    }
     return { email: props.match.params.email };
   }
   onChange = e => {

@@ -98,7 +98,8 @@ export const AuthToken = (data, history) => dispatch => {
   axios
     .post(`${requestUrl}/api/user/register/checkToken`, data, headers)
     .then(res => {
-      // history.push('/login');
+      alert('회원가입 인증이 완료되었습니다.');
+      history.push('/login');
       dispatch({ type: AUTH_TOKETN });
     })
     .catch(err => {

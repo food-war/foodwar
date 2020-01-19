@@ -1,6 +1,7 @@
 import gravatar from 'gravatar';
 import bcrypt from 'bcryptjs';
 import AWS from 'aws-sdk';
+import moment from 'moment'; //시간 관련 모듈
 
 AWS.config.loadFromPath(__dirname + '/../config/awsconfig.json'); //자격증명 연결
 AWS.config.update({ region: 'us-west-2' }); //지역 설정해주는문법 oregon
@@ -51,7 +52,7 @@ module.exports = {
     res.status(200).json({ message: 'User Works!' });
   },
   /**
-   * @controller  POST api/user/register/checkToken:email/:token
+   * @controller  POST api/user/register/checkToken:email
    * @desc        user checkToken
    * @access      Public
    */
@@ -64,23 +65,52 @@ module.exports = {
       `서버단 연결 성공 토큰: ${req.body.token}  이메일 : ${req.body.email} and time : ${new Date()}`,
     );
     const { errors, isValid } = validateTokenInput(req.body);
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
     userToken
       .findOne({ token: req.body.token, email: req.body.email })
       .then(token => {
-        console.log(`req.body.token : ${req.body.token} token.token : ${token.token}`);
-        bcrypt.compare(req.body.token, token.token).then(isMatch => {
-          console.log(`isMatch---> ${isMatch}`);
-          if (isMatch) {
-            console.log(`비크립트 비교 성공`);
-            // const payload = { id: user.id, name: user.name, avatar: user.avatar };
-            // Sign Token
-          } else {
-            console.log(errors);
-            return res.status(400).json(errors);
-          }
-        });
+        // console.log(`req.body.token : ${req.body.token} token.token : ${token}`);
+
+        // bcrypt.compare(req.body.token, token.token).then(isMatch => {
+        //   console.log(`isMatch---> ${isMatch}`);
+        //   if (isMatch) {
+        //     console.log(`비크립트 비교 성공`);
+        //     // const payload = { id: user.id, name: user.name, avatar: user.avatar };
+        //     // Sign Token
+        //   } else {
+        //     errors.token = 'token incorrect';
+        //     console.log(errors.token);
+        //     return res.status(400).json(errors);
+        //   }
+        // });
+
+        const nowDate = moment();
+        const diffDate = moment.duration(nowDate.diff(token.EndDate)).asMinutes();
+        if (diffDate < 0) {
+          //user테이블에 토큰 인증컬럼 true로 바꾸기
+          userModel.update({ email: req.body.email }, { confirmToken: true }, function(
+            err,
+            output,
+          ) {
+            if (err) res.status(500).json({ errors: 'database failure' });
+            // console.log(output);
+            if (!output.n) return res.status(404).json({ error: 'user not found' });
+            res.status(200).json(token);
+          });
+        } else {
+          //현재시간이 token테이블의 만료시간보다 클때
+          console.log('토큰 입력시간 만료..');
+          errors.token = '토큰 입력시간 만료..';
+          return res.status(400).json(errors);
+        }
       })
-      .catch(err => res.status(404).json(err));
+      .catch(err => {
+        console.log(`에러~~~~~~~~~~~~`);
+        errors.email = '입력하신 토큰이 유효하지 않습니다.';
+        return res.status(400).json(errors);
+      });
   },
 
   /**
@@ -223,7 +253,10 @@ module.exports = {
           errors.email = 'Users not found';
           return res.status(400).json(errors);
         }
-
+        if (user.confirmToken === false) {
+          errors.email = '이메일 인증이 되지 않은 사용자 입니다. \n 이메일 인증을 완료해주세요.';
+          return res.status(501).json(errors);
+        }
         bcrypt.compare(password, user.password).then(isMatch => {
           //   console.log(
           //     `password : ${password} user.passwrod: ${user.password} isMatch = ${isMatch}`,
