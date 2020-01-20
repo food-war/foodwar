@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import FacebookLogin from 'react-facebook-login';
+
 import './Login.scss';
+
 import IconGithub from '../../lotties/IconGithub';
 import IconFacebook from '../../lotties/IconFacebook';
 import IconGoggle from '../../lotties/IconGoggle';
@@ -9,6 +12,7 @@ import IconGoggle from '../../lotties/IconGoggle';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/authActions';
 import { withRouter } from 'react-router-dom';
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -20,29 +24,25 @@ class Login extends Component {
     };
     // this.onChange = this.onChange.bind(this);
   }
-  // UNSAFE_componentDidUpdate(prevProps, prevState) {
-  //   alert('didupdate');
-  //   //document.getElementById('email').focus();
-  //   if (localStorage.token) {
-  //     this.props.history.push('/store');
+
+  // prop를 받을 때 실행되는 함수
+  // UNSAFE_componentWillReceiveProps(nextProps) {
+  //   // static getDerivedStateFromProps(nextProps, state) {
+  //   // alert('test!!!!!!!!!!!!');
+  //   // console.log(nextProps);
+  //   if (nextProps.errors) {
+  //     //에러가 있을 alert창 띄워줌
+  //     this.setState({ errors: nextProps.errors });
+  //     alert(nextProps.errors.response.data.email);
   //   }
   // }
-  // prop를 받을 때 실행되는 함수
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    //static getDerivedStateFromProps(nextProps, prevProps) {
-    // alert('test!!!!!!!!!!!!');
-    // console.log(nextProps);
-    if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
-      // console.log(nextProps.errors.response.data);
+  static getDerivedStateFromProps(nextProps, state) {
+    console.log(nextProps);
+    if (Object.keys(nextProps.errors).length !== 0) {
+      //error객체가 비어있지 않을경우
       alert(nextProps.errors.response.data.email);
     }
-    if (nextProps.auth.isAuthenticated) {
-      //this.props.history.push('/store');
-      // alert('test');
-      console.log(this.props.history);
-      //this.props.history.push('/store');
-    }
+    // return { email: nextProps.match.params.email };
   }
 
   onChange = e => {
@@ -61,7 +61,17 @@ class Login extends Component {
     // console.log(user);
     this.props.loginUser(userData, this.props.history);
   };
+
   render() {
+    const responseFacebook = response => {
+      console.log(response);
+      const userData = {
+        email: this.state.email,
+        password: this.state.password,
+      };
+      // console.log(user);
+      this.props.loginUser(userData, this.props.history);
+    };
     return (
       <div className="Login">
         <div className="title">지금 푸드워를 시작하세요.</div>
@@ -112,7 +122,16 @@ class Login extends Component {
               <div className="icon">
                 <IconFacebook isStopped={this.state.isStopped} />
               </div>
-              <div className="text facebookColor"> facebook 로그인</div>
+              <div className="text facebookColor" onClick={() => FacebookLogin.callback}>
+                <FacebookLogin
+                  appId="473667476518556" //APP ID NOT CREATED YET
+                  fields="name,email,picture"
+                  callback={responseFacebook}
+                  cssClass="my-facebook-button-class"
+                  textButton="Facebook 로그인"
+                  version="5.0"
+                />
+              </div>
             </div>
           </div>
         </div>

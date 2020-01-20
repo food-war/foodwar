@@ -44,7 +44,6 @@ class Auth_token extends Component {
     this.props.AuthToken(data, this.props.history); // history는 redux dev tool 에 찍기 위함
   };
   render() {
-    const { email } = this.props;
     return (
       <div className="auth_token">
         <div className="title">회원가입 인증</div>

@@ -111,11 +111,29 @@
       .facebookColor {
         background-color: #122886;
         color: white;
+        .my-facebook-button-class {
+          background-color: #122886;
+          color: white;
+          border: 0px;
+          padding: 0px;
+          width: 100%;
+          text-align: left;
+        }
+        .my-facebook-button-class:hover {
+          background-color: #0228cc;
+          color: white;
+          cursor: pointer;
+        }
       }
       .facebookColor:hover {
         background-color: #0228cc;
         cursor: pointer;
+        .my-facebook-button-class {
+          background-color: #0228cc;
+          color: white;
+        }
       }
+
       div + div {
         margin-top: 1%;
       }
