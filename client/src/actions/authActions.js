@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import setAuthToken from '../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
-import { REGISTER_ACTION, GET_ERRORS, SET_CURRENT_USER, AUTH_TOKETN } from './types';
+import { REGISTER_ACTION, GET_ERRORS, SET_CURRENT_USER, AUTH_TOKETN, SOCIAL_LOGIN } from './types';
 import { REACT_APP_BACKEND_API_URL, REACT_APP_LOCAL_URL } from '../config/env';
 
 const nowUrl = window.location.href;
@@ -16,6 +16,7 @@ export const loginUser = (userData, history) => dispatch => {
   var headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
   };
+
   // 백엔드 api/user/login로 비동기 요청 보내기
   axios
     .post(`${requestUrl}/api/user/login`, userData, headers)
@@ -39,6 +40,32 @@ export const loginUser = (userData, history) => dispatch => {
       dispatch({
         type: GET_ERRORS,
         payload: err,
+      });
+    });
+};
+
+export const socialLogin = (userData, history) => dispatch => {
+  console.log(userData);
+  let requestUrl = REACT_APP_LOCAL_URL;
+  if (nowUrl.indexOf('localhost') === -1) {
+    requestUrl = REACT_APP_BACKEND_API_URL;
+  }
+  var headers = {
+    'Content-Type': 'application/x-www-form-urlencoded',
+  };
+
+  // 백엔드 api/user/register 비동기 요청 보내기
+  axios
+    .post(`${requestUrl}/api/user/social_login`, userData, headers)
+    .then(res => {
+      alert('회원가입 인증이 완료되었습니다.');
+      //history.push('/login');
+      dispatch({ type: SOCIAL_LOGIN });
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data,
       });
     });
 };

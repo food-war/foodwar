@@ -1,5 +1,11 @@
 import isEmpty from '../validation/is-empty';
-import { LOGIN_ACTION, REGISTER_ACTION, SET_CURRENT_USER, AUTH_TOKETN } from '../actions/types';
+import {
+  LOGIN_ACTION,
+  REGISTER_ACTION,
+  SET_CURRENT_USER,
+  AUTH_TOKETN,
+  SOCIAL_LOGIN,
+} from '../actions/types';
 
 const initialState = {
   isAuthenticated: false,
@@ -28,6 +34,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         token: action.payload,
+      };
+    case SOCIAL_LOGIN:
+      return {
+        ...state,
+        user: action.payload,
       };
     default:
       return state;

@@ -28,6 +28,13 @@ router.route('/register/checkToken').post(userController.checkToken);
  */
 
 router.route('/login').post(userController.login);
+/**
+ * @route  POST api/user/login
+ * @desc   user login
+ * @access Public 
+ */
+
+router.route('/social_login').post(userController.socialLogin);
 
 /**
  * @route  GET api/user/current

@@ -10,7 +10,7 @@ import IconFacebook from '../../lotties/IconFacebook';
 import IconGoggle from '../../lotties/IconGoggle';
 
 import { connect } from 'react-redux';
-import { loginUser } from '../../actions/authActions';
+import { loginUser, socialLogin } from '../../actions/authActions';
 import { withRouter } from 'react-router-dom';
 
 class Login extends Component {
@@ -37,12 +37,18 @@ class Login extends Component {
   //   }
   // }
   static getDerivedStateFromProps(nextProps, state) {
-    console.log(nextProps);
     if (Object.keys(nextProps.errors).length !== 0) {
-      //error객체가 비어있지 않을경우
-      alert(nextProps.errors.response.data.email);
+      //error객체가 비어있지 않을경우 에러처리
+      console.log(nextProps.errors.response.data.email);
+      if (nextProps.errors.response.data.email !== undefined) {
+        alert(nextProps.errors.response.data.email);
+      } else {
+        alert(nextProps.errors.response.data.password);
+      }
     }
     // return { email: nextProps.match.params.email };
+
+    return null;
   }
 
   onChange = e => {
@@ -65,13 +71,16 @@ class Login extends Component {
   render() {
     const responseFacebook = response => {
       console.log(response);
-      const userData = {
-        email: this.state.email,
-        password: this.state.password,
+      const facebookUser = {
+        email: response.email,
+        password: 'facebook',
+        token: response.accessToken,
       };
-      // console.log(user);
-      this.props.loginUser(userData, this.props.history);
+      this.setState({ ...facebookUser });
+      // this.props.loginUser(facebookUser, this.props.history);
+      this.props.socialLogin(facebookUser, this.props.history);
     };
+
     return (
       <div className="Login">
         <div className="title">지금 푸드워를 시작하세요.</div>
@@ -122,10 +131,11 @@ class Login extends Component {
               <div className="icon">
                 <IconFacebook isStopped={this.state.isStopped} />
               </div>
-              <div className="text facebookColor" onClick={() => FacebookLogin.callback}>
+              <div className="text facebookColor">
                 <FacebookLogin
                   appId="473667476518556" //APP ID NOT CREATED YET
-                  fields="name,email,picture"
+                  fields="name,email,picture" //user_location 은 foodwar 페이스북 앱에서 추가 권한 요청해야함
+                  // scope="user_location"
                   callback={responseFacebook}
                   cssClass="my-facebook-button-class"
                   textButton="Facebook 로그인"
@@ -161,4 +171,5 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   loginUser,
+  socialLogin,
 })(withRouter(Login));

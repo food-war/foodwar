@@ -271,13 +271,23 @@ module.exports = {
               });
             });
           } else {
-            errors.password = 'Password incorrect';
+            errors.password = '비밀번호가 틀렸습니다.';
             return res.status(400).json(errors);
           }
         });
       })
       .catch(err => res.status(404).json(err));
   }, //END LOGIN
+
+  /**
+     * @controller  POST api/user/social_login
+     * @desc        user login
+     * @access      Public
+     */
+
+  socialLogin: async (req, res) => {
+    console.log('socialLogin test~~~~~~~~');
+  },
   current: async (req, res) => {
     res.json({
       id: req.user.id,
