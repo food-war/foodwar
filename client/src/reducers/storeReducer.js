@@ -2,9 +2,20 @@ import {
   GET_STORE_LIST_PENDING,
   GET_STORE_LIST_SUCCESS,
   GET_STORE_LIST_FAILURE,
+  ADDRESS_UPDATE,
 } from '../actions/types';
 
 const initialState = {
+  requestData: {
+    address: '',
+    page: 1,
+    limit: 10,
+    filter: {
+      search_selected: 'store_name',
+      search_text: '',
+      state: '1',
+    },
+  },
   pending: false,
   error: false,
   list: [],
@@ -12,6 +23,13 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
+    case ADDRESS_UPDATE:
+      return {
+        ...state,
+        requestData: {
+          ...action.payload,
+        },
+      };
     case GET_STORE_LIST_PENDING:
       return {
         ...state,

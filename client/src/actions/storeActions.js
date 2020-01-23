@@ -2,25 +2,27 @@ import {
   GET_ERRORS,
   GET_STORE_LIST_PENDING,
   GET_STORE_LIST_SUCCESS,
-  // GET_STORE_LIST_FAILURE,
+  ADDRESS_UPDATE,
 } from './types';
 import axios from 'axios';
 import { REACT_APP_LOCAL_URL, REACT_APP_BACKEND_API_URL } from '../config/env';
 
 const nowUrl = window.location.href;
 
+/** 주소를 받아다가 state에 넣어주는 함수 */
+export const updateAddress = requstData => dispatch => {
+  dispatch({ type: ADDRESS_UPDATE, payload: requstData });
+};
+
 /** 음식점 목록을 가져오는 함수 */
-export const getStoreList = address => dispatch => {
+export const getStoreList = requstData => dispatch => {
+  dispatch({ type: ADDRESS_UPDATE, payload: requstData });
   dispatch({ type: GET_STORE_LIST_PENDING });
 
   let requestUrl = REACT_APP_LOCAL_URL;
   if (nowUrl.indexOf('localhost') === -1) {
     requestUrl = REACT_APP_BACKEND_API_URL;
   }
-
-  const requstData = {
-    address,
-  };
 
   axios
     .post(`${requestUrl}/api/store/list`, requstData)

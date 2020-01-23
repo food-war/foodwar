@@ -5,7 +5,7 @@ import {
   geolocationSuccess,
   geolocationFailure,
 } from '../../actions/geolocationActions';
-import { getStoreList } from '../../actions/storeActions';
+import { getStoreList, updateAddress } from '../../actions/storeActions';
 import GetGeolocation from '../geolocation/GetGeolocation';
 import isEmpty from '../../validation/is-empty';
 import './index.scss';
@@ -21,14 +21,19 @@ class StoreContainer extends Component {
     } else if (fullAddress === -2) {
       this.props.geolocationFailure('현재위치 가져오기 기능이 차단되었습니다.');
     } else {
+      let { requestData } = this.props.store;
+      requestData = {
+        ...requestData,
+        address: fullAddress,
+      };
       this.props.geolocationSuccess(fullAddress);
-      this.props.getStoreList(fullAddress);
+      this.props.getStoreList(requestData);
     }
   };
 
   render() {
     const { geolocation, store } = this.props;
-    const { pending, error, errorMessage, address } = geolocation;
+    const { pending, error, errorMessage } = geolocation;
 
     let result;
 
@@ -46,7 +51,7 @@ class StoreContainer extends Component {
           <div> 식상 목록을 불러 올 수 없습니다. 문제가 지속 될 경우 관리자에게 문의해주세요.</div>
         );
       } else if (storePending) {
-        result = <div> 식상 목록 불러오는중...</div>;
+        result = <div> 식당 목록 불러오는중...</div>;
       } else {
         if (!isEmpty(storeList.errors)) {
           result = <div>{storeList.errors.crawling_error}</div>;
@@ -83,4 +88,5 @@ export default connect(mapStateToProps, {
   geolocationSuccess,
   geolocationFailure,
   getStoreList,
+  updateAddress,
 })(StoreContainer);
