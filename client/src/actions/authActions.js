@@ -45,7 +45,7 @@ export const loginUser = (userData, history) => dispatch => {
 };
 
 export const socialLogin = (userData, history) => dispatch => {
-  console.log(userData);
+  // console.log(userData);
   let requestUrl = REACT_APP_LOCAL_URL;
   if (nowUrl.indexOf('localhost') === -1) {
     requestUrl = REACT_APP_BACKEND_API_URL;
@@ -58,8 +58,8 @@ export const socialLogin = (userData, history) => dispatch => {
   axios
     .post(`${requestUrl}/api/user/social_login`, userData, headers)
     .then(res => {
-      alert('회원가입 인증이 완료되었습니다.');
       //history.push('/login');
+      // console.log(res);
       dispatch({ type: SOCIAL_LOGIN });
     })
     .catch(err => {

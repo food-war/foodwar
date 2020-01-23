@@ -22,34 +22,46 @@ class Login extends Component {
       password: '',
       errors: {},
     };
-    // this.onChange = this.onChange.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   // prop를 받을 때 실행되는 함수
-  // UNSAFE_componentWillReceiveProps(nextProps) {
-  //   // static getDerivedStateFromProps(nextProps, state) {
-  //   // alert('test!!!!!!!!!!!!');
-  //   // console.log(nextProps);
-  //   if (nextProps.errors) {
-  //     //에러가 있을 alert창 띄워줌
-  //     this.setState({ errors: nextProps.errors });
-  //     alert(nextProps.errors.response.data.email);
-  //   }
-  // }
-  static getDerivedStateFromProps(nextProps, state) {
-    if (Object.keys(nextProps.errors).length !== 0) {
-      //error객체가 비어있지 않을경우 에러처리
-      console.log(nextProps.errors.response.data.email);
-      if (nextProps.errors.response.data.email !== undefined) {
-        alert(nextProps.errors.response.data.email);
-      } else {
-        alert(nextProps.errors.response.data.password);
-      }
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    // static getDerivedStateFromProps(nextProps, state) {
+    // alert('test!!!!!!!!!!!!');
+    // console.log(nextProps);
+    if (nextProps.auth.isAuthenticated) {
+      this.props.history.push('/store');
     }
-    // return { email: nextProps.match.params.email };
-
-    return null;
+    if (nextProps.errors) {
+      //에러가 있을 alert창 띄워줌
+      this.setState({ errors: nextProps.errors });
+      // alert(nextProps.errors.response.data.email);
+    }
   }
+  // static getDerivedStateFromProps(nextProps, state) {
+  //   // console.log(state);
+
+  //   if (Object.keys(nextProps.errors).length !== 0) {
+  //     //error객체가 비어있지 않을경우 에러처리
+  //     console.log(nextProps.errors.response.data.email);
+  //     if (nextProps.errors.response.data.email !== undefined) {
+  //       alert(nextProps.errors.response.data.email);
+  //     } else {
+  //       alert(nextProps.errors.response.data.password);
+  //     }
+  //   }
+  //   // if (state.email !== '') {
+  //   //   alert(`${state.email}로 로그인하자!!!!!!`);
+  //   // }
+  //   // return { email: nextProps.match.params.email };
+  //   return null;
+  // }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log(`shoudComponentUpdate ${nextProps}, ${nextState}`);
+  //   console.log(nextProps);
+  //   console.log(nextState);
+  // }
 
   onChange = e => {
     this.setState({

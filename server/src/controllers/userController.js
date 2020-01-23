@@ -247,7 +247,7 @@ module.exports = {
 
     /** Find users by email */
     userModel
-      .findOne({ email })
+      .findOne({ email: email })
       .then(user => {
         if (!user) {
           errors.email = 'Users not found';
@@ -280,13 +280,19 @@ module.exports = {
   }, //END LOGIN
 
   /**
-     * @controller  POST api/user/social_login
-     * @desc        user login
-     * @access      Public
-     */
+   * @controller  POST api/user/social_login
+   * @desc        social login
+   * @access      Public
+   */
 
   socialLogin: async (req, res) => {
-    console.log('socialLogin test~~~~~~~~');
+    console.log(`socialLogin test~~~~~~~~${req.body.token}`);
+    //1. 토큰 테이블 토큰별로 구분해줄 컬럼 추가
+    //2. 회원 태이블 로그인 방법 구분할 컬럼 추가
+    //3. 토큰 Insert하고 회원가입 시키기
+    // 3-1. 구분값에 맞게 insert해야함
+
+    res.status(200).json({ ...req.body });
   },
   current: async (req, res) => {
     res.json({

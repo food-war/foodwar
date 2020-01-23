@@ -25,6 +25,11 @@ const UserSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  userGubn: {
+    type: String,
+    required: true,
+    default: 'user',
+  },
 });
 
 const User = mongoose.model('users', UserSchema);

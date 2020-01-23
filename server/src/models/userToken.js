@@ -15,6 +15,11 @@ const TokenSchema = new Schema({
     type: String,
     default: Date.now,
   },
+  tokenGubn: {
+    type: String,
+    required: true,
+    default: 'user',
+  },
 });
 
 const Token = mongoose.model('token', TokenSchema);
