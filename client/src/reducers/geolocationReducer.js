@@ -1,38 +1,43 @@
 import {
-  GET_STORE_LIST_PENDING,
-  GET_STORE_LIST_SUCCESS,
-  GET_STORE_LIST_FAILURE,
+  GET_GEOLOCATION_PENDING,
+  GET_GEOLOCATION_SUCCESS,
+  GET_GEOLOCATION_FAILURE,
 } from '../actions/types';
 
 const initialState = {
   pending: false,
   error: false,
-  list: [],
+  errorMessage: '',
+  address: '',
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case GET_STORE_LIST_PENDING:
+    case GET_GEOLOCATION_PENDING:
       return {
         ...state,
         pending: true,
         error: false,
-        list: [],
+        errorMessage: '',
+        address: '',
       };
-    case GET_STORE_LIST_SUCCESS:
+    case GET_GEOLOCATION_SUCCESS:
       return {
         ...state,
         pending: false,
         error: false,
-        list: action.payload,
+        errorMessage: '',
+        address: action.payload,
       };
-    case GET_STORE_LIST_FAILURE:
+    case GET_GEOLOCATION_FAILURE:
       return {
         ...state,
         pending: false,
         error: true,
-        list: [],
+        errorMessage: action.payload,
+        address: '',
       };
+
     default:
       return state;
   }

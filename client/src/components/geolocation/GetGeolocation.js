@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { geolocated } from 'react-geolocated';
 import axios from 'axios';
 
-class StoreList extends Component {
+class GetGeolocation extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,6 +13,12 @@ class StoreList extends Component {
       gu: '',
       dong: '',
     };
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    let result = true;
+    if (this.state.latitude === nextState.latitude) result = false;
+    return result;
   }
 
   componentDidUpdate() {
@@ -61,9 +67,12 @@ class StoreList extends Component {
       };
     } else if (!nextProps.isGeolocationAvailable) {
       this.props.getGeolocation(-1);
+      return null;
     } else if (!nextProps.isGeolocationEnabled) {
       this.props.getGeolocation(-2);
+      return null;
     }
+    return null;
   }
 
   render() {
@@ -95,4 +104,4 @@ export default geolocated({
     enableHighAccuracy: false,
   },
   userDecisionTimeout: 5000,
-})(StoreList);
+})(GetGeolocation);
