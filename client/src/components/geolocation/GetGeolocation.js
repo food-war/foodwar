@@ -65,14 +65,17 @@ class GetGeolocation extends Component {
         latitude: nextProps.coords.latitude,
         longitude: nextProps.coords.longitude,
       };
-    } else if (!nextProps.isGeolocationAvailable) {
-      this.props.getGeolocation(-1);
-      return null;
-    } else if (!nextProps.isGeolocationEnabled) {
-      this.props.getGeolocation(-2);
+    } else {
       return null;
     }
-    return null;
+    // } else if (!nextProps.isGeolocationAvailable) {
+    //   this.props.getGeolocation(-1);
+    //   return null;
+    // } else if (!nextProps.isGeolocationEnabled) {
+    //   this.props.getGeolocation(-2);
+    //   return null;
+    // }
+    // return null;
   }
 
   render() {
