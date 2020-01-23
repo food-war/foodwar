@@ -9,7 +9,7 @@ const initialState = {
   requestData: {
     address: '',
     page: 1,
-    limit: 10,
+    limit: 20,
     filter: {
       search_selected: 'store_name',
       search_text: '',

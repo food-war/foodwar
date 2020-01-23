@@ -2,7 +2,16 @@
   width: calc(100% - 300px);
   height: 100%;
   float: left;
-  background-color: pink;
+  overflow-y: scroll;
+  background-color: #EEF0F2;
+
+  .card-wrap {
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    margin: 20px 20px 0 0;
+    overflow: hidden;
+    overflow-y: scroll;
+  }
 }
 
 .StoreContainer::after {
@@ -23,6 +32,10 @@
 
 /* Medium devices (가로 태블릿, 768 픽셀 이상) */
 @media only screen and (max-width: 768px) {
+  .StoreContainer {
+    width: 100%;
+  }
+
   .Food {
     width: 100%;
     height: calc(100% - 58px);

@@ -8,6 +8,7 @@ import {
 import { getStoreList, updateAddress } from '../../actions/storeActions';
 import GetGeolocation from '../geolocation/GetGeolocation';
 import isEmpty from '../../validation/is-empty';
+import StoreItem from './StoreItem';
 import './index.scss';
 
 class StoreContainer extends Component {
@@ -34,37 +35,35 @@ class StoreContainer extends Component {
   render() {
     const { geolocation, store } = this.props;
     const { pending, error, errorMessage } = geolocation;
+    const storePending = store.pending;
+    const storeError = store.error;
+    let storeList = store.list;
 
     let result;
 
-    if (error) {
-      result = <div>{errorMessage}</div>;
-    } else if (pending) {
-      result = <div> 현재 위치 가져오는중...</div>;
-    } else {
-      const storePending = store.pending;
-      const storeError = store.error;
-      let storeList = store.list;
-
-      if (storeError) {
+    if (error || storeError || !isEmpty(storeList.errors)) {
+      if (error) {
+        result = <div>{errorMessage}</div>;
+      } else if (storeError) {
         result = (
           <div> 식상 목록을 불러 올 수 없습니다. 문제가 지속 될 경우 관리자에게 문의해주세요.</div>
         );
-      } else if (storePending) {
-        result = <div> 식당 목록 불러오는중...</div>;
       } else {
-        if (!isEmpty(storeList.errors)) {
-          result = <div>{storeList.errors.crawling_error}</div>;
-        } else {
-          storeList = storeList.result;
+        result = <div>{storeList.errors.crawling_error}</div>;
+      }
+    } else if (pending || storePending) {
+      result = <div> 로딩중...</div>;
+    } else {
+      storeList = storeList.result;
 
-          if (storeList) {
-            result = storeList.map((item, index) => {
-              const { store_name } = item;
-              return <div>{store_name}</div>;
-            });
-          }
-        }
+      if (storeList) {
+        result = (
+          <div className="card-wrap">
+            {storeList.map((store, index) => {
+              return <StoreItem store={store} key={`store_${index}`} />;
+            })}
+          </div>
+        );
       }
     }
 
