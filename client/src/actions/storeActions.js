@@ -1,11 +1,24 @@
-import { GET_ERRORS, GET_STORE_LIST } from './types';
+import {
+  GET_ERRORS,
+  GET_STORE_LIST_PENDING,
+  GET_STORE_LIST_SUCCESS,
+  ADDRESS_UPDATE,
+} from './types';
 import axios from 'axios';
 import { REACT_APP_LOCAL_URL, REACT_APP_BACKEND_API_URL } from '../config/env';
 
 const nowUrl = window.location.href;
 
+/** 주소를 받아다가 state에 넣어주는 함수 */
+export const updateAddress = requstData => dispatch => {
+  dispatch({ type: ADDRESS_UPDATE, payload: requstData });
+};
+
 /** 음식점 목록을 가져오는 함수 */
-export const getStoreList = (requstData = { page: 1 }) => dispatch => {
+export const getStoreList = requstData => dispatch => {
+  dispatch({ type: ADDRESS_UPDATE, payload: requstData });
+  dispatch({ type: GET_STORE_LIST_PENDING });
+
   let requestUrl = REACT_APP_LOCAL_URL;
   if (nowUrl.indexOf('localhost') === -1) {
     requestUrl = REACT_APP_BACKEND_API_URL;
@@ -14,7 +27,7 @@ export const getStoreList = (requstData = { page: 1 }) => dispatch => {
   axios
     .post(`${requestUrl}/api/store/list`, requstData)
     .then(res => {
-      dispatch({ type: GET_STORE_LIST });
+      dispatch({ type: GET_STORE_LIST_SUCCESS, payload: res.data.data });
     })
     .catch(err => {
       dispatch({

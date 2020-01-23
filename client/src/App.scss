@@ -1,6 +1,7 @@
 $foodwar-color: #2e736f;
 $foodwar-red: #d21d36;
 $foodwar-color-light: #46aba5;
+
 html,
 body,
 #root {
@@ -12,6 +13,11 @@ div {
   box-sizing: border-box;
 }
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 .vertical-middle-wrap {
   display: table;
 }
@@ -20,6 +26,7 @@ div {
   display: table-cell;
   vertical-align: middle;
 }
+
 /*공통으로 쓰이는 버튼*/
 .food-btn {
   font-weight: bold;
@@ -34,12 +41,14 @@ div {
   background: white;
   outline: none;
 }
+
 .food-btn:hover {
   background-color: $foodwar-color;
   color: #ffffff;
   box-shadow: $foodwar-color 0 80px 0px 2px inset;
   font-weight: bold;
 }
+
 .food-btn:focus {
   outline: none;
 }
@@ -57,21 +66,25 @@ div {
   color: white;
   outline: none;
 }
+
 .reverse-food-btn:hover {
   background-color: white;
   color: $foodwar-color;
   box-shadow: rgba(255, 255, 255, 1) 0 80px 0px 2px inset;
   font-weight: bold;
 }
+
 .reverse-food-btn:focus {
   outline: none;
 }
+
 /*버튼 크기*/
 .btnSmall {
   width: 10%;
   height: 40px;
   line-height: 40px;
 }
+
 .btnBig {
   width: 100%;
   height: 40px;

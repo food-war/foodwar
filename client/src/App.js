@@ -8,24 +8,24 @@ import { Provider } from 'react-redux';
 import store from './store';
 
 //check for token
-if (localStorage.token) {
-  //Set auth token header auth
-  setAuthToken(localStorage.token);
+// if (localStorage.token) {
+//   //Set auth token header auth
+//   setAuthToken(localStorage.token);
 
-  // Decode token and get user info and exp
-  const decoded = jwt_decode(localStorage.token);
-  //console.log(decoded);
-  // set user and isauthenticated
-  store.dispatch(setCurrentUser(decoded));
-}
+//   // Decode token and get user info and exp
+//   const decoded = jwt_decode(localStorage.token);
+//   //console.log(decoded);
+//   // set user and isauthenticated
+//   store.dispatch(setCurrentUser(decoded));
+// }
 
 class App extends Component {
-  // componentDidMount() {
-  //   if (!localStorage.test) {
-  //     //localStorage.setItem('token', 'test');
-  //     localStorage.clear();
-  //   }
-  // }
+  componentDidMount() {
+    if (!localStorage.test) {
+      localStorage.setItem('token', 'test');
+      //localStorage.clear();
+    }
+  }
 
   render() {
     return (

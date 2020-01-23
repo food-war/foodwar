@@ -1,0 +1,111 @@
+@import '../../App.scss';
+
+.store-card-wrap {
+  float: left;
+  width: 25%;
+  padding-left: 20px;
+  margin-bottom: 20px;
+
+  &:after {
+    clear: both;
+    display: block;
+    content: '';
+  }
+
+  .store-card {
+    background-color: #ffffff;
+    /* border-radius */
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    /* box-shadow */
+    -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px;
+
+    .store-card-image {
+      width: 100%;
+      height: 200px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 5px 5px 0px 0px;
+      }
+    }
+
+    .store-card-contents {
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    .store-card-name {
+      font-size: 1.75rem;
+      color: $foodwar-color-light;
+    }
+
+    .store-card-category {
+      border-bottom: 1px solid #efefef;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+    }
+
+    .store-card-address {
+      padding: 5px 0;
+    }
+
+    .store-card-phone {
+      border-bottom: 1px solid #efefef;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+    }
+
+    .store-card-review {
+      font-size: 12px;
+    }
+
+    .store-card-tag {
+      color: $foodwar-color-light;
+      font-size: 12px;
+      padding: 5px 0;
+    }
+
+    .store-card-priceCategory {
+      color: $foodwar-red;
+      // font-weight: bold;
+      font-size: 14px;
+      // padding: 5px 0;
+    }
+
+  }
+}
+
+/* Extra large devices (대형 노트북 및 데스크톱, 1200px 이상) */
+@media only screen and (max-width: 1200px) {
+  .store-card-wrap {
+    width: 33.33%;
+  }
+}
+
+/* Large devices (노트북 / 데스크톱, 992px 이상) */
+@media only screen and (max-width: 992px) {
+  .store-card-wrap {
+    width: 50%;
+  }
+}
+
+/* Medium devices (가로 태블릿, 768 픽셀 이상) */
+@media only screen and (max-width: 768px) {}
+
+/* Small devices 세로 형 태블릿 및 대형 휴대 전화 (600px 이상) */
+@media only screen and (max-width: 600px) {
+  .store-card-wrap {
+    width: 98%;
+    margin: 0 1%;
+  }
+}
+
+/* Extra small devices (480px 이하) */
+@media only screen and (max-width: 480px) {
+  /* ... */
+}
