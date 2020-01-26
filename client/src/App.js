@@ -21,9 +21,19 @@ import store from './store';
 
 class App extends Component {
   componentDidMount() {
-    if (!localStorage.test) {
-      localStorage.setItem('token', 'test');
-      //localStorage.clear();
+    // if (!localStorage.test) {
+    //   localStorage.setItem('token', 'test');
+    //   //localStorage.clear();
+    // }
+    if (localStorage.token) {
+      //Set auth token header auth
+      setAuthToken(localStorage.token);
+
+      // Decode token and get user info and exp
+      // const decoded = jwt_decode(localStorage.token);
+      //console.log(decoded);
+      // set user and isauthenticated
+      store.dispatch(setCurrentUser(localStorage.token));
     }
   }
 

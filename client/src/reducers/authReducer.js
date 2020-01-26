@@ -38,6 +38,7 @@ export default function(state = initialState, action) {
     case SOCIAL_LOGIN:
       return {
         ...state,
+        isAuthenticated: !isEmpty(action.payload),
         user: action.payload,
       };
     default:

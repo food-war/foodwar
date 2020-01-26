@@ -8,7 +8,7 @@ const TokenSchema = new Schema({
   },
   token: {
     type: String,
-    maxlength: 65,
+    maxlength: 300,
     required: true,
   },
   EndDate: {

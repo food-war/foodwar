@@ -2,6 +2,7 @@ import gravatar from 'gravatar';
 import bcrypt from 'bcryptjs';
 import AWS from 'aws-sdk';
 import moment from 'moment'; //시간 관련 모듈
+import { isNull } from 'util';
 
 AWS.config.loadFromPath(__dirname + '/../config/awsconfig.json'); //자격증명 연결
 AWS.config.update({ region: 'us-west-2' }); //지역 설정해주는문법 oregon
@@ -61,9 +62,9 @@ module.exports = {
     //   -> 토큰테이블에 있는 토큰, 이메일 이랑 입력받은 토큰, 이메일이 있는지
     //   -> 토큰테이블에서 token - bcript compare 해서 같은지 체크
     // 2. token 만료 시간이랑 현재 시간 비교해서 만료시간보다 크면 안되게끔
-    console.log(
-      `서버단 연결 성공 토큰: ${req.body.token}  이메일 : ${req.body.email} and time : ${new Date()}`,
-    );
+    // console.log(
+    //   `서버단 연결 성공 토큰: ${req.body.token}  이메일 : ${req.body.email} and time : ${new Date()}`,
+    // );
     const { errors, isValid } = validateTokenInput(req.body);
     if (!isValid) {
       return res.status(400).json(errors);
@@ -131,7 +132,7 @@ module.exports = {
     // console.log(re_params);
     let ses_token = '';
     userModel
-      .findOne({ email: req.body.email })
+      .findOne({ email: req.body.email, userGubn: 'nomal' })
       .then(user => {
         if (user) {
           // return res.status(400).json({message: "This email already exists."});
@@ -286,13 +287,71 @@ module.exports = {
    */
 
   socialLogin: async (req, res) => {
-    console.log(`socialLogin test~~~~~~~~${req.body.token}`);
+    // console.log(`socialLogin test~~~~~~~~${req.body.token}`);
     //1. 토큰 테이블 토큰별로 구분해줄 컬럼 추가
     //2. 회원 태이블 로그인 방법 구분할 컬럼 추가
     //3. 토큰 Insert하고 회원가입 시키기
     // 3-1. 구분값에 맞게 insert해야함
 
-    res.status(200).json({ ...req.body });
+    const newUser = new userModel({
+      name: req.body.name,
+      email: req.body.email,
+      avatar: req.body.picture,
+      password: req.body.password,
+      date: new Date(),
+      confirmToken: true,
+      userGubn: req.body.userGubn,
+    });
+    // console.log(newUser);
+
+    let date2 = new Date();
+    // add a day
+    date2.setDate(date2.getDate() + 1);
+
+    const newToken = new userToken({
+      email: req.body.email,
+      token: req.body.token,
+      EndDate: date2,
+      tokenGubn: req.body.userGubn,
+    });
+    //소셜로그인 회원 가입 되어있는지 체크
+
+    userModel
+      .findOne({ email: newUser.email, userGubn: newUser.userGubn })
+      .then(user => {
+        if (!isNull(user)) {
+          console.log(`로그인 처리하기 ${user}`);
+
+          res.json({
+            success: true,
+            token: 'Bearer ' + req.body.token,
+          });
+        } else {
+          console.log('회원가입 처리 하기');
+          //token 암호화
+          bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(newUser.password, salt, (err, hash) => {
+              if (err) throw err;
+              newUser.password = hash;
+              //insert
+              newUser.save();
+
+              newToken.save();
+              res.json({
+                success: true,
+                token: 'Bearer ' + req.body.token,
+              });
+            });
+          });
+        }
+        //여기선 로그인 처리
+      })
+      .catch(err => {
+        res.status(400).json(err);
+      });
+
+    // res.status(200).json({ ...req.body });
+    // newUser.save();
   },
   current: async (req, res) => {
     res.json({

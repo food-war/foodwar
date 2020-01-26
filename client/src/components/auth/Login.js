@@ -84,9 +84,13 @@ class Login extends Component {
     const responseFacebook = response => {
       console.log(response);
       const facebookUser = {
+        id: response.userID,
+        name: response.name,
         email: response.email,
         password: 'facebook',
         token: response.accessToken,
+        picture: response.picture.data.url,
+        userGubn: response.graphDomain, //facebook
       };
       this.setState({ ...facebookUser });
       // this.props.loginUser(facebookUser, this.props.history);

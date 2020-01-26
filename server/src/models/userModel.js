@@ -28,7 +28,7 @@ const UserSchema = new Schema({
   userGubn: {
     type: String,
     required: true,
-    default: 'user',
+    default: 'normal',
   },
 });
 

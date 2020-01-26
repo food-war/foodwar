@@ -58,8 +58,22 @@ export const socialLogin = (userData, history) => dispatch => {
   axios
     .post(`${requestUrl}/api/user/social_login`, userData, headers)
     .then(res => {
-      //history.push('/login');
-      // console.log(res);
+      // alert('test');
+      console.log(res);
+      const { success, token } = res.data;
+      localStorage.token = token;
+      localStorage.success = success;
+
+      //set token to auth header
+      setAuthToken(token);
+      //Decode token to get user data
+      // const decoded = jwt_decode(token);
+
+      // dispatch({ type: LOGIN_ACTION });
+      //Set current user
+      // dispatch(setCurrentUser(decoded));
+
+      history.push('/store');
       dispatch({ type: SOCIAL_LOGIN });
     })
     .catch(err => {
