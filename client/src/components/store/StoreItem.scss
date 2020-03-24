@@ -37,6 +37,9 @@
     .store-card-contents {
       padding: 10px;
       font-size: 14px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .store-card-name {
@@ -76,7 +79,6 @@
       font-size: 14px;
       // padding: 5px 0;
     }
-
   }
 }
 
@@ -95,13 +97,14 @@
 }
 
 /* Medium devices (가로 태블릿, 768 픽셀 이상) */
-@media only screen and (max-width: 768px) {}
+@media only screen and (max-width: 768px) {
+}
 
 /* Small devices 세로 형 태블릿 및 대형 휴대 전화 (600px 이상) */
 @media only screen and (max-width: 600px) {
   .store-card-wrap {
     width: 98%;
-    margin: 0 1%;
+    margin: 2% 1%;
   }
 }
 
