@@ -43,13 +43,19 @@ class StoreContainer extends Component {
 
     if (error || storeError || !isEmpty(storeList.errors)) {
       if (error) {
-        result = <div>{errorMessage}</div>;
-      } else if (storeError) {
         result = (
-          <div> 식상 목록을 불러 올 수 없습니다. 문제가 지속 될 경우 관리자에게 문의해주세요.</div>
+          <div>
+            {errorMessage}
+          </div>
         );
+      } else if (storeError) {
+        result = <div> 식상 목록을 불러 올 수 없습니다. 문제가 지속 될 경우 관리자에게 문의해주세요.</div>;
       } else {
-        result = <div>{storeList.errors.crawling_error}</div>;
+        result = (
+          <div>
+            {storeList.errors.crawling_error}
+          </div>
+        );
       }
     } else if (pending || storePending) {
       result = <div> 로딩중...</div>;

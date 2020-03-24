@@ -73,8 +73,9 @@ export const socialLogin = (userData, history) => dispatch => {
       //Set current user
       // dispatch(setCurrentUser(decoded));
 
-      history.push('/store');
       dispatch({ type: SOCIAL_LOGIN });
+      history.push('/store');
+      window.location.reload();
     })
     .catch(err => {
       dispatch({

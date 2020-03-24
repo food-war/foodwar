@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './StoreItem.scss';
 
 const StoreItem = ({ store }) => {
-  console.log(store);
+  // console.log(store);
   const {
     store_id,
     store_name,
@@ -39,11 +39,21 @@ const StoreItem = ({ store }) => {
             <img src={store_imageSrc} alt={store_name} />
           </div>
           <div className="store-card-contents">
-            <div className="store-card-name">{store_name}</div>
-            <div className="store-card-category">{store_category}</div>
-            <div className="store-card-address">{store_roadAddr}</div>
-            <div className="store-card-phone">{store_phone}</div>
-            <div className="store-card-review">전체 리뷰 개수: {store_totalReviewCount}개</div>
+            <div className="store-card-name">
+              {store_name}
+            </div>
+            <div className="store-card-category">
+              {store_category}
+            </div>
+            <div className="store-card-address">
+              {store_roadAddr}
+            </div>
+            <div className="store-card-phone">
+              {store_phone}
+            </div>
+            <div className="store-card-review">
+              전체 리뷰 개수: {store_totalReviewCount}개
+            </div>
             <div className="store-card-tag">
               {store_tags.length > 0 && store_tags[0] !== ''
                 ? store_tags.map(item => {
