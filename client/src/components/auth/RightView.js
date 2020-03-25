@@ -14,10 +14,14 @@ export default class RightView extends Component {
           <Route exact path="/">
             <Login />
           </Route>
+          {/* 토큰이 없는 상태에서 스토어로 접근했을 때  */}
+          <Route path="/store">
+            <Login />
+          </Route>
           <Route path="/login">
             <Login />
           </Route>
-          <Route exact path="/register">
+          <Route path="/register">
             <Register />
           </Route>
           <Route path="/register/:email">
