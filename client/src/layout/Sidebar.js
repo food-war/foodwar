@@ -29,6 +29,13 @@ export default class Sidebar extends Component {
     });
   };
 
+  logOut = () => {
+    if(window.localStorage.token){
+      window.localStorage.clear();
+      alert('정상적으로 로그아웃 되었습니다.');
+      window.location.reload();
+    }
+  }
   render() {
     return (
       <>
@@ -39,6 +46,7 @@ export default class Sidebar extends Component {
           <div className="mobile-item mobile-selected">주변 식당 찾기</div>
           <div className="mobile-item">식당 추천 받기</div>
           <div className="mobile-item">마이페이지</div>
+          <div className="mobile-item" onClick={this.logOut}>로그 아웃</div>
         </div>
         <div className="Sidebar">
           <div className="logo">Food war</div>
@@ -46,6 +54,7 @@ export default class Sidebar extends Component {
             <div className="item selected">주변 식당 찾기</div>
             <div className="item">식당 추천 받기</div>
             <div className="item">마이페이지</div>
+            <div className="item" onClick={this.logOut}>로그 아웃</div>
           </div>
           <div className="mobile-header">
             <div className="mobile-logo">Food war</div>
