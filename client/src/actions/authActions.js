@@ -35,6 +35,7 @@ export const loginUser = (userData, history) => dispatch => {
       dispatch(setCurrentUser(decoded));
 
       history.push('/store');
+      window.location.reload();
     })
     .catch(err => {
       dispatch({

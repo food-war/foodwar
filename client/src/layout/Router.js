@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import { Auth, Store } from '../pages';
+import { Auth, Store, Login } from '../pages';
 import './Route.scss';
 
 import Sidebar from './Sidebar';
@@ -12,13 +12,19 @@ class Router extends Component {
         {localStorage.token ? (
           <div className="Route">
             <Sidebar />
-            <Route exact path="/store" component={Store} />
+            <Route exact path ="/" component={Store} />
+            <Route path="/store" component={Store} />
+            <Route path ="/login" component={Store} />
+            <Route path ="/register" component={Store} />
           </div>
         ) : (
           <>
             <Route exact path="/" component={Auth} />
             <Route path="/login" component={Auth}/>
             <Route path="/register" component={Auth} />
+            
+            {/* 토큰 없이 스토어에 접근했을 경우 */}
+            <Route path="/store" component={Auth} />
           </>
         )}
 

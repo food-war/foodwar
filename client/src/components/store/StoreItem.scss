@@ -55,6 +55,8 @@
 
     .store-card-address {
       padding: 5px 0;
+      overflow: hidden;
+      text-overflow: inherit;
     }
 
     .store-card-phone {
