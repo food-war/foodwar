@@ -46,7 +46,7 @@ export const loginUser = (userData, history) => dispatch => {
 };
 
 export const socialLogin = (userData, history) => dispatch => {
-  // console.log(userData);
+  console.log(userData);
   let requestUrl = REACT_APP_LOCAL_URL;
   if (nowUrl.indexOf('localhost') === -1) {
     requestUrl = REACT_APP_BACKEND_API_URL;

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import $ from 'jquery';
 import Menu from '../lotties/Menu';
 import './Sidebar.scss';
+import setAuthToken from '../utils/setAuthToken';
 
 export default class Sidebar extends Component {
   constructor(props) {
@@ -34,6 +35,7 @@ export default class Sidebar extends Component {
       window.localStorage.clear();
       alert('정상적으로 로그아웃 되었습니다.');
       window.location.reload();
+      setAuthToken();
     }
   }
   render() {

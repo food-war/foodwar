@@ -132,7 +132,7 @@ module.exports = {
     // console.log(re_params);
     let ses_token = '';
     userModel
-      .findOne({ email: req.body.email, userGubn: 'nomal' })
+      .findOne({ email: req.body.email, userGubn: 'normal' })
       .then(user => {
         if (user) {
           // return res.status(400).json({message: "This email already exists."});
@@ -176,8 +176,9 @@ module.exports = {
       .findOne({ email: req.body.email })
       .then(Token => {
         if (Token) {
+          console.log(Token);
           errors.email = '이 이메일은 이미 토큰값을 가지고 있습니다.';
-          return res.status(400).json(errors.email);
+          return res.status(400).json(errors.email + Token);
         } else {
           let date2 = new Date();
           // add a day

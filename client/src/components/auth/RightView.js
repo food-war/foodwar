@@ -21,7 +21,7 @@ export default class RightView extends Component {
           <Route path="/login">
             <Login />
           </Route>
-          <Route path="/register">
+          <Route exact path="/register">
             <Register />
           </Route>
           <Route path="/register/:email">
