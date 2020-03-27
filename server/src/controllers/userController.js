@@ -108,7 +108,7 @@ module.exports = {
         }
       })
       .catch(err => {
-        console.log(`에러~~~~~~~~~~~~`);
+        // console.log(`에러~~~~~~~~~~~~`);
         errors.email = '입력하신 토큰이 유효하지 않습니다.';
         return res.status(400).json(errors);
       });
@@ -176,7 +176,6 @@ module.exports = {
       .findOne({ email: req.body.email })
       .then(Token => {
         if (Token) {
-          console.log(Token);
           errors.email = '이 이메일은 이미 토큰값을 가지고 있습니다.';
           return res.status(400).json(errors.email + Token);
         } else {
@@ -321,14 +320,14 @@ module.exports = {
       .findOne({ email: newUser.email, userGubn: newUser.userGubn })
       .then(user => {
         if (!isNull(user)) {
-          console.log(`로그인 처리하기 ${user}`);
+          // console.log(`로그인 처리하기 ${user}`);
 
           res.json({
             success: true,
             token: 'Bearer ' + req.body.token,
           });
         } else {
-          console.log('회원가입 처리 하기');
+          // console.log('회원가입 처리 하기');
           //token 암호화
           bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(newUser.password, salt, (err, hash) => {

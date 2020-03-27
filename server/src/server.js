@@ -4,7 +4,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import passport from 'passport';
-import { BACKEND_PORT, BACKEND_MONGODB } from './config/env';
+import { BACKEND_PORT, BACKEND_MONGODB, BACKEND_MONGODB_EC2 } from './config/env';
 
 /* Routes */
 import userRouter from './routes/api/userRouter';
@@ -38,7 +38,7 @@ require('./config/passport')(passport);
 /** mongoose 관련 코드 시작 */
 mongoose.Promise = global.Promise;
 mongoose
-  .connect(BACKEND_MONGODB, {
+  .connect(BACKEND_MONGODB_EC2, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
