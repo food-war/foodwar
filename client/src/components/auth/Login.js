@@ -30,9 +30,9 @@ class Login extends Component {
     // static getDerivedStateFromProps(nextProps, state) {
     // alert('test!!!!!!!!!!!!');
     // console.log(nextProps);
-    if (nextProps.auth.isAuthenticated) {
-      this.props.history.push('/store');
-    }
+    // if (nextProps.auth.isAuthenticated) {
+    //   this.props.history.push('/store');
+    // }
     if (nextProps.errors) {
       //에러가 있을 alert창 띄워줌
       this.setState({ errors: nextProps.errors });

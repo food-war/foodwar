@@ -41,7 +41,8 @@ class Auth_token extends Component {
       email: this.state.email,
       token: this.state.token,
     };
-    this.props.AuthToken(data, this.props.history); // history는 redux dev tool 에 찍기 위함
+    // this.props.AuthToken(data, this.props.history); // history는 redux dev tool 에 찍기 위함
+    this.props.AuthToken(data);
   };
   render() {
     return (
