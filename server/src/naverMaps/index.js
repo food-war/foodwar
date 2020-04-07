@@ -34,7 +34,12 @@ module.exports = {
       };
 
       // 네이버 map 응답 데이터
-      const html = await axios.get(options.url, options.headers);
+      //const html = await axios.get(options.url, options.headers);
+      let html = '';
+      await axios
+        .get(options.url, options.headers)
+        .then(r => (html = r))
+        .catch(e => console.log(e));
       let data = html.data;
 
       // 응답 데이터 정제하는 과정

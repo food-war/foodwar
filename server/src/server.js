@@ -1,3 +1,4 @@
+import '@babel/polyfill';
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
@@ -37,7 +38,7 @@ require('./config/passport')(passport);
 
 /** mongoose 관련 코드 시작 */
 mongoose.Promise = global.Promise;
-mongoose
+mongoose //BACKEND_MONGODB_EC2 : ec2 몽고에 연결
   .connect(BACKEND_MONGODB_EC2, {
     useNewUrlParser: true,
     useCreateIndex: true,
