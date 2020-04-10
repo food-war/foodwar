@@ -76,8 +76,12 @@
     height: 10%;
     color: $foodwar-color;
     border-top: 1px solid #dcdcdc;
+    display: flex;
+    align-items: center;
+    font-size: 1.3rem;
     span {
       cursor: pointer;
+      padding-top: 0.8em;
     }
     span:nth-child(1) {
       width: 50%;
@@ -132,8 +136,9 @@
     .title {
       font-size: 1.5rem;
     }
-    /* ... */
-    .contents {
+    // flex로 변경하면서 모바일 css 추가
+    .content-footer {
+      font-size: 1.2rem;
     }
   }
   /* Extra small devices (320px 이하) */

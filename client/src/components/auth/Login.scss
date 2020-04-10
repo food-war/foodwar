@@ -3,7 +3,8 @@
 .Login {
   height: 100%;
   text-align: left;
-  padding: 10px;
+  //padding: 10px;
+  padding: 0.8em;
   font-size: 1.3rem;
   a {
     text-decoration: none;
@@ -147,13 +148,21 @@
     }
   }
   .content-footer {
-    height: 10%;
-    color: $foodwar-color;
+    // height: 10%;
+    // color: $foodwar-color;
     border-top: 1px solid #dcdcdc;
-    display: table;
+    // display: table;
+    // width: 100%;
+    display: flex;
+    color: $foodwar-color;
+    justify-content: center;
+    align-items: center;
+    height: 10%;
+    font-size: 1.3rem;
     width: 100%;
     span {
       vertical-align: middle;
+      padding-top: 0.8em;
     }
     span:nth-child(1) {
       width: 50%;
@@ -204,9 +213,9 @@
         width: 100%;
         text-align: center;
       }
-      span + span {
-        margin-top: 5px;
-      }
+      // span + span {
+      //   margin-top: 5px;
+      // }
     }
   }
   /* Medium devices (가로 태블릿, 768 픽셀 이상) */
@@ -249,6 +258,19 @@
           float: left;
           margin: 0px;
         }
+      }
+    }
+    // flex로 변경하면서 모바일 css 추가
+    .content-footer {
+      flex-wrap: wrap;
+      padding-top: 0.5em;
+      font-size: 1.2rem;
+
+      span {
+        padding-top: 0em;
+      }
+      span + span {
+        padding-top: 0.2em;
       }
     }
   }
