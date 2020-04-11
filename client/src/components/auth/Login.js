@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import { loginUser, socialLogin } from '../../actions/authActions';
 import { withRouter } from 'react-router-dom';
 
+import isEmpty from '../../validation/is-empty';
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -34,8 +35,8 @@ class Login extends Component {
     //   this.props.history.push('/store');
     // }
     if (nextProps.errors) {
-      //에러가 있을 alert창 띄워줌
-      this.setState({ errors: nextProps.errors });
+      this.setState({ errors: nextProps.errors.response.data });
+      console.log(this.state.errors);
       // alert(nextProps.errors.response.data.email);
     }
   }
@@ -65,6 +66,7 @@ class Login extends Component {
 
   onChange = e => {
     this.setState({
+      errors: {},
       [e.target.name]: e.target.value,
     });
   };
@@ -82,7 +84,6 @@ class Login extends Component {
 
   render() {
     const responseFacebook = response => {
-      console.log(response);
       const facebookUser = {
         id: response.userID,
         name: response.name,
@@ -106,10 +107,12 @@ class Login extends Component {
               <div>
                 <input
                   type="email"
-                  placeholder="이메일을 입력해주세요."
+                  placeholder={
+                    !isEmpty(this.state.errors.email) ? this.state.errors.email : '이메일을 입력해주세요.'
+                  }
                   name="email"
                   id="email"
-                  value={this.state.email}
+                  value={!isEmpty(this.state.errors.email) ? '' : this.state.email}
                   onChange={this.onChange}
                   required
                 />
@@ -118,9 +121,14 @@ class Login extends Component {
                 <input
                   type="password"
                   name="password"
-                  value={this.state.password}
+                  value={!isEmpty(this.state.errors.password) ? '' : this.state.password}
                   onChange={this.onChange}
-                  placeholder="비밀번호를 입력해주세요."
+                  //placeholder="비밀번호를 입력해주세요."
+                  placeholder={
+                    !isEmpty(this.state.errors.password)
+                      ? this.state.errors.password
+                      : '비밀번호를 입력해주세요.'
+                  }
                   required
                 />
               </div>

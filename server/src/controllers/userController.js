@@ -72,21 +72,6 @@ module.exports = {
     userToken
       .findOne({ token: req.body.token, email: req.body.email })
       .then(token => {
-        // console.log(`req.body.token : ${req.body.token} token.token : ${token}`);
-
-        // bcrypt.compare(req.body.token, token.token).then(isMatch => {
-        //   console.log(`isMatch---> ${isMatch}`);
-        //   if (isMatch) {
-        //     console.log(`비크립트 비교 성공`);
-        //     // const payload = { id: user.id, name: user.name, avatar: user.avatar };
-        //     // Sign Token
-        //   } else {
-        //     errors.token = 'token incorrect';
-        //     console.log(errors.token);
-        //     return res.status(400).json(errors);
-        //   }
-        // });
-
         const nowDate = moment();
         const diffDate = moment.duration(nowDate.diff(token.EndDate)).asMinutes();
         if (diffDate < 0) {
@@ -251,7 +236,7 @@ module.exports = {
       .findOne({ email: email })
       .then(user => {
         if (!user) {
-          errors.email = 'Users not found';
+          errors.email = '회원정보를 찾을 수 없습니다.';
           return res.status(400).json(errors);
         }
         if (user.confirmToken === false) {
