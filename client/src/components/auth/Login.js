@@ -28,12 +28,6 @@ class Login extends Component {
 
   // prop를 받을 때 실행되는 함수
   UNSAFE_componentWillReceiveProps(nextProps) {
-    // static getDerivedStateFromProps(nextProps, state) {
-    // alert('test!!!!!!!!!!!!');
-    // console.log(nextProps);
-    // if (nextProps.auth.isAuthenticated) {
-    //   this.props.history.push('/store');
-    // }
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors.response.data });
       console.log(this.state.errors);

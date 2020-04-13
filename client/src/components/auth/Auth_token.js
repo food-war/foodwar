@@ -6,6 +6,7 @@ import './Auth_token.scss';
 import { connect } from 'react-redux';
 import { AuthToken } from '../../actions/authActions';
 import { withRouter } from 'react-router-dom';
+import isEmpty from '../../validation/is-empty';
 class Auth_token extends Component {
   constructor(props) {
     super(props);
@@ -13,6 +14,7 @@ class Auth_token extends Component {
     this.state = {
       email: '',
       token: '',
+      errors: {},
     };
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -21,15 +23,17 @@ class Auth_token extends Component {
   //render() 메서드가 호출되기 이전에 호출된다.
   //전달받은 props를 state에 동기화 시키는 용도로 사용.
   static getDerivedStateFromProps(props, state) {
-    console.log(props.errors);
-    if (Object.keys(props.errors).length !== 0) {
-      //error객체가 비어있지 않을경우
-      alert(props.errors.email);
+    // :email match.params로 받아온 이메일을 render되기전 email에 넣어줌
+    if (!isEmpty(state.errors)) {
+      return { email: props.match.params.email, token: '' };
+    } else {
+      return { email: props.match.params.email, errors: props.errors };
     }
-    return { email: props.match.params.email };
   }
+
   onChange = e => {
     this.setState({
+      errors: {},
       [e.target.name]: e.target.value,
     });
   };
@@ -41,8 +45,13 @@ class Auth_token extends Component {
       email: this.state.email,
       token: this.state.token,
     };
-    // this.props.AuthToken(data, this.props.history); // history는 redux dev tool 에 찍기 위함
-    this.props.AuthToken(data);
+    this.props.AuthToken(data, this.props.history); // history는 redux dev tool 에 찍기 위함
+    //this.props.AuthToken(data);
+    this.setState({ token: '' });
+  };
+  //뒤로가기
+  goBack = () => {
+    this.props.history.goBack();
   };
   render() {
     return (
@@ -60,16 +69,20 @@ class Auth_token extends Component {
                   value={this.state.email}
                   onChange={this.onChange}
                   required
-                  readOnly
                 />
               </div>
               <div>
                 <input
                   type="password"
                   name="token"
+                  // value={!isEmpty(this.state.errors.password) ? '' : this.state.token}
                   value={this.state.token}
                   onChange={this.onChange}
-                  placeholder="인증번호를 입력해주세요."
+                  placeholder={
+                    !isEmpty(this.state.errors.password)
+                      ? this.state.errors.password
+                      : '인증번호를 입력해주세요.'
+                  }
                   required
                 />
               </div>

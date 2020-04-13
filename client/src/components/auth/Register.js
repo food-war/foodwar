@@ -6,6 +6,7 @@ import './Register.scss';
 import { connect } from 'react-redux';
 import { registerUser } from '../../actions/authActions';
 import { withRouter } from 'react-router-dom';
+import isEmpty from '../../validation/is-empty';
 //withRouter 에서는 history, location, match 이 3가지 props를 제공해줌
 class Register extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class Register extends Component {
 
   // prop를 받을 때 실행되는 함수
   // 리액트 생명주기에서는 componentDidMount를 제일 많이 씀
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       // nextProps에 에러가 존재한다면..
       this.setState({ errors: nextProps.errors }); // state의 errors값을 변경
@@ -32,6 +33,7 @@ class Register extends Component {
 
   onChange = e => {
     this.setState({
+      errors: {},
       [e.target.name]: e.target.value,
     });
   };
@@ -45,6 +47,12 @@ class Register extends Component {
       password: this.state.password,
       password2: this.state.password2,
     };
+    //앞단에서 비밀번호 검증 추가 (server - validateRegisterInput)
+    if (newUser.password !== newUser.password2) {
+      this.setState({
+        errors: { password2: '비밀번호 확인필드가 일치하지 않습니다.' },
+      });
+    }
     this.props.registerUser(newUser, this.props.history); // history는 redux dev tool 에 찍기 위함
   };
   //뒤로가기
@@ -61,10 +69,12 @@ class Register extends Component {
               <div>
                 <input
                   type="text"
-                  placeholder="이름을 입력해주세요."
+                  placeholder={
+                    !isEmpty(this.state.errors.name) ? this.state.errors.name : '이름을 입력해주세요.'
+                  }
                   name="name"
                   id="name"
-                  value={this.state.name}
+                  value={!isEmpty(this.state.errors.name) ? '' : this.state.name.trim()}
                   onChange={this.onChange}
                   required
                 />
@@ -72,10 +82,12 @@ class Register extends Component {
               <div>
                 <input
                   type="email"
-                  placeholder="이메일을 입력해주세요."
+                  placeholder={
+                    !isEmpty(this.state.errors.email) ? this.state.errors.email : '이메일을 입력해주세요.'
+                  }
                   name="email"
                   id="email"
-                  value={this.state.email}
+                  value={!isEmpty(this.state.errors.email) ? '' : this.state.email}
                   onChange={this.onChange}
                   required
                 />
@@ -84,9 +96,13 @@ class Register extends Component {
                 <input
                   type="password"
                   name="password"
-                  value={this.state.password}
+                  value={!isEmpty(this.state.errors.password) ? '' : this.state.password.trim()}
                   onChange={this.onChange}
-                  placeholder="비밀번호를 입력해주세요."
+                  placeholder={
+                    !isEmpty(this.state.errors.password)
+                      ? this.state.errors.password
+                      : '비밀번호를 입력해주세요.'
+                  }
                   required
                 />
               </div>
@@ -94,9 +110,13 @@ class Register extends Component {
                 <input
                   type="password"
                   name="password2"
-                  value={this.state.password2}
+                  value={!isEmpty(this.state.errors.password2) ? '' : this.state.password2.trim()}
                   onChange={this.onChange}
-                  placeholder="비밀번호를 다시 입력해주세요."
+                  placeholder={
+                    !isEmpty(this.state.errors.password2)
+                      ? this.state.errors.password2
+                      : '비밀번호를 다시 입력해주세요.'
+                  }
                   required
                 />
               </div>

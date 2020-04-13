@@ -94,7 +94,7 @@ module.exports = {
       })
       .catch(err => {
         // console.log(`에러~~~~~~~~~~~~`);
-        errors.email = '입력하신 토큰이 유효하지 않습니다.';
+        errors.password = '입력하신 토큰이 유효하지 않습니다.';
         return res.status(400).json(errors);
       });
   },
@@ -121,7 +121,8 @@ module.exports = {
       .then(user => {
         if (user) {
           // return res.status(400).json({message: "This email already exists."});
-          errors.email = 'This email already exists.';
+          //errors.email = 'This email already exists.';
+          errors.email = '이미 존재하는 이메일입니다.';
           return res.status(400).json(errors);
         } else {
           /** Create new avatar */
@@ -204,7 +205,6 @@ module.exports = {
                 if (err) {
                   console.log(err.message);
                 } else {
-                  //alert('이메일이 정상적으로 보내졌습니다');
                   console.log('Email sent! Message ID: ', data.MessageId);
                 }
               });

@@ -142,10 +142,11 @@ export const AuthToken = (data, history) => dispatch => {
     .post(`${requestUrl}/api/user/register/checkToken`, data, headers)
     .then(res => {
       alert('회원가입 인증이 완료되었습니다.');
-      history.push('/login');
       dispatch({ type: AUTH_TOKETN });
+      history.replace('/login');
     })
     .catch(err => {
+      //console.log(err);
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data,
