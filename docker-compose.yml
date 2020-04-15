@@ -20,28 +20,13 @@ services:
       - NODE_PATH=src
       - PORT=4000
       - DB_HOST=mongo
-      - DB=test
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
+      - DB=foodwar
     networks:
       - backend
     depends_on:
       - mongo
-      - redis
     ports:
       - "4000:4000"
-  redis:
-    container_name: redis
-    image: redis
-    environment:
-      - ALLOW_EMPTY_PASSWORD=yes
-    networks:
-      - backend
-    volumes:
-      - data:/data/redis
-    ports:
-      - "6379:6379"
-    restart: always
   mongo:
     container_name: mongo
     image: mongo
@@ -51,7 +36,6 @@ services:
       - "27017:27017"
     networks:
       - backend
-
   nginx:
     restart: always
     build:
