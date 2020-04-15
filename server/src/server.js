@@ -38,6 +38,7 @@ require('./config/passport')(passport);
 
 /** mongoose 관련 코드 시작 */
 mongoose.Promise = global.Promise;
+
 mongoose
   .connect(BACKEND_MONGODB, {
     useNewUrlParser: true,
@@ -45,12 +46,12 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => console.log('MongoDB Connected...'))
-  .catch((err) => console.log(err));
+  .catch(err => console.log(err));
 mongoose.set('userFindAndModify', false);
 /** mongoose 관련 코드 끝 */
 
 /**user routes */
-app.get('/sayHello', function (req, res) {
+app.get('/sayHello', function(req, res) {
   res.send('Hello from the foodwar back-end!!!');
 });
 app.use('/api/user', userRouter);

@@ -29,34 +29,11 @@ class Login extends Component {
   // prop를 받을 때 실행되는 함수
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors.response.data });
+      this.setState({ errors: nextProps.errors });
       console.log(this.state.errors);
       // alert(nextProps.errors.response.data.email);
     }
   }
-  // static getDerivedStateFromProps(nextProps, state) {
-  //   // console.log(state);
-
-  //   if (Object.keys(nextProps.errors).length !== 0) {
-  //     //error객체가 비어있지 않을경우 에러처리
-  //     console.log(nextProps.errors.response.data.email);
-  //     if (nextProps.errors.response.data.email !== undefined) {
-  //       alert(nextProps.errors.response.data.email);
-  //     } else {
-  //       alert(nextProps.errors.response.data.password);
-  //     }
-  //   }
-  //   // if (state.email !== '') {
-  //   //   alert(`${state.email}로 로그인하자!!!!!!`);
-  //   // }
-  //   // return { email: nextProps.match.params.email };
-  //   return null;
-  // }
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   console.log(`shoudComponentUpdate ${nextProps}, ${nextState}`);
-  //   console.log(nextProps);
-  //   console.log(nextState);
-  // }
 
   onChange = e => {
     this.setState({

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import $ from 'jquery';
 import Menu from '../lotties/Menu';
 import './Sidebar.scss';
@@ -38,23 +39,32 @@ export default class Sidebar extends Component {
       setAuthToken();
     }
   }
+ 
   render() {
     return (
       <>
+        {/* 모바일 */}
         <div id="mobile-toggle-menu-list">
-          {/* <div className="mobile-close">
-            <span onClick={this.menuToggle}>X</span>
-          </div> */}
-          <div className="mobile-item mobile-selected">주변 식당 찾기</div>
-          <div className="mobile-item">식당 추천 받기</div>
+          <div className="mobile-item mobile-selected">
+            <Link to="/store">주변 식당 찾기</Link>
+          </div>
+          <div className="mobile-item">
+            <Link to="./recommend">식당 추천 받기</Link>
+          </div>
           <div className="mobile-item">마이페이지</div>
           <div className="mobile-item" onClick={this.logOut}>로그 아웃</div>
         </div>
+
+        {/* pc */}
         <div className="Sidebar">
           <div className="logo">Food war</div>
           <div className="menu">
-            <div className="item selected">주변 식당 찾기</div>
-            <div className="item">식당 추천 받기</div>
+            <div className="item selected"> 
+              <Link to="/store">주변 식당 찾기</Link>
+            </div>
+            <div className="item">
+              <Link to="./recommend">식당 추천 받기</Link>
+            </div>
             <div className="item">마이페이지</div>
             <div className="item" onClick={this.logOut}>로그 아웃</div>
           </div>
