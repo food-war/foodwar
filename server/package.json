@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon --exec babel-node src/server.js"
+    "server": "cross-env NODE_PATH=src nodemon --exec babel-node src/server.js"
   },
   "dependencies": {
     "@babel/core": "^7.6.4",
@@ -33,6 +33,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "cross-env": "^7.0.2",
     "nodemon": "^1.19.4"
   }
 }

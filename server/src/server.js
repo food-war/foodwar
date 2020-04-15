@@ -5,7 +5,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import passport from 'passport';
-import { BACKEND_PORT, BACKEND_MONGODB } from './config/env';
+import { BACKEND_PORT, BACKEND_MONGODB } from 'config/env';
 
 /* Routes */
 import userRouter from './routes/api/userRouter';
