@@ -5,7 +5,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import passport from 'passport';
-import { BACKEND_PORT, BACKEND_MONGODB, BACKEND_MONGODB_EC2 } from './config/env';
+import { BACKEND_PORT, BACKEND_MONGODB } from './config/env';
 
 /* Routes */
 import userRouter from './routes/api/userRouter';
@@ -38,19 +38,19 @@ require('./config/passport')(passport);
 
 /** mongoose 관련 코드 시작 */
 mongoose.Promise = global.Promise;
-mongoose //BACKEND_MONGODB_EC2 : ec2 몽고에 연결
-  .connect(BACKEND_MONGODB_EC2, {
+mongoose
+  .connect(BACKEND_MONGODB, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
   })
   .then(() => console.log('MongoDB Connected...'))
-  .catch(err => console.log(err));
+  .catch((err) => console.log(err));
 mongoose.set('userFindAndModify', false);
 /** mongoose 관련 코드 끝 */
 
 /**user routes */
-app.get('/sayHello', function(req, res) {
+app.get('/sayHello', function (req, res) {
   res.send('Hello from the foodwar back-end!!!');
 });
 app.use('/api/user', userRouter);
