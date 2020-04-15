@@ -5,13 +5,15 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import passport from 'passport';
-import { BACKEND_PORT, BACKEND_MONGODB } from 'config/env';
 
 /* Routes */
 import userRouter from './routes/api/userRouter';
 import storeRouter from './routes/api/storeRouter';
 
-const APP_PORT = BACKEND_PORT;
+import dotenv from 'dotenv';
+dotenv.config();
+
+const APP_PORT = process.env.PORT;
 const app = express();
 
 app.use(morgan('combined'));
@@ -19,7 +21,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize()); // passport 초기화PO
-require('./config/passport')(passport);
+require('./passport')(passport);
 
 /**
  * @database    mongoose
@@ -39,7 +41,7 @@ require('./config/passport')(passport);
 /** mongoose 관련 코드 시작 */
 mongoose.Promise = global.Promise;
 mongoose
-  .connect(BACKEND_MONGODB, {
+  .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
