@@ -24,3 +24,5 @@ yarn-error.log*
 
 # secret
 config
+config_bak
+.env
