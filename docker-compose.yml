@@ -30,7 +30,6 @@ services:
       - backend
     depends_on:
       - mongo
-      - redis
     ports:
       - "4000:4000"
   mongo:
