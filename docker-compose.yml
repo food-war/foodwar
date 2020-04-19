@@ -10,8 +10,8 @@ services:
       - /app/node_modules
     ports:
       - "80:80"
-    networks:
-      - backend
+    # networks:
+    #   - backend
     environment:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true
@@ -26,23 +26,21 @@ services:
     environment:
       - NODE_PATH=src
       - PORT=4000
-      - DB_HOST=mongo
-      - DB=foodwar
-    networks:
-      - backend
-    depends_on:
-      - mongo
+    # networks:
+    #   - backend
+    # depends_on:
+    #   - mongo
     ports:
       - "4000:4000"
-  mongo:
-    container_name: mongo
-    image: mongo
-    volumes:
-      - data:/data/db
-    ports:
-      - "27017:27017"
-    networks:
-      - backend
+  # mongo:
+  #   container_name: mongo
+  #   image: mongo
+  #   volumes:
+  #     - data:/data/db
+  #   ports:
+  #     - "27017:27017"
+  #   networks:
+  #     - backend
   # nginx:
   #   restart: always
   #   build:
@@ -53,9 +51,9 @@ services:
   #   networks:
   #     - backend
 
-networks:
-  backend:
-    driver: bridge
+# networks:
+#   backend:
+#     driver: bridge
 
 volumes:
   data:
