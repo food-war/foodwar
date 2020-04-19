@@ -23,13 +23,34 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize()); // passport 초기화PO
 require('./passport')(passport);
 
-let db = mongoose.connection;
-db.on('error', console.error);
-db.once('open', function () {
-  console.log('Connected to mongod server');
-});
+/**
+ * @database    mongoose
+ * @desc        Foodwar database
+ * @access      Public
+ */
+// mongoose.Promise = global.Promise;
+// mongoose
+//   .connect(BACKEND_MONGODB, {
+//     useNewUrlParser: true,
+//     useCreateIndex: true,
+//     useUnifiedTopology: true,
+//   })
+//   .then(() => console.log('MongoDb Connected..'))
+//   .catch(err => console.log(err));
 
-mongoose.connect('mongodb://mongo/foodwar');
+/** mongoose 관련 코드 시작 */
+mongoose.Promise = global.Promise;
+
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log('MongoDB Connected...'))
+  .catch((err) => console.log(err));
+mongoose.set('userFindAndModify', false);
+/** mongoose 관련 코드 끝 */
 
 /**user routes */
 app.get('/sayHello', function (req, res) {
