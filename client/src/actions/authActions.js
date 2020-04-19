@@ -103,6 +103,8 @@ export const registerUser = (userData, history) => (dispatch) => {
     'Content-Type': 'application/x-www-form-urlencoded',
   };
 
+  console.log(requestUrl);
+
   // 백엔드 api/user/register 비동기 요청 보내기
   axios
     .post(`${requestUrl}/api/user/register`, userData, headers)
