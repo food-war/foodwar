@@ -2,7 +2,6 @@ var express = require('express');
 var morgan = require('morgan');
 var compression = require('compression');
 var helmet = require('helmet');
-var env = require('./src/config/env');
 import dotenv from 'dotenv';
 dotenv.config();
 
