@@ -1,7 +1,7 @@
 version: "3"
 services:
   client:
-    container_name: foowar-frontend
+    container_name: foodwar-frontend
     build:
       dockerfile: Dockerfile.dev
       context: ./client
@@ -10,50 +10,22 @@ services:
       - /app/node_modules
     ports:
       - "80:80"
-    # networks:
-    #   - backend
     environment:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true
   server:
-    container_name: foowar-backend
+    container_name: foodwar-backend
     build:
       dockerfile: Dockerfile.dev
       context: ./server
     volumes:
       - ./server/:/app
       - /app/node_modules
-    environment:
-      - NODE_PATH=src
-      - PORT=4000
-    # networks:
-    #   - backend
-    # depends_on:
-    #   - mongo
     ports:
       - "4000:4000"
-  # mongo:
-  #   container_name: mongo
-  #   image: mongo
-  #   volumes:
-  #     - data:/data/db
-  #   ports:
-  #     - "27017:27017"
-  #   networks:
-  #     - backend
-  # nginx:
-  #   restart: always
-  #   build:
-  #     dockerfile: Dockerfile.dev
-  #     context: ./nginx
-  #   ports:
-  #     - "3000:80"
-  #   networks:
-  #     - backend
-
-# networks:
-#   backend:
-#     driver: bridge
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
 
 volumes:
   data:
