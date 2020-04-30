@@ -69,8 +69,6 @@ class Login extends Component {
       this.props.socialLogin(facebookUser, this.props.history);
     };
 
-    console.log('login');
-
     return (
       <div className="Login">
         <div className="title">지금 푸드워를 시작하세요.</div>
