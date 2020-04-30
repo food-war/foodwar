@@ -14,9 +14,12 @@ export const loginUser = (userData, history) => (dispatch) => {
   if (nowUrl.indexOf('localhost') === -1) {
     requestUrl = process.env.REACT_APP_BACKEND_API_URL;
   }
+  console.log('requestUrl >', requestUrl);
   var headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
   };
+
+  console.log('actions >', userData);
 
   // 백엔드 api/user/login로 비동기 요청 보내기
   axios
@@ -60,7 +63,6 @@ export const socialLogin = (userData, history) => (dispatch) => {
     .post(`${requestUrl}/api/user/social_login`, userData, headers)
     .then((res) => {
       // alert('test');
-      console.log(res);
       const { success, token } = res.data;
       localStorage.token = token;
       localStorage.success = success;
@@ -102,8 +104,6 @@ export const registerUser = (userData, history) => (dispatch) => {
   var headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
   };
-
-  console.log(requestUrl);
 
   // 백엔드 api/user/register 비동기 요청 보내기
   axios
