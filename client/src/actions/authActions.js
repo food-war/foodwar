@@ -23,7 +23,8 @@ export const loginUser = (userData, history) => (dispatch) => {
 
   // 백엔드 api/user/login로 비동기 요청 보내기
   axios
-    .post(`${requestUrl}/api/user/login`, userData, headers)
+    // .post(`${requestUrl}/api/user/login`, userData, headers)
+    .post(`http://15.164.227.95:4000/api/user/login`, userData, headers)
     .then((res) => {
       const { success, token } = res.data;
       localStorage.token = token;
