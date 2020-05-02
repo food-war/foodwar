@@ -26,7 +26,7 @@
   },
   "scripts": {
     "start": "cross-env NODE_PATH=src react-scripts start .env",
-    "build": "cross-env NODE_PATH=src GENERATE_SOURCEMAP=false CI=false react-scripts build",
+    "build": "cross-env NODE_PATH=src GENERATE_SOURCEMAP=false CI=false react-scripts build .env",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
