@@ -49,7 +49,7 @@ mongoose
   })
   .then(() => console.log('MongoDB Connected...'))
   .catch((err) => console.log(err));
-mongoose.set('userFindAndModify', false);
+// mongoose.set('userFindAndModify', false);
 /** mongoose 관련 코드 끝 */
 
 /**user routes */
