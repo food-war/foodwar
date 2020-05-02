@@ -4,7 +4,7 @@ import path from 'path';
 
 import '@babel/polyfill';
 import express from 'express';
-import morgan from 'morgan';
+// import morgan from 'morgan';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
@@ -20,8 +20,13 @@ dotenv.config();
 const APP_PORT = process.env.PORT;
 const app = express();
 
-app.use(morgan('combined'));
-app.use(cors());
+// app.use(morgan('combined'));
+const corsOptions = {
+  origin: '*', // 허락하고자 하는 요청 주소
+  credentials: true, // true로 하면 설정한 내용을 response 헤더에 추가 해줍니다.
+};
+
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize()); // passport 초기화PO
