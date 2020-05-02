@@ -75,6 +75,6 @@ const credentials = {
 
 const httpsServer = https.createServer(credentials, app);
 
-httpsServer.listen(BACKEND_PORT, () => {
-  console.log(`HTTPS Server running on port ${BACKEND_PORT}`);
+httpsServer.listen(APP_PORT, () => {
+  console.log(`HTTPS Server running on port ${APP_PORT}`);
 });
