@@ -1,6 +1,10 @@
+import fs from 'fs';
+import https from 'https';
+import path from 'path';
+
 import '@babel/polyfill';
 import express from 'express';
-// import morgan from 'morgan';
+import morgan from 'morgan';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
@@ -16,20 +20,41 @@ dotenv.config();
 const APP_PORT = process.env.PORT;
 const app = express();
 
-// app.use(morgan('combined'));
+app.use(morgan('combined'));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize()); // passport 초기화PO
 require('./passport')(passport);
 
-let db = mongoose.connection;
-db.on('error', console.error);
-db.once('open', function () {
-  console.log('Connected to mongod server');
-});
+/**
+ * @database    mongoose
+ * @desc        Foodwar database
+ * @access      Public
+ */
+// mongoose.Promise = global.Promise;
+// mongoose
+//   .connect(BACKEND_MONGODB, {
+//     useNewUrlParser: true,
+//     useCreateIndex: true,
+//     useUnifiedTopology: true,
+//   })
+//   .then(() => console.log('MongoDb Connected..'))
+//   .catch(err => console.log(err));
 
-mongoose.connect('mongodb://mongo/foodwar');
+/** mongoose 관련 코드 시작 */
+mongoose.Promise = global.Promise;
+
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log('MongoDB Connected...'))
+  .catch((err) => console.log(err));
+// mongoose.set('userFindAndModify', false);
+/** mongoose 관련 코드 끝 */
 
 /**user routes */
 app.get('/sayHello', function (req, res) {
@@ -38,5 +63,18 @@ app.get('/sayHello', function (req, res) {
 app.use('/api/user', userRouter);
 app.use('/api/store', storeRouter);
 
-app.listen(APP_PORT);
-console.log('Webserver listening to port', APP_PORT);
+var certFilePath = path.resolve(__dirname, 'fullchain.pem');
+var keyFilePath = path.resolve(__dirname, 'privkey.pem');
+var certKeyFile = fs.readFileSync(keyFilePath);
+var certFile = fs.readFileSync(certFilePath);
+
+const credentials = {
+  key: certKeyFile,
+  cert: certFile,
+};
+
+const httpsServer = https.createServer(credentials, app);
+
+httpsServer.listen(BACKEND_PORT, () => {
+  console.log(`HTTPS Server running on port ${BACKEND_PORT}`);
+});
