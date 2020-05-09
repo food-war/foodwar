@@ -27,27 +27,27 @@ services:
     environment:
       - NODE_PATH=src
       - PORT=4000
-      - DB_HOST=mongo
-      - DB=foodwar
-    networks:
-      - backend
-    depends_on:
-      - mongo
+      # - DB_HOST=mongo
+      # - DB=foodwar
+    # networks:
+    #   - backend
+    # depends_on:
+    #   - mongo
     ports:
       - "4000:4000"
-  mongo:
-    container_name: mongo
-    image: mongo
-    volumes:
-      - data:/data/db
-    ports:
-      - "27017:27017"
-    networks:
-      - backend
+  # mongo:
+  #   container_name: mongo
+  #   image: mongo
+  #   volumes:
+  #     - data:/data/db
+  #   ports:
+  #     - "27017:27017"
+  #   networks:
+  #     - backend
 
-networks:
-  backend:
-    driver: bridge
+# networks:
+#   backend:
+#     driver: bridge
 
 volumes:
   data:
