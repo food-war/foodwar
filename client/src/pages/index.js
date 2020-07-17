@@ -10,3 +10,5 @@ export const Login = withSplitting(() => import('../components/auth/Login'));
 export const Register = withSplitting(() => import('../components/auth/Register'));
 /** food */
 export const Store = withSplitting(() => import('../components/store'));
+/** 추천기능 */
+export const Recomend = withSplitting(() => import('../components/recomend'));

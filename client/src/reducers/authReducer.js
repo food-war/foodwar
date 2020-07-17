@@ -5,6 +5,7 @@ import {
   SET_CURRENT_USER,
   AUTH_TOKETN,
   SOCIAL_LOGIN,
+  LOGOUT_ACTION,
 } from '../actions/types';
 
 const initialState = {
@@ -40,6 +41,12 @@ export default function(state = initialState, action) {
         ...state,
         isAuthenticated: !isEmpty(action.payload),
         user: action.payload,
+      };
+    case LOGOUT_ACTION:
+      return {
+        ...state,
+        isAuthenticated: false,
+        user: {},
       };
     default:
       return state;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import { Auth, Store, Login } from '../pages';
+import { Auth, Store, Recomend } from '../pages';
 import './Route.scss';
 
 import Sidebar from './Sidebar';
@@ -16,15 +16,18 @@ class Router extends Component {
             <Route path="/store" component={Store} />
             <Route path ="/login" component={Store} />
             <Route path ="/register" component={Store} />
+            <Route path="/recomend" component={Recomend}/>
           </div>
         ) : (
           <>
             <Route exact path="/" component={Auth} />
             <Route path="/login" component={Auth}/>
             <Route path="/register" component={Auth} />
-            
             {/* 토큰 없이 스토어에 접근했을 경우 */}
             <Route path="/store" component={Auth} />
+            
+            {/* 추천기능
+            <Route path="/recomend" component={Auth}/> */}
           </>
         )}
 

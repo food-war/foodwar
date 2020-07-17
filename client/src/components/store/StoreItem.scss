@@ -27,6 +27,20 @@
       width: 100%;
       height: 200px;
 
+      .back-div {
+        //hover시
+        width: 100%;
+        height: 100%;
+        border-radius: 5px 5px 0px 0px;
+        position: relative;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        color: #efefef;
+        font-size: 20px;
+        z-index: 1;
+      }
+
       img {
         width: 100%;
         height: 100%;
@@ -34,6 +48,17 @@
       }
     }
 
+    //hd추가
+    .store-card-image:hover {
+      .back-div {
+        display: flex;
+        background: rgba(0, 0, 0, 0.2);
+        // transform: translateY(100px);
+      }
+      img {
+        transform: translateY(-200px);
+      }
+    }
     .store-card-contents {
       padding: 10px;
       font-size: 14px;

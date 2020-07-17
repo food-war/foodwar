@@ -9,6 +9,7 @@ import passport from 'passport';
 /* Routes */
 import userRouter from './routes/api/userRouter';
 import storeRouter from './routes/api/storeRouter';
+import recommendRouter from './routes/api/recommedRouter';
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -58,6 +59,7 @@ app.get('/sayHello', function(req, res) {
 });
 app.use('/api/user', userRouter);
 app.use('/api/store', storeRouter);
+app.use('/api/recommend', recommendRouter);
 
 app.listen(APP_PORT);
 console.log('Webserver listening to port', APP_PORT);

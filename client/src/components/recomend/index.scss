@@ -1,0 +1,216 @@
+@import '../../App.scss';
+.RecomendContainer {
+  width: calc(100% - 300px);
+  height: 100%;
+  float: left;
+  overflow-y: scroll;
+  background-color: #eef0f2;
+  .header {
+    width: 100%;
+    font-size: 3rem;
+    font-weight: bold;
+    color: $foodwar-color;
+    padding: 5px 0px 5px 20px;
+    float: left;
+    text-align: center;
+
+    div {
+      padding: 20px 0px;
+    }
+    .selectGroup {
+      width: 100%;
+      height: 50px;
+      margin: 0 auto;
+      float: left;
+      padding: 5px 0px;
+      font-size: 1.2rem;
+      color: $foodwar-color;
+
+      select {
+        width: 198px;
+        height: 41px;
+        font-size: 1.5em;
+        color: $foodwar-color;
+        border: 2px solid #46aba5;
+        text-decoration: none;
+        outline: none;
+      }
+      .reload {
+        display: inline-block;
+        padding: 0px;
+        vertical-align: middle;
+        height: 50px;
+      }
+      .reload > div {
+        background: #eef0f2;
+        padding: 0px;
+      }
+    }
+    .selectGroup::after {
+      clear: both;
+      content: '';
+      display: block;
+    }
+  }
+  .header::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+
+  .card-wrap {
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    margin: 20px 20px 0 0;
+    overflow: hidden;
+    overflow-y: scroll;
+
+    // .back-div {
+    //   background: red;
+    //   position: fixed;
+    //   z-index: 10;
+    //   left: 110px;
+    //   min-width: 40px;
+    //   width: 40px;
+    //   margin: 0 auto;
+    //   // display: flex;
+    //   display: none;
+    //   justify-content: center;
+    //   height: 40px;
+    //   align-items: center;
+    //   // transition: 2s;
+    // }
+  }
+
+  .store-table {
+    display: table;
+    width: 98%;
+    margin: 0 auto;
+    padding: 10px 0px;
+    // border: 1px solid #dcdcdc;
+    .store-table-header {
+      display: table-header-group;
+      background: $foodwar-color;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    .store-table-header > div {
+      display: table-cell;
+      height: 50px;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 1.3em;
+    }
+    .rows {
+      display: table-row;
+    }
+    .rows:hover {
+      cursor: pointer;
+    }
+    .rows:nth-child(2n) {
+      background: #ddd;
+    }
+    .rows > div {
+      display: table-cell;
+      vertical-align: middle;
+      height: 40px;
+      text-align: left;
+      padding-left: 10px;
+      font-size: 12px;
+      min-width: 50px;
+      text-align: center;
+      // white-space: nowrap;
+      // overflow: hidden;
+      // text-overflow: ellipsis;
+      img {
+        width: 50px;
+        height: 60px;
+        padding: 5px 10px;
+      }
+    }
+    .rows > div > div {
+      //사진 및
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+.RecomendContainer::after {
+  clear: both;
+  content: '';
+  display: block;
+}
+
+/* Extra large devices (대형 노트북 및 데스크톱, 1200px 이상) */
+@media only screen and (max-width: 1200px) {
+  /* ... */
+}
+
+/* Large devices (노트북 / 데스크톱, 992px 이상) */
+@media only screen and (max-width: 992px) {
+  /* ... */
+}
+
+/* Medium devices (가로 태블릿, 768 픽셀 이상) */
+@media only screen and (max-width: 768px) {
+  .RecomendContainer {
+    width: 100%;
+    .store-table {
+      .rows > div {
+        padding-left: 5px;
+        max-width: 100px;
+        // padding: 0px 10px;
+
+        span {
+          display: block;
+          padding: 5px 10px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        img {
+          width: 70px;
+          height: 80px;
+        }
+      }
+    }
+  }
+
+  .Food {
+    width: 100%;
+    height: calc(100% - 58px);
+  }
+}
+
+/* Small devices 세로 형 태블릿 및 대형 휴대 전화 (600px 이상) */
+@media only screen and (max-width: 600px) {
+  /* ... */
+  .RecomendContainer {
+    .header {
+      padding: 10px 0px;
+      font-size: 2.5rem;
+      .selectGroup > select {
+        width: 87%;
+      }
+      // .selectGroup > div {
+      .reload {
+        display: inline-block;
+        padding: 0px;
+        vertical-align: middle;
+        height: 50px;
+      }
+    }
+    .store-table {
+      .rows > div > div {
+        //사진 및
+        display: block;
+      }
+    }
+  }
+}
+
+/* Extra small devices (480px 이하) */
+@media only screen and (max-width: 480px) {
+  /* ... */
+}

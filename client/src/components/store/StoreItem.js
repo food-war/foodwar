@@ -2,8 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './StoreItem.scss';
 
-const StoreItem = ({ store }) => {
-  // console.log(store);
+const StoreItem = ({ store, storeDeleteList }) => {
   const {
     store_id,
     store_name,
@@ -30,12 +29,21 @@ const StoreItem = ({ store }) => {
   } = store;
 
   const link = `https://store.naver.com/restaurants/detail?id=${store_id}`;
-
+  const storeDelete = () => {
+    window.event.preventDefault();
+    if (window.confirm('이 식당을 추천 받지 않겠습니까?')) {
+      // console.log(mouseClick);
+      storeDeleteList(store.store_id);
+    }
+  };
   return (
-    <a href={link} target="_blank">
+    <a href={link} target="_blank" rel="noopener noreferrer">
       <div className="store-card-wrap">
         <div className="store-card">
           <div className="store-card-image">
+            <div className="back-div">
+              <span onClick={() => storeDelete()}>해당 식당 추천 받지않기</span>
+            </div>
             <img src={store_imageSrc} alt={store_name} />
           </div>
           <div className="store-card-contents">

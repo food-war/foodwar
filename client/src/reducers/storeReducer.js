@@ -3,6 +3,7 @@ import {
   GET_STORE_LIST_SUCCESS,
   GET_STORE_LIST_FAILURE,
   ADDRESS_UPDATE,
+  DELETE_STORE_LIST,
 } from '../actions/types';
 
 const initialState = {
@@ -50,6 +51,10 @@ export default function(state = initialState, action) {
         pending: false,
         error: true,
         list: [],
+      };
+    case DELETE_STORE_LIST:
+      return {
+        ...state,
       };
     default:
       return state;
