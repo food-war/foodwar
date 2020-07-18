@@ -16,6 +16,21 @@ services:
     environment:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true
+
+  # nginx:
+  #   image: nginx:1.15-alpine11
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - ./data/nginx:/etc/nginx/conf.d
+  #     - ./data/certbot/conf:/etc/letsencrypt
+  #     - ./data/certbot/www:/var/www/certbot
+  # certbot:
+  #   image: certbot/certbot
+  #   volumes:
+  #     - ./data/certbot/conf:/etc/letsencrypt
+  #     - ./data/certbot/www:/var/www/certbot
   server:
     container_name: foodwar-backend
     build:
@@ -27,27 +42,27 @@ services:
     environment:
       - NODE_PATH=src
       - PORT=4000
-      # - DB_HOST=mongo
-      # - DB=foodwar
-    # networks:
-    #   - backend
-    # depends_on:
-    #   - mongo
+      - DB_HOST=mongo
+      - DB=foodwar
+    networks:
+      - backend
+    depends_on:
+      - mongo
     ports:
       - "4000:4000"
-  # mongo:
-  #   container_name: mongo
-  #   image: mongo
-  #   volumes:
-  #     - data:/data/db
-  #   ports:
-  #     - "27017:27017"
-  #   networks:
-  #     - backend
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - data:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - backend
 
-# networks:
-#   backend:
-#     driver: bridge
+networks:
+  backend:
+    driver: bridge
 
 volumes:
   data:

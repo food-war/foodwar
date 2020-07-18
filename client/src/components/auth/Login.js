@@ -35,14 +35,14 @@ class Login extends Component {
     }
   }
 
-  onChange = e => {
+  onChange = (e) => {
     this.setState({
       errors: {},
       [e.target.name]: e.target.value,
     });
   };
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
 
     const userData = {
@@ -54,7 +54,7 @@ class Login extends Component {
   };
 
   render() {
-    const responseFacebook = response => {
+    const responseFacebook = (response) => {
       const facebookUser = {
         id: response.userID,
         name: response.name,
@@ -79,7 +79,9 @@ class Login extends Component {
                 <input
                   type="email"
                   placeholder={
-                    !isEmpty(this.state.errors.email) ? this.state.errors.email : '이메일을 입력해주세요.'
+                    !isEmpty(this.state.errors.email)
+                      ? this.state.errors.email
+                      : '이메일을 입력해주세요.'
                   }
                   name="email"
                   id="email"
@@ -158,7 +160,7 @@ Login.propTypes = {
   errors: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   // user: state.user,
   auth: state.auth,
   errors: state.errors,

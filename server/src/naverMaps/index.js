@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 module.exports = {
-  naverMapsCrawling: async query => {
+  naverMapsCrawling: async (query) => {
     let errors = {};
     let result = [];
     query = encodeURI(query + ' 맛집');
@@ -38,8 +38,8 @@ module.exports = {
       let html = '';
       await axios
         .get(options.url, options.headers)
-        .then(r => (html = r))
-        .catch(e => console.log(e));
+        .then((r) => (html = r))
+        .catch((e) => console.log(e));
       let data = html.data;
 
       // 응답 데이터 정제하는 과정

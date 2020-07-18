@@ -1,10 +1,6 @@
-import fs from 'fs';
-import https from 'https';
-import path from 'path';
-
 import '@babel/polyfill';
 import express from 'express';
-// import morgan from 'morgan';
+import morgan from 'morgan';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
@@ -13,7 +9,6 @@ import passport from 'passport';
 /* Routes */
 import userRouter from './routes/api/userRouter';
 import storeRouter from './routes/api/storeRouter';
-import recommendRouter from './routes/api/recommedRouter';
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -21,13 +16,8 @@ dotenv.config();
 const APP_PORT = process.env.PORT;
 const app = express();
 
-// app.use(morgan('combined'));
-const corsOptions = {
-  origin: '*', // 허락하고자 하는 요청 주소
-  credentials: true, // true로 하면 설정한 내용을 response 헤더에 추가 해줍니다.
-};
-
-app.use(cors(corsOptions));
+app.use(morgan('combined'));
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize()); // passport 초기화PO
@@ -68,20 +58,6 @@ app.get('/sayHello', function (req, res) {
 });
 app.use('/api/user', userRouter);
 app.use('/api/store', storeRouter);
-app.use('/api/recommend', recommendRouter);
 
-var certFilePath = path.resolve(__dirname, 'fullchain.pem');
-var keyFilePath = path.resolve(__dirname, 'privkey.pem');
-var certKeyFile = fs.readFileSync(keyFilePath);
-var certFile = fs.readFileSync(certFilePath);
-
-const credentials = {
-  key: certKeyFile,
-  cert: certFile,
-};
-
-const httpsServer = https.createServer(credentials, app);
-
-httpsServer.listen(APP_PORT, () => {
-  console.log(`HTTPS Server running on port ${APP_PORT}`);
-});
+app.listen(APP_PORT);
+console.log('Webserver listening to port', APP_PORT);

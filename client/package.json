@@ -25,8 +25,8 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "GENERATE_SOURCEMAP=false CI=false react-scripts start .env",
-    "build": "react-scripts build",
+    "start": "cross-env NODE_PATH=src react-scripts start .env",
+    "build": "cross-env NODE_PATH=src GENERATE_SOURCEMAP=false CI=false react-scripts build .env",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -46,6 +46,7 @@
     ]
   },
   "devDependencies": {
+    "cross-env": "^7.0.2",
     "eslint-config-prettier": "^6.5.0"
   }
 }
