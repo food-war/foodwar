@@ -46,7 +46,7 @@ export const deleteStore = requestData => dispatch => {
   }
 
   axios
-    .post(`${requestUrl}/api/recommend/test`, requestData)
+    .post(`${requestUrl}/api/recomend/test`, requestData)
     .then(res => {
       console.log(res);
       dispatch({ type: DELETE_STORE_LIST, payload: res.data });
