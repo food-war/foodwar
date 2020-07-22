@@ -13,7 +13,7 @@ import passport from 'passport';
 /* Routes */
 import userRouter from './routes/api/userRouter';
 import storeRouter from './routes/api/storeRouter';
-import recomendRouter from './routes/api/recomedRouter';
+// import recomendRouter from './routes/api/recomedRouter';
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -68,7 +68,7 @@ app.get('/sayHello', function(req, res) {
 });
 app.use('/api/user', userRouter);
 app.use('/api/store', storeRouter);
-app.use('/api/recomend', recomendRouter);
+// app.use('/api/recomend', recomendRouter);
 
 var certFilePath = path.resolve(__dirname, 'fullchain.pem');
 var keyFilePath = path.resolve(__dirname, 'privkey.pem');

@@ -5,7 +5,9 @@ import {
   geolocationSuccess,
   geolocationFailure,
 } from '../../actions/geolocationActions';
-import { deleteStore, getStoreList, updateAddress } from '../../actions/storeActions';
+import { getStoreList, updateAddress } from '../../actions/storeActions';
+import { deleteStore } from '../../actions/recomendActions';
+
 import GetGeolocation from '../geolocation/GetGeolocation';
 import isEmpty from '../../validation/is-empty';
 // import { isRegExp } from 'util';

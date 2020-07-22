@@ -52,10 +52,6 @@ export default function(state = initialState, action) {
         error: true,
         list: [],
       };
-    case DELETE_STORE_LIST:
-      return {
-        ...state,
-      };
     default:
       return state;
   }

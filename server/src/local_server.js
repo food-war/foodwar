@@ -9,6 +9,7 @@ import passport from 'passport';
 /* Routes */
 import userRouter from './routes/api/userRouter';
 import storeRouter from './routes/api/storeRouter';
+import recomedRouter from './routes/api/recomedRouter';
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -48,16 +49,17 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => console.log('MongoDB Connected...'))
-  .catch((err) => console.log(err));
+  .catch(err => console.log(err));
 // mongoose.set('userFindAndModify', false);
 /** mongoose 관련 코드 끝 */
 
 /**user routes */
-app.get('/sayHello', function (req, res) {
+app.get('/sayHello', function(req, res) {
   res.send('Hello from the foodwar back-end!!!');
 });
 app.use('/api/user', userRouter);
 app.use('/api/store', storeRouter);
+app.use('/api/recomend', recomedRouter);
 
 app.listen(APP_PORT);
 console.log('Webserver listening to port', APP_PORT);

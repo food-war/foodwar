@@ -39,22 +39,21 @@ export const getStoreList = requstData => dispatch => {
     });
 };
 
-export const deleteStore = requestData => dispatch => {
-  let requestUrl = process.env.REACT_APP_LOCAL_URL;
-  if (nowUrl.indexOf('localhost') === -1) {
-    requestUrl = process.env.REACT_APP_BACKEND_API_URL;
-  }
+// export const deleteStore = requestData => dispatch => {
+//   let requestUrl = process.env.REACT_APP_LOCAL_URL;
+//   if (nowUrl.indexOf('localhost') === -1) {
+//     requestUrl = process.env.REACT_APP_BACKEND_API_URL;
+//   }
 
-  axios
-    .post(`${requestUrl}/api/recomend/test`, requestData)
-    .then(res => {
-      console.log(res);
-      dispatch({ type: DELETE_STORE_LIST, payload: res.data });
-    })
-    .catch(err => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data,
-      });
-    });
-};
+//   axios
+//     .post(`${requestUrl}/api/recomend/test`, requestData)
+//     .then(res => {
+//       dispatch({ type: DELETE_STORE_LIST, payload: res.data });
+//     })
+//     .catch(err => {
+//       dispatch({
+//         type: GET_ERRORS,
+//         payload: err.response.data,
+//       });
+//     });
+// };
