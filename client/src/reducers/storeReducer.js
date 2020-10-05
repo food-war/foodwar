@@ -3,7 +3,6 @@ import {
   GET_STORE_LIST_SUCCESS,
   GET_STORE_LIST_FAILURE,
   ADDRESS_UPDATE,
-  DELETE_STORE_LIST,
 } from '../actions/types';
 
 const initialState = {

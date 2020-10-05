@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import isEmpty from '../../validation/is-empty';
 import FacebookLogin from 'react-facebook-login';
-
-import './Login.scss';
-
 import IconGithub from '../../lotties/IconGithub';
 import IconFacebook from '../../lotties/IconFacebook';
 import IconGoggle from '../../lotties/IconGoggle';
@@ -13,7 +11,7 @@ import { connect } from 'react-redux';
 import { loginUser, socialLogin } from '../../actions/authActions';
 import { withRouter } from 'react-router-dom';
 
-import isEmpty from '../../validation/is-empty';
+import './Login.scss';
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -30,19 +28,17 @@ class Login extends Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
-      console.log(this.state.errors);
-      // alert(nextProps.errors.response.data.email);
     }
   }
 
-  onChange = (e) => {
+  onChange = e => {
     this.setState({
       errors: {},
       [e.target.name]: e.target.value,
     });
   };
 
-  onSubmit = (e) => {
+  onSubmit = e => {
     e.preventDefault();
 
     const userData = {
@@ -54,7 +50,7 @@ class Login extends Component {
   };
 
   render() {
-    const responseFacebook = (response) => {
+    const responseFacebook = response => {
       const facebookUser = {
         id: response.userID,
         name: response.name,
@@ -79,9 +75,7 @@ class Login extends Component {
                 <input
                   type="email"
                   placeholder={
-                    !isEmpty(this.state.errors.email)
-                      ? this.state.errors.email
-                      : '이메일을 입력해주세요.'
+                    !isEmpty(this.state.errors.email) ? this.state.errors.email : '이메일을 입력해주세요.'
                   }
                   name="email"
                   id="email"
@@ -160,7 +154,7 @@ Login.propTypes = {
   errors: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   // user: state.user,
   auth: state.auth,
   errors: state.errors,

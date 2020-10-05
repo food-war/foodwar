@@ -15,21 +15,18 @@ dotenv.config();
 
 const nowUrl = window.location.href;
 // LOGIN
-export const loginUser = (userData, history) => dispatch => {
+export const loginUser = (userData, history) => async dispatch => {
   // console.log(`userData ${userData.email} ${userData.password}`);
   let requestUrl = process.env.REACT_APP_LOCAL_URL;
   if (nowUrl.indexOf('localhost') === -1) {
     requestUrl = process.env.REACT_APP_BACKEND_API_URL;
   }
-  console.log('requestUrl >', requestUrl);
   var headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
   };
 
-  console.log('actions >', userData);
-
   // 백엔드 api/user/login로 비동기 요청 보내기
-  axios
+  await axios
     .post(`${requestUrl}/api/user/login`, userData, headers)
     .then(res => {
       const { success, token } = res.data;
@@ -56,7 +53,7 @@ export const loginUser = (userData, history) => dispatch => {
     });
 };
 
-export const socialLogin = (userData, history) => dispatch => {
+export const socialLogin = (userData, history) => async dispatch => {
   let requestUrl = process.env.REACT_APP_LOCAL_URL;
   if (nowUrl.indexOf('localhost') === -1) {
     requestUrl = process.env.REACT_APP_BACKEND_API_URL;
@@ -66,7 +63,7 @@ export const socialLogin = (userData, history) => dispatch => {
   };
 
   // 백엔드 api/user/register 비동기 요청 보내기
-  axios
+  await axios
     .post(`${requestUrl}/api/user/social_login`, userData, headers)
     .then(res => {
       const { success, token } = res.data;
@@ -104,7 +101,7 @@ export const logoutUser = history => dispatch => {
   window.location.reload();
 };
 // Register User
-export const registerUser = (userData, history) => dispatch => {
+export const registerUser = (userData, history) => async dispatch => {
   let requestUrl = process.env.REACT_APP_LOCAL_URL;
   if (nowUrl.indexOf('localhost') === -1) {
     requestUrl = process.env.REACT_APP_BACKEND_API_URL;
@@ -114,7 +111,7 @@ export const registerUser = (userData, history) => dispatch => {
   };
 
   // 백엔드 api/user/register 비동기 요청 보내기
-  axios
+  await axios
     .post(`${requestUrl}/api/user/register`, userData, headers)
     .then(res => {
       // history.push('/login');
@@ -134,7 +131,7 @@ export const registerUser = (userData, history) => dispatch => {
   };
 };
 //회원 가입 인증위한 액션 생성함수
-export const AuthToken = (data, history) => dispatch => {
+export const AuthToken = (data, history) => async dispatch => {
   // let requestUrl = process.env.REACT_APP_LOCAL_URL;
   // if (nowUrl.indexOf('localhost') === -1) {
   //   requestUrl = process.env.REACT_APP_BACKEND_API_URL;
@@ -148,7 +145,7 @@ export const AuthToken = (data, history) => dispatch => {
   };
 
   // 백엔드 api/user/register 비동기 요청 보내기
-  axios
+  await axios
     .post(`${requestUrl}/api/user/register/checkToken`, data, headers)
     .then(res => {
       alert('회원가입 인증이 완료되었습니다.');

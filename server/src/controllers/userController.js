@@ -75,14 +75,14 @@ module.exports = {
     if (!isValid) {
       return res.status(400).json(errors);
     }
-    userToken
+    await userToken
       .findOne({ token: req.body.token, email: req.body.email })
-      .then((token) => {
+      .then(token => {
         const nowDate = moment();
         const diffDate = moment.duration(nowDate.diff(token.EndDate)).asMinutes();
         if (diffDate < 0) {
           //user테이블에 토큰 인증컬럼 true로 바꾸기
-          userModel.update({ email: req.body.email }, { confirmToken: true }, function (
+          userModel.update({ email: req.body.email }, { confirmToken: true }, function(
             err,
             output,
           ) {
@@ -98,7 +98,7 @@ module.exports = {
           return res.status(400).json(errors);
         }
       })
-      .catch((err) => {
+      .catch(err => {
         // console.log(`에러~~~~~~~~~~~~`);
         errors.password = '입력하신 토큰이 유효하지 않습니다.';
         return res.status(400).json(errors);
@@ -122,9 +122,9 @@ module.exports = {
     re_params.Destination.ToAddresses.push(req.body.email.trim());
     // console.log(re_params);
     let ses_token = '';
-    userModel
+    await userModel
       .findOne({ email: req.body.email, userGubn: 'normal' })
-      .then((user) => {
+      .then(user => {
         if (user) {
           // return res.status(400).json({message: "This email already exists."});
           //errors.email = 'This email already exists.';
@@ -156,17 +156,17 @@ module.exports = {
               newUser.password = hash;
               newUser
                 .save()
-                .then((user) => res.status(200).json(user))
-                .catch((err) => res.status(404).json(err));
+                .then(user => res.status(200).json(user))
+                .catch(err => res.status(404).json(err));
             });
           });
         }
       })
-      .catch((err) => res.status(404).json(err));
+      .catch(err => res.status(404).json(err));
 
     userToken
       .findOne({ email: req.body.email })
-      .then((Token) => {
+      .then(Token => {
         if (Token) {
           errors.email = '이 이메일은 이미 토큰값을 가지고 있습니다.';
           return res.status(400).json(errors.email + Token);
@@ -191,8 +191,8 @@ module.exports = {
               //insert
               newToken
                 .save()
-                .then((Token) => res.status(200).json(Token))
-                .catch((err) => res.status(404).json(err));
+                .then(Token => res.status(200).json(Token))
+                .catch(err => res.status(404).json(err));
 
               // email 템플릿에 토큰 값 전달
               let awsText = `
@@ -207,7 +207,7 @@ module.exports = {
               re_params.Message.Body.Html.Data = awsText;
 
               // ses email 보내기
-              ses.sendEmail(re_params, function (err, data) {
+              ses.sendEmail(re_params, function(err, data) {
                 if (err) {
                   console.log(err.message);
                 } else {
@@ -219,7 +219,7 @@ module.exports = {
         }
       })
       // .catch(err => res.status(400).json(err));
-      .catch((err) => res.status(404).json(err));
+      .catch(err => res.status(404).json(err));
   }, //END Register
 
   /**
@@ -238,9 +238,9 @@ module.exports = {
     const password = req.body.password;
 
     /** Find users by email */
-    userModel
+    await userModel
       .findOne({ email: email })
-      .then((user) => {
+      .then(user => {
         if (!user) {
           errors.email = '회원정보를 찾을 수 없습니다.';
           return res.status(400).json(errors);
@@ -249,7 +249,7 @@ module.exports = {
           errors.email = '이메일 인증이 되지 않은 사용자 입니다. \n 이메일 인증을 완료해주세요.';
           return res.status(501).json(errors);
         }
-        bcrypt.compare(password, user.password).then((isMatch) => {
+        bcrypt.compare(password, user.password).then(isMatch => {
           //   console.log(
           //     `password : ${password} user.passwrod: ${user.password} isMatch = ${isMatch}`,
           //   );
@@ -268,7 +268,7 @@ module.exports = {
           }
         });
       })
-      .catch((err) => res.status(404).json(err));
+      .catch(err => res.status(404).json(err));
   }, //END LOGIN
 
   /**
@@ -307,9 +307,9 @@ module.exports = {
     });
     //소셜로그인 회원 가입 되어있는지 체크
 
-    userModel
+    await userModel
       .findOne({ email: newUser.email, userGubn: newUser.userGubn })
-      .then((user) => {
+      .then(user => {
         if (!isNull(user)) {
           // console.log(`로그인 처리하기 ${user}`);
 
@@ -337,14 +337,14 @@ module.exports = {
         }
         //여기선 로그인 처리
       })
-      .catch((err) => {
+      .catch(err => {
         res.status(400).json(err);
       });
 
     // res.status(200).json({ ...req.body });
     // newUser.save();
   },
-  current: async (req, res) => {
+  current: (req, res) => {
     res.json({
       id: req.user.id,
       name: req.user.name,
