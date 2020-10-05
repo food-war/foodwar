@@ -31,9 +31,12 @@ const StoreItem = ({ store, storeDeleteList }) => {
   const link = `https://store.naver.com/restaurants/detail?id=${store_id}`;
   const storeDelete = () => {
     window.event.preventDefault();
-    if (window.confirm('이 식당을 추천 받지 않겠습니까?')) {
-      // console.log(mouseClick);
-      storeDeleteList(store.store_id);
+    if (window.location.pathname === '/recomend') {
+      //추천페이지에서만 가능하게끔
+      if (window.confirm('이 식당을 추천 받지 않겠습니까?')) {
+        // console.log(mouseClick);
+        storeDeleteList(store);
+      }
     }
   };
   return (
@@ -44,7 +47,7 @@ const StoreItem = ({ store, storeDeleteList }) => {
             <div className="back-div">
               <span onClick={() => storeDelete()}>해당 식당 추천 받지않기</span>
             </div>
-            <img src={store_imageSrc} alt={store_name} />
+            {store_imageSrc ? <img src={store_imageSrc} alt={store_name} /> : null}
           </div>
           <div className="store-card-contents">
             <div className="store-card-name">

@@ -1,9 +1,8 @@
 import storeModel from '../models/storeModel';
 import { naverMapsCrawling } from '../naverMaps';
-
+import { newNaverMapsCrawling } from '../naverMaps/newMaps';
 module.exports = {
   list: async (req, res) => {
-    console.log(req.body);
     const { address, page, limit } = req.body;
     let result;
     let existenceCheck = false;
@@ -24,8 +23,22 @@ module.exports = {
       });
 
     /** DB에 없다면 크롤링하여 데이터를 DB에 저장. */
+    // if (!existenceCheck) {
+    //   result = await naverMapsCrawling(address);
+    //   result.result.map(item => {
+    //     const newStoreModel = new storeModel({
+    //       ...item,
+    //       store_pk_address: address,
+    //     });
+    //     newStoreModel.save();
+    //   });
+    // }
+
+    //음식점 크롤링 부분 변경
     if (!existenceCheck) {
-      result = await naverMapsCrawling(address);
+      result = await newNaverMapsCrawling(address);
+      // console.log(result);
+
       result.result.map(item => {
         const newStoreModel = new storeModel({
           ...item,

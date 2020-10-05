@@ -1,64 +1,64 @@
 import axios from 'axios';
 
 module.exports = {
-  naverMapsCrawling: async query => {
+  newNaverMapsCrawling: async query => {
     let errors = {};
     let result = [];
     query = encodeURI(query + ' 맛집');
 
     try {
-      const headers = {
-        Connection: 'keep-alive',
-        'Cache-Control': 'max-age=0',
-        'Upgrade-Insecure-Requests': '1',
-        'User-Agent':
-          'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36',
-        'Sec-Fetch-User': '?1',
-        Accept:
-          'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
-        'Sec-Fetch-Site': 'same-origin',
-        'Sec-Fetch-Mode': 'navigate',
-        Referer:
-          'https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C+%EA%B4%80%EC%95%85%EA%B5%AC+%EC%8B%A0%EB%A6%BC%EB%8F%99+%EB%A7%9B%EC%A7%91',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'Accept-Language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
-        'If-None-Match': 'W/"27baa-mo29uE5evjuRF3Ph++PV+w"',
-      };
+      let html = '';
 
+      //axios 옵션 정의
       const options = {
         url:
-          'https://store.naver.com/restaurants/list?entry=pll&filterId=r09620102&query=' +
+          'https://pcmap.place.naver.com/restaurant/list?query=' +
           query +
-          '&sessionid=Y1DTUn93nu%2BCAh1RgFao6w%3D%3D',
-        headers: headers,
+          '&x=127.22805261611943&y=37.5577359837473&entry=pll&filterId=r02&from=nx&fromNxList=true&sessionid=3KK7FPZfg3XxNa45%2B9aZmg%3D%3D&ts=1601791019499',
+        headers: {
+          headers: {
+            accept:
+              'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+            'accept-language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
+            'cache-control': 'max-age=0',
+            'sec-fetch-dest': 'document',
+            'sec-fetch-mode': 'navigate',
+            'sec-fetch-site': 'none',
+            'sec-fetch-user': '?1',
+            'upgrade-insecure-requests': '1',
+          },
+          referrerPolicy: 'strict-origin-when-cross-origin',
+          body: null,
+          method: 'GET',
+          mode: 'cors',
+          credentials: 'include',
+        },
       };
-
-      // 네이버 map 응답 데이터
-      //const html = await axios.get(options.url, options.headers);
-      let html = '';
       await axios
         .get(options.url, options.headers)
         .then(r => (html = r))
         .catch(e => console.log(e));
+
+      //음식점 관련 데이터만 가져오기
       let data = html.data;
+      let target1 = html.data.indexOf('window.__APOLLO_STATE__');
+      let target2 = html.data.indexOf('window.__PLACE_STATE__');
 
-      // 응답 데이터 정제하는 과정
-      let gubn = html.data.indexOf('<div id="app">');
-      data = data.substring(gubn);
-      gubn = data.indexOf('<script>');
-      let gubn2 = data.indexOf('</script>');
-      data = data.substring(gubn, gubn2);
-      data = data.substring(27);
+      data = data.substring(target1, target2).trim();
+      data = data.substring(25, data.length);
 
-      // eval 함수는 뭔가 에러나서 eval함수 대체 코드
+      let filterdData = [];
       var dataEval = new Function('return ' + data)(); // eval 함수 같은 역할
 
-      // dataEval 함수를 콘솔로 찍어보면 알 수 있음. 가게정보 가져오는 과정.
-      const lastKey = dataEval.businesses.lastKey;
-      const storeArray = dataEval.businesses[lastKey].items;
+      //object.entries를 사용해 key,value 가진 배열로 만든 후 RestaurantSummary로 시작하는 것만 분리해옴
+      for (const [key, value] of Object.entries(dataEval)) {
+        if (key.search(/[^RestaurantSummary]/g) > 0) {
+          filterdData.push(value);
+        }
+      }
 
-      for (const store of storeArray) {
-        if (store) {
+      filterdData.forEach((store, storeCount) => {
+        if (store && store.id) {
           const store_id = store.id || ''; // ID
           const store_name = store.name || ''; // 가게명
           const store_category = store.category || ''; // 분류 (한식, 카페, 낙지, 곱창, 막창, 양 등)
@@ -73,12 +73,12 @@ module.exports = {
           const store_x = store.x || ''; // 지도 X좌표 값
           const store_y = store.y || ''; // 지도 Y좌표 값
           const store_distance = store.distance || ''; // 현재 위치로부터 가게까지의 거리? 확실히 확인 해 볼 필요가 있음. (4632.36 이런식으로 값이 들어가 있음)
-          const store_imageSrc = store.imageSrc || ''; // 이미지 주소 (썸네일, 대표 이미지로 사용하면 됨)
+          const store_imageSrc = store.imageUrl || ''; // 이미지 주소 (썸네일, 대표 이미지로 사용하면 됨)
           const store_virtualPhone = store.virtualPhone || ''; // 가상 전화번호 (있는 곳도 있고, 없는 곳도 있음)
           const store_phone = store.phone || ''; // 가게 전화번호
-          const store_roadAddr = store.roadAddr || ''; // 신주소 상세 ('서울 관악구 신림동길 5 2층')
-          const store_commonAddr = store.commonAddr || ''; // '서울 관악구'
-          const store_addr = store.addr || ''; // 상세 주소? ('신림동 1639-57')
+          const store_roadAddr = store.roadAddress || ''; // 신주소 상세 ('서울 관악구 신림동길 5 2층')
+          const store_commonAddr = store.commonAddress || ''; // '서울 관악구'
+          const store_addr = store.address || ''; // 상세 주소? ('신림동 1639-57')
           const store_blogCafeReviewCount = store.blogCafeReviewCount || ''; // 블로그 리뷰 개수
           const store_bookingReviewCount = store.bookingReviewCount || ''; // 예약 리뷰 개수?
           const store_totalReviewCount = store.totalReviewCount || ''; // 전체 리뷰 개수
@@ -113,9 +113,9 @@ module.exports = {
           };
 
           // 각 업체들 배열로 저장
-          result = result.concat(result_data);
+          if (storeCount < 30) result = result.concat(result_data);
         }
-      }
+      });
     } catch (error) {
       console.log(error);
       errors.crawling_error = '서버 에러입니다. 관리자에게 문의해주세요. (c)';
