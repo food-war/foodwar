@@ -121,8 +121,6 @@ const RecomendContainer = props => {
         );
       } else {
         // 5일치 추천
-        let today = new Date();
-
         result = (
           <RecomendTable
             storeList={storeList}
