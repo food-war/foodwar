@@ -113,7 +113,7 @@ module.exports = {
           };
 
           // 각 업체들 배열로 저장
-          if (storeCount < 30) result = result.concat(result_data);
+          if (storeCount < 20) result = result.concat(result_data);
         }
       });
     } catch (error) {

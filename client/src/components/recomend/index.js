@@ -76,7 +76,6 @@ const RecomendContainer = props => {
       console.log(storeList.result.filter(store => !store_delete.includes(store.store_id)));
       // storeList.result = storeList.result.filter(store => !store_delete.includes(store.store_id));
     }
-
     random = Math.floor(Math.random() * 20);
     randomArr.includes(random) || randomArr.push(random); //중복제거
     randomArr.length < Number(day) && randomStore(); //추천날짜의 수만큼 random배열 채워주기

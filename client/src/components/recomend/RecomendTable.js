@@ -77,8 +77,8 @@ const RecomendTable = ({ storeList, storeDeleteList, randomArr }) => {
               <div>
                 {/* 태그 */}
                 {/* {list.store_tags ? list.store_tags.json + ' ' : '태그 없음'} */}
-                {list.store_tags.length > 0 && list.store_tags[0] !== ''
-                  ? list.store_tags.map(item => {
+                {list.store_tags.json
+                  ? list.store_tags.json.map(item => {
                       return `${item}, `;
                     })
                   : '태그 없음'}
